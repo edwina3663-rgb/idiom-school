@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>成語小學堂</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff0f6;--card:#fff;--ink:#4a3340;--sub:#9a7488;--acc:#ff6fa5;--acc2:#ffd6e7;--ok:#2f9e6b;--bad:#e2557a;--tag:#fff3b8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b1d26;--card:#3a2733;--ink:#ffe9f2;--sub:#d3aabd;--acc:#ff8fbb;--acc2:#5a3a4b;--ok:#6fcf97;--bad:#ff8a9d;--tag:#5a4a2a}}
+:root[data-theme="dark"]{--bg:#2b1d26;--card:#3a2733;--ink:#ffe9f2;--sub:#d3aabd;--acc:#ff8fbb;--acc2:#5a3a4b;--ok:#6fcf97;--bad:#ff8a9d;--tag:#5a4a2a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-size:18px;line-height:1.8}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{text-align:center;color:var(--acc);margin:8px 0 0;font-size:2rem;letter-spacing:2px}
+.sub{text-align:center;color:var(--sub);margin:0 0 12px}
+nav{display:flex;gap:10px;justify-content:center;margin:12px 0}
+button,select{font:inherit}
+nav button{padding:8px 22px;border:3px solid var(--acc);background:var(--card);color:var(--acc);border-radius:999px;cursor:pointer;font-weight:700}
+nav button.on{background:var(--acc);color:#fff}
+.card{background:var(--card);border-radius:24px;padding:14px 18px;margin:14px 0;border:3px dashed var(--acc2);box-shadow:0 4px 0 var(--acc2)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.grid button{background:var(--card);color:var(--ink);border:3px solid var(--acc2);border-radius:24px;padding:12px 8px;cursor:pointer;text-align:center;box-shadow:0 4px 0 var(--acc2)}
+.grid button:active{transform:translateY(3px);box-shadow:none}
+.grid .em{font-size:2rem;display:block}
+.grid b{font-size:1.4rem;color:var(--acc)}
+.zy{color:var(--sub);font-size:.85rem}
+h2{margin:0;color:var(--acc);font-size:1.9rem;text-align:center}
+.hd{text-align:center}
+h3{margin:0 0 4px;font-size:1.1rem;color:var(--acc)}
+.tag{display:inline-block;background:var(--tag);border-radius:999px;padding:0 10px;font-size:.85rem;margin:2px 6px 4px 0}
+.back{background:none;border:none;color:var(--acc);cursor:pointer;padding:4px 0;font-size:1rem;font-weight:700}
+.q p{margin:0 0 8px}
+select{padding:2px 6px;border-radius:12px;border:2px solid var(--acc);background:var(--bg);color:var(--ink)}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 12px;border-radius:16px;border:2px solid var(--acc2);background:var(--bg);color:var(--ink);cursor:pointer}
+.opt.sel{border-color:var(--acc)}
+.go{padding:8px 22px;border:none;background:var(--acc);color:#fff;border-radius:999px;cursor:pointer;margin-top:6px;font-weight:700}
+.fb{margin-top:8px;font-size:1rem}
+.fb .ok{display:inline-block;animation:pop .5s}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.score{text-align:center;font-size:1.3rem}
+</style>
+</head>
+<body>
+<main>
+<h1>🌸 成語小學堂 🌸</h1>
+<p class="sub">跟著三國英雄，一起變成成語小達人 ✨</p>
+<nav><button id="t1" class="on">認識成語</button><button id="t2">小測驗</button></nav>
+<div id="app"></div>
+</main>
+<script>
+/* ===== 想新增成語：照下面格式在 IDIOMS 最後面多加一筆就好 =====
+ e:圖示 w:成語 zy:注音 mean:意思
+ o:{s:"出處",t:[典故段落]} 或 o:null 加 n:"沒有特定典故的說明"
+ tg:三國故事的標籤 sg:[三國故事段落] use:用法 ex:[例句] tip:小提醒 */
+const IDIOMS=[
+{e:"🚣",w:"木已成舟",zy:"ㄇㄨˋ ㄧˇ ㄔㄥˊ ㄓㄡ",
+mean:"樹木已經做成了船，比喻事情已經成為定局，沒辦法再改變了。",
+o:null,n:"這個成語沒有特定的故事。教育部《成語典》記錄的早期用例出自清代小說《鏡花緣》。",
+tg:"三國歷史小故事（幫助你記）",
+sg:["赤壁之戰時，黃蓋把裝滿乾柴的火船駛向曹軍。當時風很大，曹軍的船又連在一起。","火一點起來，火船已經衝過去，曹軍再想補救也來不及，這就是「木已成舟」。"],
+use:"用在事情已經做完、沒辦法挽回的時候。",
+ex:["作業已經交給老師了，木已成舟，再擔心也沒有用。","花瓶已經打破了，木已成舟，我們一起想辦法補救吧。"],
+tip:"事情還可以修改的時候，不能用喔！"},
+{e:"✍️",w:"洋洋灑灑",zy:"ㄧㄤˊ ㄧㄤˊ ㄙㄚˇ ㄙㄚˇ",
+mean:"形容文章或說話的篇幅很長，內容豐富，寫得很流暢。",
+o:null,n:"這個成語沒有特定的故事。教育部《成語典》的解釋是形容言論或文章「長篇大論」。",
+tg:"三國歷史小故事（幫助你記）",
+sg:["袁紹想對付曹操，請文人陳琳寫了一篇〈為袁紹檄豫州〉。","陳琳一條一條寫出曹操的罪狀，寫了長長一篇，文字又流暢又有氣勢，這就是「洋洋灑灑」。"],
+use:"主要用來形容寫文章、演講、說話，內容很多又很流暢。",
+ex:["哥哥的日記洋洋灑灑，一次就寫了三大頁。","校長的演講洋洋灑灑，講了好多有趣的故事。"],
+tip:"只寫一兩句話，就不能說洋洋灑灑喔！"},
+{e:"🎒",w:"滿載而歸",zy:"ㄇㄢˇ ㄗㄞˋ ㄦˊ ㄍㄨㄟ",
+mean:"裝了滿滿的東西回來，形容收穫很多。",
+o:null,n:"這個成語沒有特定的故事。意思相近的說法「稛載而歸」，出現在古書《國語·齊語》裡。",
+tg:"《三國演義》故事（幫助你記）",
+sg:["孔明的二十條草船在大霧中靠近曹營，曹兵看不清楚，不停放箭，箭都插在草人身上。","船上插滿了箭，孔明帶著好多箭回來，真是「滿載而歸」。"],
+use:"去玩、去採買、去做事，得到很多東西或收穫的時候。",
+ex:["我們去果園採水果，大家都滿載而歸。","爸爸出海捕魚，滿載而歸。"],
+tip:"可以是東西很多，也可以是收穫很多（例如學到很多）。"},
+{e:"🙋",w:"當仁不讓",zy:"ㄉㄤ ㄖㄣˊ ㄅㄨˋ ㄖㄤˋ",
+mean:"遇到應該做的事，就主動承擔，不推辭、不謙讓。",
+o:{s:"《論語·衛靈公》",t:["孔子說：「當仁不讓於師。」意思是：遇到應該做的好事，就算是面對老師，也不需要客氣推讓。"]},
+tg:"三國歷史小故事（幫助你記）",
+sg:["長坂坡兵敗時，趙雲知道保護主公的家人是自己該做的事，衝進戰場，救出劉備的兒子阿斗和甘夫人。","遇到該做的事，就勇敢承擔，這就是「當仁不讓」。"],
+use:"用在遇到該做的事，主動說「我來」的時候。",
+ex:["班上需要有人當值日生，他當仁不讓，馬上舉手。","班長說：「這件事我來吧！」他真是當仁不讓。"],
+tip:"要用在好的、應該做的事，不能用在搶東西喔。"},
+{e:"🤩",w:"嘆為觀止",zy:"ㄊㄢˋ ㄨㄟˊ ㄍㄨㄢ ㄓˇ",
+mean:"看到極好的事物，讚嘆到覺得已經好到極點，不用再看別的了。",
+o:{s:"《左傳·襄公二十九年》",t:["吳國公子季札到魯國，欣賞各國的音樂和舞蹈。看到《韶箾》舞時，他說「觀止矣」，意思是已經好到極點了，如果還有別的，也不敢再請你們表演了。","後來人們就用「嘆為觀止」，形容事物好到極點。"]},
+tg:"《三國演義》故事（幫助你記）",
+sg:["赤壁大戰前，孔明在七星壇上祭風。壇上風一吹起來，東南風真的來了。","在旁邊看的人都驚訝極了，覺得太神奇，簡直嘆為觀止。"],
+use:"看到很棒的表演、風景或作品，讚美到說不出話的時候。",
+ex:["魔術師的表演精彩極了，讓大家嘆為觀止。","這座橋設計得太漂亮，讓人嘆為觀止。"],
+tip:"是讚美「很好」，不是形容「很糟」喔。"},
+{e:"🐭",w:"投鼠忌器",zy:"ㄊㄡˊ ㄕㄨˇ ㄐㄧˋ ㄑㄧˋ",
+mean:"想打老鼠，又怕打壞旁邊的器物，比喻做事有顧慮，不敢放手去做。",
+o:{s:"《漢書·賈誼傳》",t:["賈誼引用一句民間的諺語：「欲投鼠而忌器」。意思是：老鼠躲在珍貴的器物旁邊，人想丟東西打牠，又怕把器物打壞。"]},
+tg:"《三國演義》故事（幫助你記）",
+sg:["曹操打獵時，身邊跟著皇帝。關羽很生氣，想殺曹操。","劉備攔住他，說「投鼠忌器」：曹操身邊有皇帝，動手可能會傷到皇帝，不能亂來。"],
+use:"想解決問題，卻怕波及旁邊重要的人事物時。",
+ex:["小偷躲在花瓶旁，警察投鼠忌器，不敢隨便動手。","他很想罵弟弟，又怕吵醒睡覺的寶寶，只好投鼠忌器。"],
+tip:"重點是「有顧慮」，不是害怕。"},
+{e:"🎵",w:"餘音繞樑",zy:"ㄩˊ ㄧㄣ ㄖㄠˋ ㄌㄧㄤˊ",
+mean:"美妙的聲音消失後，好像還在屋樑上繞著，形容歌聲或音樂動聽，讓人久久難忘。",
+o:{s:"《宋書·樂志》等古書",t:["古書記載：有位叫韓娥的女歌手，路過齊國，糧食吃完了，就在城門邊唱歌換飯吃。","她離開後，大家覺得歌聲還在屋樑上繞了三天。後來就用「餘音繞樑」形容動聽的聲音久久不散。"]},
+tg:"《三國演義》例子（幫助你記）",
+sg:["空城計裡，孔明坐在城樓上彈琴，琴聲傳得很遠。","城外的司馬懿聽著琴聲，覺得琴聲一直繞在耳邊，讓他更不敢進城。"],
+use:"形容歌聲、樂聲很好聽，結束了還讓人回味的時候。",
+ex:["她的歌聲餘音繞樑，大家聽完都還在回味。","音樂會結束了，鋼琴聲仍然餘音繞樑。"],
+tip:"用來形容好聽的聲音，噪音不能用喔。"},
+{e:"🙈",w:"咎由自取",zy:"ㄐㄧㄡˋ ㄧㄡˊ ㄗˋ ㄑㄩˇ",
+mean:"壞的結果是自己造成的，怪不了別人。",
+o:null,n:"這個成語沒有找到特定的典故，我們就直接看意思和故事吧。",
+tg:"《三國演義》故事（幫助你記）",
+sg:["馬謖守街亭時，副將王平勸他，要守在要道上。馬謖不聽，偏偏把軍隊帶上山。","結果被魏軍包圍，蜀軍大敗。這是他自己不聽勸造成的，就是「咎由自取」。"],
+use:"用在壞結果是自己不聽勸、做錯事造成的時候。",
+ex:["他考試前都在玩，成績不好是咎由自取。","不聽老師的提醒就跑去玩水，感冒了也是咎由自取。"],
+tip:"帶有責備的意思，別隨便用在別人身上。"},
+{e:"🐰",w:"撲朔迷離",zy:"ㄆㄨ ㄕㄨㄛˋ ㄇㄧˊ ㄌㄧˊ",
+mean:"事情很複雜，讓人分不清真假、看不出真相。",
+o:{s:"〈木蘭詩〉",t:["〈木蘭詩〉裡有這樣的句子：雄兔的腳撲朔（容易亂動），雌兔的眼睛迷離（容易瞇起來）。","兩隻兔子一起跑的時候，就分不出誰是雄、誰是雌。後來人們用「撲朔迷離」形容事情複雜難辨。"]},
+tg:"《三國演義》故事（幫助你記）",
+sg:["空城計裡，司馬懿看見城門大開，孔明在城樓上彈琴。","他搞不清楚是真的沒人，還是有埋伏，心裡一團亂，這就是「撲朔迷離」。這是小說裡的故事，歷史上並沒有這一段喔！"],
+use:"用在事情很難看清真相、很難判斷的時候。",
+ex:["這個案件撲朔迷離，誰也猜不出兇手是誰。","魔術師的手法撲朔迷離，我看不出是怎麼變的。"],
+tip:"重點是「分不清」，不只是「很難」。"},
+{e:"🐴",w:"塞翁失馬",zy:"ㄙㄞˋ ㄨㄥ ㄕ ㄇㄚˇ",
+mean:"一時的壞事，說不定後來變成好事，比喻好壞可以互相轉變。",
+o:{s:"《淮南子·人間訓》",t:["邊塞有位老人，他的馬跑丟了，鄰居都替他難過，他卻說：說不定是好事。","後來馬帶著別的好馬回來了；他的兒子騎馬摔斷了腿。一年後打仗，年輕人大多戰死，只有兒子因為腿受傷沒有上戰場，平安活了下來。"]},
+tg:"《三國演義》故事（幫助你記）",
+sg:["赤壁之戰前，周瑜當眾打了老將黃蓋，黃蓋被打得很慘，看起來是壞事。","可是這個苦肉計，讓黃蓋能假裝投降曹操，幫了大忙。壞事變成好事，就像塞翁失馬。"],
+use:"用來安慰別人，或提醒自己：現在的壞事可能是好事的開始。",
+ex:["比賽輸了不要難過，塞翁失馬，焉知非福。","這次沒選上，塞翁失馬，也許有更適合你的機會。"],
+tip:"常搭配「焉知非福」（怎麼知道不是好事）一起用。"}
+];
+const BLANKS=[
+{t:"孔明的船已經出發了，周瑜就算反悔也來不及，這叫做【1】。後來孔明寫了一篇【2】的〈出師表〉。",a:["木已成舟","洋洋灑灑"]},
+{t:"弟弟把玩具摔壞了，【1】，哭也沒有用，不如想辦法修好。他昨天寫日記寫得【2】，整整寫了兩頁。",a:["木已成舟","洋洋灑灑"]},
+{t:"小美的演講稿寫得【1】，大家都聽得入神。可是她已經站上台了，【2】，只能勇敢講完。",a:["洋洋灑灑","木已成舟"]},
+{t:"這次去果園採水果，大家都【1】。老師問誰想當小組長，班長【2】，馬上舉手。",a:["滿載而歸","當仁不讓"]},
+{t:"她的歌聲讓大家【1】，演唱結束後還【2】，久久不散。",a:["嘆為觀止","餘音繞樑"]},
+{t:"他不聽媽媽的提醒，考試前一直玩，成績不好是【1】。爺爺說遇到壞事不要氣餒，就像【2】，說不定是好事。",a:["咎由自取","塞翁失馬"]},
+{t:"警察想抓小偷，又怕打破旁邊珍貴的花瓶，真是【1】。這個案件【2】，大家都猜不出是誰做的。",a:["投鼠忌器","撲朔迷離"]}
+];
+const MCQ=[
+{q:"下面哪一句話用得對？",o:["考卷已經交出去了，木已成舟，再擔心也沒用。","這篇作文只有一行，寫得洋洋灑灑。","作業還沒寫，木已成舟。"],a:0,why:"木已成舟是事情已經定了、改不了；作文只有一行不算洋洋灑灑，作業還沒寫也還可以改。"},
+{q:"「洋洋灑灑」是形容什麼？",o:["文章或說話又長又流暢","天氣很好","東西壞掉了"],a:0,why:"洋洋灑灑形容文章或談話內容豐富、篇幅長又流暢。"},
+{q:"「塞翁失馬」告訴我們什麼？",o:["壞事有時會變成好事","東西不見了要趕快找","老人都很有錢"],a:0,why:"塞翁的馬雖然跑了，後來卻帶回好馬，說明壞事和好事可以互相轉變。"},
+{q:"下面哪一句話用得對？",o:["班上需要有人當值日生，他當仁不讓，主動說我來。","他做錯事又不道歉，真是當仁不讓。","餐廳的菜好難吃，我吃了嘆為觀止。"],a:0,why:"當仁不讓是遇到該做的事勇敢承擔；做錯事不道歉不是，難吃的菜也不能說嘆為觀止。"},
+{q:"「咎由自取」的意思是？",o:["壞結果是自己造成的","被別人陷害","運氣不好"],a:0,why:"咎由自取是壞結果是自己造成的，怪不了別人。"}
+];
+const app=document.getElementById("app"),t1=document.getElementById("t1"),t2=document.getElementById("t2");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function tab(n){t1.className=n==1?"on":"";t2.className=n==2?"on":"";n==1?home():quiz()}
+t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);
+function home(){
+app.innerHTML='<div class="grid">'+IDIOMS.map((d,i)=>`<button data-i="${i}"><span class="em">${d.e}</span><b>${esc(d.w)}</b><br><span class="zy">${esc(d.zy)}</span></button>`).join("")+'</div><p class="sub">目前有 '+IDIOMS.length+' 個成語，會慢慢增加喔！</p>';
+app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>show(+b.dataset.i));
+}
+function show(i){
+const d=IDIOMS[i];
+const org=d.o?`<span class="tag">出處：${esc(d.o.s)}</span>`+d.o.t.map(p=>"<p>"+esc(p)+"</p>").join(""):`<p>${esc(d.n)}</p>`;
+app.innerHTML=`<button class="back">← 回到列表</button>
+<div class="card hd"><div style="font-size:2.4rem">${d.e}</div><h2>${esc(d.w)}</h2><div class="zy">${esc(d.zy)}</div></div>
+<div class="card"><h3>📖 意思</h3>${esc(d.mean)}</div>
+<div class="card"><h3>🏯 成語的由來</h3>${org}</div>
+<div class="card"><h3>⚔️ 三國故事幫你記</h3><span class="tag">${esc(d.tg)}</span>${d.sg.map(p=>"<p>"+esc(p)+"</p>").join("")}</div>
+<div class="card"><h3>💡 什麼時候用</h3>${esc(d.use)}<br><span class="tag">小提醒</span>${esc(d.tip)}</div>
+<div class="card"><h3>✏️ 例句</h3>${d.ex.map(e=>"<p>🌸 "+esc(e)+"</p>").join("")}</div>`;
+app.querySelector(".back").onclick=home;window.scrollTo(0,0);
+}
+function quiz(){
+const words=IDIOMS.map(d=>d.w);
+const opts='<option value="">選成語</option>'+words.map(w=>`<option>${esc(w)}</option>`).join("");
+app.innerHTML='<p class="sub">一題裡有好幾個成語，要選對位置喔！</p>'+
+BLANKS.map((b,i)=>`<div class="card q" data-b="${i}"><p>${i+1}. `+esc(b.t).replace(/【(\d)】/g,(m,n)=>`<select data-n="${n-1}">${opts}</select>`)+`</p><button class="go">檢查答案</button><div class="fb"></div></div>`).join("")+
+MCQ.map((m,i)=>`<div class="card q" data-m="${i}"><p>${BLANKS.length+i+1}. ${esc(m.q)}</p>${m.o.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}<div class="fb"></div></div>`).join("")+
+'<div class="card score" id="sc"></div>';
+const done={};
+const total=BLANKS.length+MCQ.length;
+const upd=()=>{const n=Object.values(done).filter(Boolean).length,c=Object.keys(done).length;document.getElementById("sc").innerHTML=c<total?`已完成 ${c}/${total} 題，答對 ${n} 題`:`全部完成！答對 ${n}/${total} 題 ${n==total?"🎉 太厲害了，像孔明一樣聰明！":"💪 再看看故事，一定會更好！"}`};
+upd();
+app.querySelectorAll("[data-b]").forEach(el=>{
+const b=BLANKS[+el.dataset.b];
+el.querySelector(".go").onclick=()=>{
+const v=[...el.querySelectorAll("select")].map(s=>s.value);
+if(v.some(x=>!x)){el.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔！</span>';return}
+const ok=v.every((x,k)=>x===b.a[k]);
+done["b"+el.dataset.b]=ok;
+el.querySelector(".fb").innerHTML=ok?'<span class="ok">✔ 答對了！</span>':'<span class="bad">✘ 再想想看。</span> 正確答案：'+b.a.map(esc).join("、");
+upd();}});
+app.querySelectorAll("[data-m]").forEach(el=>{
+const m=MCQ[+el.dataset.m];
+el.querySelectorAll(".opt").forEach(btn=>btn.onclick=()=>{
+if(("m"+el.dataset.m) in done)return;
+const ok=+btn.dataset.j===m.a;done["m"+el.dataset.m]=ok;
+btn.classList.add("sel");
+el.querySelector(".fb").innerHTML=(ok?'<span class="ok">✔ 答對了！</span> ':'<span class="bad">✘ 不對喔。</span> ')+esc(m.why);
+upd();});});
+}
+home();
+</script>
+</body>
+</html>
