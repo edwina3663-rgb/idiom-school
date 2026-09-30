@@ -3,54 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>成語小學堂</title>
+<title>三年級小學堂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff0f6;--card:#fff;--ink:#4a3340;--sub:#9a7488;--acc:#ff6fa5;--acc2:#ffd6e7;--ok:#2f9e6b;--bad:#e2557a;--tag:#fff3b8}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b1d26;--card:#3a2733;--ink:#ffe9f2;--sub:#d3aabd;--acc:#ff8fbb;--acc2:#5a3a4b;--ok:#6fcf97;--bad:#ff8a9d;--tag:#5a4a2a}}
-:root[data-theme="dark"]{--bg:#2b1d26;--card:#3a2733;--ink:#ffe9f2;--sub:#d3aabd;--acc:#ff8fbb;--acc2:#5a3a4b;--ok:#6fcf97;--bad:#ff8a9d;--tag:#5a4a2a}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--serif:"Noto Serif TC","Songti TC","Source Han Serif TC","PMingLiU",serif;--bg:#f6f0ea;--card:#fffdfa;--ink:#3a2f33;--sub:#85757a;--acc:#a4545f;--onacc:#fff;--acc2:#ecdcd6;--gold:#c2994f;--ok:#3f8f6b;--bad:#b84a5b;--tag:#f3e6cf;--line:#e7d9d1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1e1a1c;--card:#2a2427;--ink:#f3e9e4;--sub:#b8a8ad;--acc:#e0909c;--onacc:#2a1a1f;--acc2:#3d3236;--gold:#dbb56b;--ok:#7fcfa5;--bad:#f0909f;--tag:#4a3f2a;--line:#3a3034}}
+:root[data-theme="dark"]{--bg:#1e1a1c;--card:#2a2427;--ink:#f3e9e4;--sub:#b8a8ad;--acc:#e0909c;--onacc:#2a1a1f;--acc2:#3d3236;--gold:#dbb56b;--ok:#7fcfa5;--bad:#f0909f;--tag:#4a3f2a;--line:#3a3034}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-size:18px;line-height:1.8}
-main{max-width:720px;margin:0 auto;padding:16px}
-h1{text-align:center;color:var(--acc);margin:8px 0 0;font-size:2rem;letter-spacing:2px}
-.sub{text-align:center;color:var(--sub);margin:0 0 12px}
-nav{display:flex;gap:10px;justify-content:center;margin:12px 0}
-button,select{font:inherit}
-nav button{padding:8px 22px;border:3px solid var(--acc);background:var(--card);color:var(--acc);border-radius:999px;cursor:pointer;font-weight:700}
-nav button.on{background:var(--acc);color:#fff}
-.card{background:var(--card);border-radius:24px;padding:14px 18px;margin:14px 0;border:3px dashed var(--acc2);box-shadow:0 4px 0 var(--acc2)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-size:17px;line-height:1.85}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-family:var(--serif);text-align:center;margin:10px 0 0;font-size:1.9rem;letter-spacing:.18em;font-weight:700}
+h1::after{content:"";display:block;width:48px;height:2px;background:var(--gold);margin:10px auto 0}
+.sub{text-align:center;color:var(--sub);margin:8px 0 14px;font-size:.95rem}
+button,select,input{font:inherit}
+nav{display:flex;gap:8px;justify-content:center;margin:12px 0}
+nav button{padding:7px 20px;border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:999px;cursor:pointer;letter-spacing:.08em}
+nav button.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.subj{display:flex;justify-content:center;margin:10px 0 2px}
+.subj button{padding:5px 26px;border:1px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer;font-family:var(--serif);font-weight:700;letter-spacing:.2em}
+.subj button:first-child{border-radius:999px 0 0 999px}.subj button:last-child{border-radius:0 999px 999px 0;border-left:0}
+.subj button.on{background:var(--acc);color:var(--onacc)}
+.bar{display:flex;align-items:center;justify-content:center;gap:10px;min-height:28px}
+.bar b{font-family:var(--serif)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin:14px 0;box-shadow:0 2px 12px rgba(90,60,60,.06)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.grid button{background:var(--card);color:var(--ink);border:3px solid var(--acc2);border-radius:24px;padding:12px 8px;cursor:pointer;text-align:center;box-shadow:0 4px 0 var(--acc2)}
-.grid button:active{transform:translateY(3px);box-shadow:none}
-.grid .em{font-size:2rem;display:block}
-.grid b{font-size:1.4rem;color:var(--acc)}
-.zy{color:var(--sub);font-size:.85rem}
-h2{margin:0;color:var(--acc);font-size:1.9rem;text-align:center}
-.hd{text-align:center}
-h3{margin:0 0 4px;font-size:1.1rem;color:var(--acc)}
-.tag{display:inline-block;background:var(--tag);border-radius:999px;padding:0 10px;font-size:.85rem;margin:2px 6px 4px 0}
-.back{background:none;border:none;color:var(--acc);cursor:pointer;padding:4px 0;font-size:1rem;font-weight:700}
-.q p{margin:0 0 8px}
-select{padding:2px 6px;border-radius:12px;border:2px solid var(--acc);background:var(--bg);color:var(--ink)}
-.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 12px;border-radius:16px;border:2px solid var(--acc2);background:var(--bg);color:var(--ink);cursor:pointer}
-.opt.sel{border-color:var(--acc)}
-.go{padding:8px 22px;border:none;background:var(--acc);color:#fff;border-radius:999px;cursor:pointer;margin-top:6px;font-weight:700}
-.fb{margin-top:8px;font-size:1rem}
-.fb .ok{display:inline-block;animation:pop .5s}
-@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
-.ok{color:var(--ok)}.bad{color:var(--bad)}
-.score{text-align:center;font-size:1.3rem}
-.bar{display:flex;align-items:center;justify-content:center;gap:8px}
-.stars{color:var(--acc);font-weight:700}
+.grid button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;box-shadow:0 1px 8px rgba(90,60,60,.05)}
+.grid button:hover:not(:disabled){border-color:var(--acc)}
 .grid button:disabled{opacity:.45;cursor:not-allowed}
+.grid .em{display:block;font-family:var(--serif);font-size:.85rem;color:var(--sub);letter-spacing:.1em}
+.grid b{font-family:var(--serif);font-size:1.25rem;letter-spacing:.1em}
+.zy{color:var(--sub);font-size:.85rem;letter-spacing:.08em}
+h2{font-family:var(--serif);margin:4px 0;font-size:2rem;letter-spacing:.15em;text-align:center}
+.hd{text-align:center}
+h3{font-family:var(--serif);margin:0 0 6px;font-size:1rem;letter-spacing:.12em;color:var(--acc);padding-left:10px;border-left:3px solid var(--gold)}
+.tag{display:inline-block;background:var(--tag);border-radius:6px;padding:1px 10px;font-size:.8rem;margin:2px 8px 4px 0}
+.back{background:none;border:none;color:var(--acc);cursor:pointer;padding:4px 0;font-size:.95rem}
+.q p{margin:0 0 8px}
+select,input[type=number]{padding:4px 10px;border-radius:10px;border:1px solid var(--acc);background:var(--bg);color:var(--ink)}
+input[type=number]{font-size:1.3rem;width:8em;text-align:center;margin-right:8px}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.go{padding:8px 24px;border:none;background:var(--acc);color:var(--onacc);border-radius:999px;cursor:pointer;margin-top:6px;letter-spacing:.1em}
+.fb{margin-top:10px;font-size:.98rem}
+.fb .ok{display:inline-block;animation:pop .4s}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.score{text-align:center;font-size:1.2rem}
+.st{color:var(--gold);letter-spacing:.12em}
+.eq{font-family:var(--serif);font-size:1.5rem;text-align:center;margin:8px 0 14px;line-height:1.9}
+.stars{font-weight:700}
 .pick{display:block;text-align:center}
 </style>
 </head>
 <body>
 <main>
-<h1>🌸 成語小學堂 🌸</h1>
-<p class="sub">跟著三國英雄，一起變成成語小達人 ✨</p>
+<h1>三年級小學堂</h1>
+<p class="sub">成語．數學　每天進步一點點</p>
 <div id="bar" class="bar"></div>
-<nav><button id="t1" class="on">🗺️ 闖關</button><button id="t2">📖 認識成語</button><button id="t3">👗 換裝</button></nav>
+<div id="subj" class="subj"></div>
+<nav><button id="t1" class="on">闖關</button><button id="t2">認識成語</button><button id="t3">換裝</button></nav>
 <div id="app"></div>
 </main>
 <script>
@@ -170,19 +181,19 @@ const BLANKS=[
 const app=document.getElementById("app"),t1=document.getElementById("t1"),t2=document.getElementById("t2"),t3=document.getElementById("t3");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function home(){
-app.innerHTML='<div class="grid">'+IDIOMS.map((d,i)=>`<button data-i="${i}"><span class="em">${d.e}</span><b>${esc(d.w)}</b><br><span class="zy">${esc(d.zy)}</span></button>`).join("")+'</div><p class="sub">目前有 '+IDIOMS.length+' 個成語，會慢慢增加喔！</p>';
+app.innerHTML='<div class="grid">'+IDIOMS.map((d,i)=>`<button data-i="${i}"><b>${esc(d.w)}</b><br><span class="zy">${esc(d.zy)}</span></button>`).join("")+'</div><p class="sub">目前有 '+IDIOMS.length+' 個成語，會慢慢增加喔！</p>';
 app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>show(+b.dataset.i));
 }
 function show(i){
 const d=IDIOMS[i];
 const org=d.o?`<span class="tag">出處：${esc(d.o.s)}</span>`+d.o.t.map(p=>"<p>"+esc(p)+"</p>").join(""):`<p>${esc(d.n)}</p>`;
 app.innerHTML=`<button class="back">← 回到列表</button>
-<div class="card hd"><div style="font-size:2.4rem">${d.e}</div><h2>${esc(d.w)}</h2><div class="zy">${esc(d.zy)}</div></div>
-<div class="card"><h3>📖 意思</h3>${esc(d.mean)}</div>
-<div class="card"><h3>🏯 成語的由來</h3>${org}</div>
-<div class="card"><h3>⚔️ 三國故事幫你記</h3><span class="tag">${esc(d.tg)}</span>${d.sg.map(p=>"<p>"+esc(p)+"</p>").join("")}</div>
-<div class="card"><h3>💡 什麼時候用</h3>${esc(d.use)}<br><span class="tag">小提醒</span>${esc(d.tip)}</div>
-<div class="card"><h3>✏️ 例句</h3>${d.ex.map(e=>"<p>🌸 "+esc(e)+"</p>").join("")}</div>`;
+<div class="card hd"><h2>${esc(d.w)}</h2><div class="zy">${esc(d.zy)}</div></div>
+<div class="card"><h3>意思</h3>${esc(d.mean)}</div>
+<div class="card"><h3>成語的由來</h3>${org}</div>
+<div class="card"><h3>三國故事</h3><span class="tag">${esc(d.tg)}</span>${d.sg.map(p=>"<p>"+esc(p)+"</p>").join("")}</div>
+<div class="card"><h3>什麼時候用</h3>${esc(d.use)}<br><span class="tag">小提醒</span>${esc(d.tip)}</div>
+<div class="card"><h3>例句</h3>${d.ex.map(e=>"<p>"+esc(e)+"</p>").join("")}</div>`;
 app.querySelector(".back").onclick=home;window.scrollTo(0,0);
 }
 const CH={kongming:{n:"孔明",skin:"#ffe0c2",robe:"#dfeee9",trim:"#2a9d8f",hair:"#3a2a2a"},zhaoyun:{n:"趙雲",skin:"#ffe0c2",robe:"#e8edf5",trim:"#3b6fd4",hair:"#2b2b3a"},shangxiang:{n:"孫尚香",skin:"#ffe3cf",robe:"#ffd6dc",trim:"#e2557a",hair:"#5a3222",note:"史書裡稱她「孫夫人」，「尚香」是戲曲裡的名字"}};
@@ -204,7 +215,7 @@ const IT=[
 {id:"sx_wp2",ch:"shangxiang",s:"weapon",n:"短劍",c:3,d:h=>wp("#e2557a")},
 {id:"crown",s:"head",e:"👑",n:"皇冠",c:4},{id:"flower",s:"head",e:"🌸",n:"花髮飾",c:1},{id:"bow",s:"head",e:"🎀",n:"蝴蝶結",c:1},{id:"spark",s:"fx",e:"✨",n:"閃亮特效",c:3}];
 const SL={hair:"髮型",head:"頭飾",outfit:"衣服",weapon:"武器",fx:"特效"};
-const newG=()=>({char:null,best:{},spent:0,own:[],wear:{},v:2});
+const newG=()=>({char:null,best:{},spent:0,own:[],wear:{},v:2,sub:"idiom",wrong:[]});
 function fix(g){g=Object.assign(newG(),g||{});if(g.v!=2){const ref={helmet:3,feather:3,sword:3,arrow:4,crown:1,flower:1,bow:1,spark:1};(g.own||[]).forEach(id=>{g.spent=Math.max(0,g.spent-(ref[id]||0))});g.own=(g.own||[]).filter(id=>!["helmet","feather","sword","arrow"].includes(id));g.wear={};g.v=2}return g}
 let R={cur:0,slots:[null,null,null]};
 try{const r=localStorage.getItem("idiomGame3");if(r)R=JSON.parse(r);else{const o=localStorage.getItem("idiomGame");if(o)R.slots[0]=JSON.parse(o)}}catch(e){}
@@ -219,16 +230,18 @@ const extra=hi?dr("hair"):(c=="shangxiang"?`<circle cx="26" cy="46" r="9" fill="
 const back=hi&&hi.bk?hi.bk(h):"";
 const body=ou?ou.d(h):`<rect x="28" y="68" width="64" height="58" rx="24" fill="${h.robe}" stroke="${h.trim}" stroke-width="4"/><rect x="52" y="68" width="16" height="30" rx="6" fill="${h.trim}"/>`;
 return `<svg width="${z}" height="${Math.round(z*152/140)}" viewBox="-10 -14 140 152" role="img" aria-label="${h.n}">${back}${body}<circle cx="60" cy="44" r="30" fill="${h.skin}"/><path d="M30 42Q32 12 60 12Q88 12 90 42Q76 28 60 28Q44 28 30 42Z" fill="${h.hair}"/>${extra}<circle cx="49" cy="46" r="3.5" fill="#3a2a2a"/><circle cx="71" cy="46" r="3.5" fill="#3a2a2a"/><circle cx="42" cy="55" r="5" fill="#ffb3c6" opacity=".7"/><circle cx="78" cy="55" r="5" fill="#ffb3c6" opacity=".7"/><path d="M53 56Q60 63 67 56" stroke="#3a2a2a" stroke-width="2.5" fill="none" stroke-linecap="round"/>${dr("head")}<text x="60" y="14" font-size="26" text-anchor="middle">${emo("head")}</text>${dr("weapon")}<text x="14" y="30" font-size="22" text-anchor="middle">${emo("fx")}</text></svg>`}
-function bar(){document.getElementById("bar").innerHTML=(G.char?`${av(G.char,G.wear[G.char],40)}<b>${CH[G.char].n}</b><span class="stars">⭐ ${wallet()}</span>`:"")+`<button class="back" id="sv">💾 存檔${R.cur+1}</button>`;document.getElementById("sv").onclick=slotsUI}
-function slotsUI(){R.slots[R.cur]=G;app.innerHTML='<p class="sub">每個存檔有自己的角色、星星和衣服，可以給不同的人玩。</p>'+R.slots.map((g,i)=>`<div class="card hd"><b>存檔 ${i+1}${i==R.cur?"（使用中）":""}</b><br>${g&&g.char?av(g.char,g.wear[g.char],80)+"<br>"+CH[g.char].n+"　⭐ "+(Object.values(g.best).reduce((a,b)=>a+b,0)-g.spent):"空的存檔"}<br><button class="go" data-u="${i}">${i==R.cur?"繼續玩":"使用這個存檔"}</button> ${g&&g.char?`<button class="go" data-x="${i}" style="background:var(--bad)">清除重來</button>`:""}</div>`).join("");
+function bar(){document.getElementById("bar").innerHTML=(G.char?`${av(G.char,G.wear[G.char],40)}<b>${CH[G.char].n}</b><span class="stars">★ ${wallet()}</span>`:"")+`<button class="back" id="sv">💾 存檔${R.cur+1}</button>`;document.getElementById("sv").onclick=slotsUI}
+function slotsUI(){R.slots[R.cur]=G;app.innerHTML='<p class="sub">每個存檔有自己的角色、星星和衣服，可以給不同的人玩。</p>'+R.slots.map((g,i)=>`<div class="card hd"><b>存檔 ${i+1}${i==R.cur?"（使用中）":""}</b><br>${g&&g.char?av(g.char,g.wear[g.char],80)+"<br>"+CH[g.char].n+"　★ "+(Object.values(g.best).reduce((a,b)=>a+b,0)-g.spent):"空的存檔"}<br><button class="go" data-u="${i}">${i==R.cur?"繼續玩":"使用這個存檔"}</button> ${g&&g.char?`<button class="go" data-x="${i}" style="background:var(--bad)">清除重來</button>`:""}</div>`).join("");
 app.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{R.cur=+b.dataset.u;G=R.slots[R.cur]||(R.slots[R.cur]=newG());save();tab(1)});
 app.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{if(!b.dataset.ok){b.dataset.ok=1;b.textContent="再按一次確定清除";return}const i=+b.dataset.x;R.slots[i]=null;if(i==R.cur)G=R.slots[i]=newG();save();slotsUI()})}
-function tab(n){[t1,t2,t3].forEach((b,i)=>b.className=i+1==n?"on":"");if(!G.char){pickChar();return}n==1?map():n==2?(bar(),home()):closet()}
+const stars=n=>`<span class="st">${"★".repeat(n)}${"☆".repeat(3-n)}</span>`;
+function setSub(){const m=G.sub=="math";document.getElementById("subj").innerHTML=`<button class="${m?"":"on"}" data-s="idiom">成語</button><button class="${m?"on":""}" data-s="math">數學</button>`;t2.textContent=m?"錯題本":"認識成語";document.querySelectorAll("#subj button").forEach(b=>b.onclick=()=>{G.sub=b.dataset.s;save();tab(1)})}
+function tab(n){[t1,t2,t3].forEach((b,i)=>b.className=i+1==n?"on":"");setSub();if(!G.char){pickChar();return}const m=G.sub=="math";n==1?(m?mapMath():map()):n==2?(bar(),m?wrongBook():home()):closet()}
 t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);t3.onclick=()=>tab(3);
-function pickChar(){bar();app.innerHTML='<p class="sub">選一個角色一起闖關吧！</p><div class="grid">'+Object.keys(CH).map(k=>`<button data-c="${k}" class="pick">${av(k,{},90)}<br><b>${CH[k].n}</b></button>`).join("")+'</div>';
+function pickChar(){bar();app.innerHTML='<p class="sub">選一位角色，一起闖關</p><div class="grid">'+Object.keys(CH).map(k=>`<button data-c="${k}" class="pick">${av(k,{},90)}<br><b>${CH[k].n}</b></button>`).join("")+'</div>';
 app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{G.char=b.dataset.c;save();tab(1)})}
 const LV=()=>{const a=[];for(let i=0;i<IDIOMS.length;i+=2)a.push([i,Math.min(i+2,IDIOMS.length)]);return a};
-function map(){bar();const L=LV(),st=b=>"⭐".repeat(b)+"☆".repeat(3-b);app.innerHTML='<p class="sub">通過關卡拿星星，星星可以去換衣服！<br>每次玩的題目都不一樣喔～</p><div class="grid">'+L.map((r,i)=>{const b=G.best[i]||0,open=i==0||(G.best[i-1]||0)>=1;return `<button data-l="${i}" ${open?"":"disabled"}><span class="em">${open?"第"+(i+1)+"關":"🔒"}</span><b style="font-size:1rem">${IDIOMS.slice(r[0],r[1]).map(d=>esc(d.w)).join("、")}</b><br>${st(b)}</button>`}).join("")+`<button data-l="c" ${(G.best[0]||0)>=1?"":"disabled"}><span class="em">🎲</span><b style="font-size:1rem">隨機挑戰</b><br>${st(G.best.c||0)}</button></div>`;
+function map(){bar();const L=LV(),st=stars;app.innerHTML='<p class="sub">通過關卡拿星星，星星可以去換衣服！<br>每次玩的題目都不一樣喔～</p><div class="grid">'+L.map((r,i)=>{const b=G.best[i]||0,open=i==0||(G.best[i-1]||0)>=1;return `<button data-l="${i}" ${open?"":"disabled"}><span class="em">${open?"第"+(i+1)+"關":"🔒"}</span><b style="font-size:1.05rem">${IDIOMS.slice(r[0],r[1]).map(d=>esc(d.w)).join("、")}</b><br>${st(b)}</button>`}).join("")+`<button data-l="c" ${(G.best[0]||0)>=1?"":"disabled"}><span class="em">挑戰</span><b>隨機挑戰</b><br>${st(G.best.c||0)}</button></div>`;
 app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l=="c"?"c":+b.dataset.l))}
 const oth=(w,n)=>sh(IDIOMS.filter(d=>d.w!=w)).slice(0,n);
 const leak=(t,w)=>[0,1,2].some(i=>t.includes(w.slice(i,i+2)));
@@ -250,24 +263,54 @@ for(let k=0;k<8;k++){qs.push(...pick(sh(pool)[0],1))}for(let k=0;k<2;k++){const 
 const [a,b]=L[l],own=IDIOMS.slice(a,b),prev=IDIOMS.slice(0,a);
 own.forEach(d=>qs.push(...pick(d,4)));if(prev.length)qs.push(...pick(sh(prev)[0],1));
 const m=mixQ(IDIOMS.slice(0,b),own);if(m)qs.push(m);return sh(qs)}
-function play(l){const qs=buildQs(l),ttl=l=="c"?"🎲 隨機挑戰":"第"+(l+1)+"關";let i=0,ok=0;
-function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;app.querySelectorAll(".opt,select,.chk").forEach(b=>b.disabled=true);
-app.querySelector(".fb").innerHTML=(good?'<span class="ok">🎉 答對了！</span> ':'<span class="bad">再想想看 💪</span> ')+esc(ans)+" "+esc(why||"")+'<br><button class="go nx">'+(i+1>=qs.length?"看結果":"下一題")+'</button>';
+const rn=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const Q=(t,a,why)=>({k:"num",t:`<div class="eq">${t}</div>□ 裡要填多少？`,a,why});
+const NM=["小美","小明","小華","小安","弟弟","妹妹"];
+function mAdd(){const big=Math.random()<.5,a=big?rn(1000,4999):rn(100,499),b=big?rn(1000,4999):rn(100,499),c=a+b,f=rn(0,2);
+return f==0?Q(`□ + ${b} = ${c}`,a,`${c} − ${b} = ${a}`):f==1?Q(`${a} + □ = ${c}`,b,`${c} − ${a} = ${b}`):Q(`${c} = ${a} + □`,b,`${c} − ${a} = ${b}`)}
+function mSub(){const big=Math.random()<.5,a=big?rn(2000,9999):rn(200,999),b=rn(big?1000:100,a-(big?500:50)),c=a-b,f=rn(0,2);
+return f==0?Q(`□ − ${b} = ${c}`,a,`${c} + ${b} = ${a}`):f==1?Q(`${a} − □ = ${c}`,b,`${a} − ${c} = ${b}`):Q(`${c} = ${a} − □`,b,`${a} − ${c} = ${b}`)}
+function mMul(){const t=rn(0,2),a=t==0?rn(2,9):t==1?rn(11,49):rn(101,299),b=rn(2,9),c=a*b,f=rn(0,2);
+return f==0?Q(`${a} × □ = ${c}`,b,`${c} ÷ ${a} = ${b}`):f==1?Q(`□ × ${b} = ${c}`,a,`${c} ÷ ${b} = ${a}`):Q(`${c} = □ × ${b}`,a,`${c} ÷ ${b} = ${a}`)}
+function mDiv(){const b=rn(2,9),q=rn(2,9),a=b*q,f=rn(0,2);
+return f==0?Q(`□ ÷ ${b} = ${q}`,a,`${q} × ${b} = ${a}`):f==1?Q(`${a} ÷ □ = ${q}`,b,`${a} ÷ ${q} = ${b}`):Q(`${a} ÷ ${b} = □`,q,`想：${b} 乘幾是 ${a}？ ${b} × ${q} = ${a}`)}
+function mCmp(){for(let n=0;n<200;n++){const pos=rn(0,3),ds=[rn(1,9),rn(0,9),rn(0,9),rn(0,9)],N=rn(1000,9999),lt=Math.random()<.5,val=d=>{const x=[...ds];x[pos]=d;return +x.join("")};
+const cand=[];for(let d=pos==0?1:0;d<=9;d++)if(lt?val(d)<N:val(d)>N)cand.push(d);if(!cand.length||cand.length==10-(pos==0?1:0))continue;
+const ans=lt?Math.max(...cand):Math.min(...cand),show=ds.map((x,i)=>i==pos?"□":x).join("");
+return{k:"num",t:`<div class="eq">${show} ${lt?"&lt;":"&gt;"} ${N}</div>□ 裡${lt?"最大":"最小"}可以填幾？`,a:ans,why:`填 ${ans} 是 ${val(ans)}，${lt?"比":"大於"} ${N} ${lt?"小":""}；再${lt?"大":"小"}一個數字就不成立了。`.replace("大於 "+N+" ","比 "+N+" 大")}}return mAdd()}
+function mWord(){const n=NM[rn(0,5)],t=rn(0,4);
+if(t==0){const a=rn(12,90),c=a+rn(15,80);return Q(`${n}有□張貼紙，媽媽又給了 ${a} 張，現在共有 ${c} 張。`,c-a,`${c} − ${a} = ${c-a}`)}
+if(t==1){const c=rn(80,300),d=rn(10,c-20);return Q(`果園裡有 ${c} 顆蘋果，賣出□顆後，還剩 ${d} 顆。`,c-d,`${c} − ${d} = ${c-d}`)}
+if(t==2){const a=rn(3,9),b=rn(3,9);return Q(`每盒有 ${a} 支鉛筆，${n}買了□盒，一共有 ${a*b} 支。`,b,`${a*b} ÷ ${a} = ${b}`)}
+if(t==3){const b=rn(2,9),q=rn(2,9);return Q(`把 ${b*q} 顆糖平分給 ${b} 個人，每人分到□顆。`,q,`${b*q} ÷ ${b} = ${q}`)}
+const b=rn(2,9),q=rn(3,9);return Q(`${n}把□顆糖平分給 ${b} 個人，每人分到 ${q} 顆。`,b*q,`${q} × ${b} = ${b*q}`)}
+const ML=[{n:"加法留空",g:mAdd},{n:"減法留空",g:mSub},{n:"乘法留空",g:mMul},{n:"除法留空",g:mDiv},{n:"比大小 □",g:mCmp},{n:"文字題留空",g:mWord}];
+function buildM(key){const f=key=="mc"?null:ML[+key.slice(1)].g,len=key=="mc"?10:8,qs=[],seen=new Set();for(let k=0;qs.length<len&&k<200;k++){const q=(f||sh(ML)[0].g)();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}}return qs}
+function mapMath(){bar();app.innerHTML='<p class="sub">三年級數學　算式留空練習<br>每次的題目都不一樣</p><div class="grid">'+ML.map((m,i)=>{const b=G.best["m"+i]||0,open=i==0||(G.best["m"+(i-1)]||0)>=1;return `<button data-l="m${i}" ${open?"":"disabled"}><span class="em">${open?"第"+(i+1)+"關":"🔒"}</span><b style="font-size:1.05rem">${m.n}</b><br>${stars(b)}</button>`}).join("")+`<button data-l="mc" ${(G.best.m0||0)>=1?"":"disabled"}><span class="em">挑戰</span><b>數學綜合</b><br>${stars(G.best.mc||0)}</button></div>`;
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
+function wrongBook(){const w=G.wrong||[];app.innerHTML=w.length?`<p class="sub">答錯的數學題會收集在這裡，答對就會移出去。</p>${w.map(x=>`<div class="card"><div class="eq">${x.t}</div><div class="zy">答案：${x.a}　${esc(x.why)}</div></div>`).join("")}<div class="hd"><button class="go" id="wp">練習這些錯題</button></div>`:'<p class="sub">目前沒有錯題，太棒了！</p>';
+const b=document.getElementById("wp");if(b)b.onclick=()=>play("w",sh(w.map(x=>({k:"num",t:x.t,a:x.a,why:x.why}))).slice(0,10))}
+function play(l,pre){const isM=String(l)[0]=="m",qs=pre||(isM?buildM(l):buildQs(l)),ttl=l=="w"?"錯題本練習":l=="mc"?"數學綜合挑戰":isM?"數學　第"+(+l.slice(1)+1)+"關":l=="c"?"隨機挑戰":"第"+(l+1)+"關";let i=0,ok=0;
+function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;const q0=qs[i];if(q0.k=="num"){G.wrong=(G.wrong||[]).filter(w=>w.t!=q0.t);if(!good)G.wrong.push({t:q0.t,a:q0.a,why:q0.why});G.wrong=G.wrong.slice(-30);save()}
+app.querySelectorAll(".opt,select,.chk,input").forEach(b=>b.disabled=true);
+app.querySelector(".fb").innerHTML=(good?'<span class="ok">✔ 答對了！</span> ':'<span class="bad">再想想看</span> ')+esc(ans)+" "+esc(why||"")+'<br><button class="go nx">'+(i+1>=qs.length?"看結果":"下一題")+'</button>';
 app.querySelector(".nx").onclick=()=>{i++;show()}}
-function show(){bar();if(i>=qs.length)return end();const q=qs[i],hd=`<p class="sub">${ttl}　${i+1}/${qs.length}</p>`;
+function show(){bar();if(i>=qs.length)return end();const q=qs[i],hd=`<p class="sub">${ttl}　${i+1} / ${qs.length}</p>`;
 if(q.k=="mc"){app.innerHTML=hd+`<div class="card q"><p>${q.t}</p>${q.o.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}<div class="fb"></div></div>`;
 app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const g=+b.dataset.j==q.a;done(g,g?"":"正確答案："+q.o[q.a]+"。",q.why)})}
+else if(q.k=="num"){app.innerHTML=hd+`<div class="card q"><div>${q.t}</div><input id="ans" type="number" inputmode="numeric" placeholder="答案"><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
+const f=()=>{const v=document.getElementById("ans").value;if(v==="")return;const g=+v==q.a;done(g,g?"":"正確答案："+q.a+"。",q.why)};app.querySelector(".chk").onclick=f;document.getElementById("ans").onkeydown=e=>{if(e.key=="Enter")f()}}
 else{const op='<option value="">選成語</option>'+(q.bank||IDIOMS.map(d=>d.w)).map(w=>`<option>${esc(w)}</option>`).join("");
 app.innerHTML=hd+`<div class="card q"><p>`+esc(q.t).replace(/【(\d)】/g,`<select>${op}</select>`)+`</p><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
-app.querySelector(".chk").onclick=()=>{const v=[...app.querySelectorAll("select")].map(x=>x.value);if(v.some(x=>!x)){app.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔！</span>';return}
+app.querySelector(".chk").onclick=()=>{const v=[...app.querySelectorAll("select")].map(x=>x.value);if(v.some(x=>!x)){app.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔。</span>';return}
 const g=v.every((x,k)=>x===q.a[k]);done(g,g?"":"正確答案："+q.a.join("、")+"。","")}}}
-function end(){const r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=Math.max(0,s-old);if(s>old){G.best[l]=s;save()}bar();
-app.innerHTML=`<div class="card score"><div style="font-size:2.4rem">${"⭐".repeat(s)+"☆".repeat(3-s)}</div><p>答對 ${ok}/${qs.length} 題</p><p>${gain?`獲得 <b>${gain}</b> 顆新星星！可以去換裝囉 👗`:s?"這關的星星你已經拿過了，挑戰更高的星星吧！":"先到「認識成語」再讀一讀，然後再挑戰一次！"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到地圖</button></div>`;
-document.getElementById("again").onclick=()=>play(l);document.getElementById("back").onclick=map}
+function end(){const r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=l=="w"?0:Math.max(0,s-old);if(l!="w"&&s>old){G.best[l]=s;save()}bar();
+app.innerHTML=`<div class="card score"><div style="font-size:2rem">${l=="w"?"":stars(s)}</div><p>答對 ${ok} / ${qs.length} 題</p><p>${l=="w"?"答對的題目已經移出錯題本（錯題本練習不計星星）。":gain?`獲得 <b>${gain}</b> 顆新星星，可以到「換裝」挑選配件。`:s?"這關的星星已經拿過了，挑戰更高的星星吧。":isM?"再試一次，慢慢算就會了。":"先到「認識成語」再讀一讀，然後再挑戰一次。"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到列表</button></div>`;
+document.getElementById("again").onclick=()=>play(l,l=="w"?pre:undefined);document.getElementById("back").onclick=()=>tab(l=="w"?2:1)}
 show()}
 function closet(){bar();const c=G.char,W=G.wear[c]||(G.wear[c]={}),mine=IT.filter(x=>x.ch==c),all=IT.filter(x=>!x.ch);
-const cell=x=>{const own=G.own.includes(x.id),on=W[x.s]==x.id;return `<button data-i="${x.id}"><span class="zy">${SL[x.s]}</span><br><b style="font-size:1rem">${x.e||""} ${x.n}</b><br>${own?(on?"✔ 已穿上":"穿上"):"⭐ "+x.c+" 購買"}</button>`};
-app.innerHTML=`<div class="card hd">${av(c,W,150)}<h2>${CH[c].n}</h2>${CH[c].note?`<div class="zy">${CH[c].note}</div>`:""}<div class="stars">⭐ ${wallet()}</div><button class="go" id="chg">換角色</button></div><h3>${CH[c].n}的專屬裝備</h3><div class="grid">${mine.map(cell).join("")}</div><h3 style="margin-top:14px">大家都能用</h3><div class="grid">${all.map(cell).join("")}</div><p class="sub" id="msg"></p>`;
+const cell=x=>{const own=G.own.includes(x.id),on=W[x.s]==x.id;return `<button data-i="${x.id}"><span class="zy">${SL[x.s]}</span><br><b style="font-size:1rem">${x.e||""} ${x.n}</b><br>${own?(on?"✔ 已穿上":"穿上"):"★ "+x.c+" 購買"}</button>`};
+app.innerHTML=`<div class="card hd">${av(c,W,150)}<h2>${CH[c].n}</h2>${CH[c].note?`<div class="zy">${CH[c].note}</div>`:""}<div class="stars">★ ${wallet()}</div><button class="go" id="chg">換角色</button></div><h3>${CH[c].n}的專屬裝備</h3><div class="grid">${mine.map(cell).join("")}</div><h3 style="margin-top:14px">大家都能用</h3><div class="grid">${all.map(cell).join("")}</div><p class="sub" id="msg"></p>`;
 document.getElementById("chg").onclick=pickChar;
 app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const x=IT.find(y=>y.id==b.dataset.i);if(!G.own.includes(x.id)){if(wallet()<x.c){document.getElementById("msg").textContent="星星還不夠，先去闖關吧！";return}G.spent+=x.c;G.own.push(x.id);W[x.s]=x.id}else W[x.s]=W[x.s]==x.id?null:x.id;save();closet()})}
 tab(1);
