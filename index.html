@@ -39,13 +39,18 @@ select{padding:2px 6px;border-radius:12px;border:2px solid var(--acc);background
 @keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
 .ok{color:var(--ok)}.bad{color:var(--bad)}
 .score{text-align:center;font-size:1.3rem}
+.bar{display:flex;align-items:center;justify-content:center;gap:8px}
+.stars{color:var(--acc);font-weight:700}
+.grid button:disabled{opacity:.45;cursor:not-allowed}
+.pick{display:block;text-align:center}
 </style>
 </head>
 <body>
 <main>
 <h1>🌸 成語小學堂 🌸</h1>
 <p class="sub">跟著三國英雄，一起變成成語小達人 ✨</p>
-<nav><button id="t1" class="on">認識成語</button><button id="t2">小測驗</button></nav>
+<div id="bar" class="bar"></div>
+<nav><button id="t1" class="on">🗺️ 闖關</button><button id="t2">📖 認識成語</button><button id="t3">👗 換裝</button></nav>
 <div id="app"></div>
 </main>
 <script>
@@ -133,7 +138,23 @@ tg:"《三國演義》故事（幫助你記）",
 sg:["赤壁之戰前，周瑜當眾打了老將黃蓋，黃蓋被打得很慘，看起來是壞事。","可是這個苦肉計，讓黃蓋能假裝投降曹操，幫了大忙。壞事變成好事，就像塞翁失馬。"],
 use:"用來安慰別人，或提醒自己：現在的壞事可能是好事的開始。",
 ex:["比賽輸了不要難過，塞翁失馬，焉知非福。","這次沒選上，塞翁失馬，也許有更適合你的機會。"],
-tip:"常搭配「焉知非福」（怎麼知道不是好事）一起用。"}
+tip:"常搭配「焉知非福」（怎麼知道不是好事）一起用。"},
+{e:"🎭",w:"隨機應變",zy:"ㄙㄨㄟˊ ㄐㄧ ㄧㄥˋ ㄅㄧㄢˋ",
+mean:"依照當時的情況，靈活調整做法，把事情處理好。",
+o:null,n:"這個成語沒有找到特定的故事。意思很像的「臨機應變」，有資料說出自《舊唐書》。",
+tg:"《三國演義》故事（幫助你記）",
+sg:["曹操請劉備喝酒，突然說：「天下的英雄，只有你和我。」劉備嚇了一大跳，手上的筷子都掉了。","這時剛好打了一聲雷，劉備就說自己是被雷聲嚇到，把心裡的驚慌掩飾過去。這種臨時想辦法的本事，就是「隨機應變」。"],
+use:"用在遇到沒想到的狀況，馬上想出辦法處理的時候。",
+ex:["演講時麥克風突然壞了，她隨機應變，大聲把話講完。","下雨了，野餐不能在草地上，我們隨機應變，改到室內玩桌遊。"],
+tip:"重點是「配合情況調整」，不是隨便亂做。"},
+{e:"👣",w:"腳踏實地",zy:"ㄐㄧㄠˇ ㄊㄚˋ ㄕˊ ㄉㄧˋ",
+mean:"比喻做事認真、穩當，一步一步踏實地做，不好高騖遠。",
+o:{s:"常見說法：《邵氏聞見前錄》",t:["有一個常見的說法：宋代邵雍稱讚司馬光（字君實）是「腳踏實地」的人，意思是他做事認真、不虛浮。","另外，教育部《成語典》列的早期用例，是元代的戲曲《勘頭巾》。所以這個成語的由來，不同資料說法不太一樣。"]},
+tg:"三國歷史小故事（幫助你記）",
+sg:["諸葛亮北伐，駐紮在五丈原時，讓士兵一邊種田，一邊和魏軍對峙，自己解決糧食的問題。","這種一步一步把基礎做好、不急著求成的做法，就是「腳踏實地」。"],
+use:"用在做事、讀書時，認真穩定，一步一步來。",
+ex:["想把成績變好，就要腳踏實地，每天複習一點點。","他做事腳踏實地，不會偷懶，也不會亂吹牛。"],
+tip:"它的相反是「好高騖遠」（只想著很高很遠的目標）。"}
 ];
 const BLANKS=[
 {t:"赤壁之戰時，黃蓋的火船已經衝向曹軍，曹軍想補救也來不及，這就是【1】。陳琳替袁紹寫的檄文，長長一篇又流暢，可以說是【2】。",a:["木已成舟","洋洋灑灑"]},
@@ -142,19 +163,12 @@ const BLANKS=[
 {t:"老師問誰想當小組長，班長【1】，馬上舉手。這次去果園採水果，大家都【2】。",a:["當仁不讓","滿載而歸"]},
 {t:"她的歌聲讓大家【1】，演唱結束後還【2】，久久不散。",a:["嘆為觀止","餘音繞樑"]},
 {t:"他不聽媽媽的提醒，考試前一直玩，成績不好是【1】。爺爺說遇到壞事不要氣餒，就像【2】，說不定是好事。",a:["咎由自取","塞翁失馬"]},
-{t:"警察想抓小偷，又怕打破旁邊珍貴的花瓶，真是【1】。這個案件【2】，大家都猜不出是誰做的。",a:["投鼠忌器","撲朔迷離"]}
+{t:"警察想抓小偷，又怕打破旁邊珍貴的花瓶，真是【1】。這個案件【2】，大家都猜不出是誰做的。",a:["投鼠忌器","撲朔迷離"]},
+{t:"演講時投影機突然壞了，小明【1】，改成用口說明。他平常準備得很認真，做事一向【2】。",a:["隨機應變","腳踏實地"]},
+{t:"他不想只靠運氣，決定【1】，每天練習一點點；比賽時遇到沒想過的狀況，他也能【2】。",a:["腳踏實地","隨機應變"]}
 ];
-const MCQ=[
-{q:"下面哪一句話用得對？",o:["考卷已經交出去了，木已成舟，再擔心也沒用。","這篇作文只有一行，寫得洋洋灑灑。","作業還沒寫，木已成舟。"],a:0,why:"木已成舟是事情已經定了、改不了；作文只有一行不算洋洋灑灑，作業還沒寫也還可以改。"},
-{q:"「洋洋灑灑」是形容什麼？",o:["文章或說話又長又流暢","天氣很好","東西壞掉了"],a:0,why:"洋洋灑灑形容文章或談話內容豐富、篇幅長又流暢。"},
-{q:"「塞翁失馬」告訴我們什麼？",o:["壞事有時會變成好事","東西不見了要趕快找","老人都很有錢"],a:0,why:"塞翁的馬雖然跑了，後來卻帶回好馬，說明壞事和好事可以互相轉變。"},
-{q:"下面哪一句話用得對？",o:["班上需要有人當值日生，他當仁不讓，主動說我來。","他做錯事又不道歉，真是當仁不讓。","餐廳的菜好難吃，我吃了嘆為觀止。"],a:0,why:"當仁不讓是遇到該做的事勇敢承擔；做錯事不道歉不是，難吃的菜也不能說嘆為觀止。"},
-{q:"「咎由自取」的意思是？",o:["壞結果是自己造成的","被別人陷害","運氣不好"],a:0,why:"咎由自取是壞結果是自己造成的，怪不了別人。"}
-];
-const app=document.getElementById("app"),t1=document.getElementById("t1"),t2=document.getElementById("t2");
+const app=document.getElementById("app"),t1=document.getElementById("t1"),t2=document.getElementById("t2"),t3=document.getElementById("t3");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function tab(n){t1.className=n==1?"on":"";t2.className=n==2?"on":"";n==1?home():quiz()}
-t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);
 function home(){
 app.innerHTML='<div class="grid">'+IDIOMS.map((d,i)=>`<button data-i="${i}"><span class="em">${d.e}</span><b>${esc(d.w)}</b><br><span class="zy">${esc(d.zy)}</span></button>`).join("")+'</div><p class="sub">目前有 '+IDIOMS.length+' 個成語，會慢慢增加喔！</p>';
 app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>show(+b.dataset.i));
@@ -171,36 +185,92 @@ app.innerHTML=`<button class="back">← 回到列表</button>
 <div class="card"><h3>✏️ 例句</h3>${d.ex.map(e=>"<p>🌸 "+esc(e)+"</p>").join("")}</div>`;
 app.querySelector(".back").onclick=home;window.scrollTo(0,0);
 }
-function quiz(){
-const words=IDIOMS.map(d=>d.w);
-const opts='<option value="">選成語</option>'+words.map(w=>`<option>${esc(w)}</option>`).join("");
-app.innerHTML='<p class="sub">一題裡有好幾個成語，要選對位置喔！</p>'+
-BLANKS.map((b,i)=>`<div class="card q" data-b="${i}"><p>${i+1}. `+esc(b.t).replace(/【(\d)】/g,(m,n)=>`<select data-n="${n-1}">${opts}</select>`)+`</p><button class="go">檢查答案</button><div class="fb"></div></div>`).join("")+
-MCQ.map((m,i)=>`<div class="card q" data-m="${i}"><p>${BLANKS.length+i+1}. ${esc(m.q)}</p>${m.o.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}<div class="fb"></div></div>`).join("")+
-'<div class="card score" id="sc"></div>';
-const done={};
-const total=BLANKS.length+MCQ.length;
-const upd=()=>{const n=Object.values(done).filter(Boolean).length,c=Object.keys(done).length;document.getElementById("sc").innerHTML=c<total?`已完成 ${c}/${total} 題，答對 ${n} 題`:`全部完成！答對 ${n}/${total} 題 ${n==total?"🎉 太厲害了，像孔明一樣聰明！":"💪 再看看故事，一定會更好！"}`};
-upd();
-app.querySelectorAll("[data-b]").forEach(el=>{
-const b=BLANKS[+el.dataset.b];
-el.querySelector(".go").onclick=()=>{
-const v=[...el.querySelectorAll("select")].map(s=>s.value);
-if(v.some(x=>!x)){el.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔！</span>';return}
-const ok=v.every((x,k)=>x===b.a[k]);
-done["b"+el.dataset.b]=ok;
-el.querySelector(".fb").innerHTML=ok?'<span class="ok">✔ 答對了！</span>':'<span class="bad">✘ 再想想看。</span> 正確答案：'+b.a.map(esc).join("、");
-upd();}});
-app.querySelectorAll("[data-m]").forEach(el=>{
-const m=MCQ[+el.dataset.m];
-el.querySelectorAll(".opt").forEach(btn=>btn.onclick=()=>{
-if(("m"+el.dataset.m) in done)return;
-const ok=+btn.dataset.j===m.a;done["m"+el.dataset.m]=ok;
-btn.classList.add("sel");
-el.querySelector(".fb").innerHTML=(ok?'<span class="ok">✔ 答對了！</span> ':'<span class="bad">✘ 不對喔。</span> ')+esc(m.why);
-upd();});});
-}
-home();
+const CH={kongming:{n:"孔明",skin:"#ffe0c2",robe:"#dfeee9",trim:"#2a9d8f",hair:"#3a2a2a"},zhaoyun:{n:"趙雲",skin:"#ffe0c2",robe:"#e8edf5",trim:"#3b6fd4",hair:"#2b2b3a"},shangxiang:{n:"孫尚香",skin:"#ffe3cf",robe:"#ffd6dc",trim:"#e2557a",hair:"#5a3222",note:"史書裡稱她「孫夫人」，「尚香」是戲曲裡的名字"}};
+const wp=(g)=>`<g transform="translate(104 104) rotate(20)"><rect x="-3" y="-42" width="6" height="42" fill="#d8dde6" stroke="#7a8aa5"/><rect x="-10" y="0" width="20" height="5" fill="#f2c14e"/><rect x="-2" y="5" width="4" height="13" fill="${g}"/></g>`;
+const IT=[
+{id:"km_hair",ch:"kongming",s:"hair",n:"長髮飄逸",c:2,bk:h=>`<path d="M28 44Q20 104 44 116L76 116Q100 104 92 44Z" fill="${h.hair}"/>`,d:h=>""},
+{id:"km_head",ch:"kongming",s:"head",n:"綸巾（軍師帽）",c:3,d:h=>`<path d="M31 36Q60 -6 89 36Q60 22 31 36Z" fill="#2a9d8f" stroke="#1d6f66" stroke-width="2"/><path d="M89 34Q106 42 100 66" stroke="#2a9d8f" stroke-width="5" fill="none" stroke-linecap="round"/>`},
+{id:"km_out",ch:"kongming",s:"outfit",n:"鶴氅",c:4,d:h=>`<path d="M20 128L30 68H90L100 128Z" fill="#fff" stroke="#2a9d8f" stroke-width="4"/><path d="M50 68L60 94L70 68" fill="none" stroke="#2a9d8f" stroke-width="4"/><path d="M28 112H92" stroke="#bfe3dc" stroke-width="3" stroke-dasharray="4 4"/>`},
+{id:"km_wp",ch:"kongming",s:"weapon",n:"白羽扇",c:3,d:h=>`<g transform="translate(98 102) rotate(-12)"><path d="M0 0Q-18 -30 0 -50Q18 -30 0 0Z" fill="#fff" stroke="#9aa5b1" stroke-width="2"/><path d="M0 0V16" stroke="#8a5a2b" stroke-width="4" stroke-linecap="round"/></g>`},
+{id:"zy_hair",ch:"zhaoyun",s:"hair",n:"高馬尾",c:2,d:h=>`<path d="M82 24Q120 22 110 76Q104 46 80 36Z" fill="${h.hair}"/><rect x="30" y="26" width="60" height="7" rx="3" fill="${h.trim}"/>`},
+{id:"zy_head",ch:"zhaoyun",s:"head",n:"銀盔",c:3,d:h=>`<path d="M30 40Q30 4 60 4Q90 4 90 40Z" fill="#c9d3e0" stroke="#7a8aa5" stroke-width="3"/><path d="M60 4Q62 -14 80 -10Q66 -6 66 4Z" fill="#e2553a"/>`},
+{id:"zy_out",ch:"zhaoyun",s:"outfit",n:"白袍銀甲",c:4,d:h=>`<rect x="28" y="68" width="64" height="58" rx="22" fill="#fff" stroke="#7a8aa5" stroke-width="3"/><rect x="34" y="72" width="52" height="32" rx="10" fill="#c9d3e0" stroke="#7a8aa5" stroke-width="3"/><rect x="28" y="106" width="64" height="7" fill="#3b6fd4"/>`},
+{id:"zy_wp",ch:"zhaoyun",s:"weapon",n:"龍膽亮銀槍",c:4,d:h=>`<line x1="106" y1="134" x2="106" y2="-2" stroke="#8a5a2b" stroke-width="4"/><path d="M106 -12L99 10H113Z" fill="#dfe6f0" stroke="#7a8aa5" stroke-width="2"/><circle cx="106" cy="14" r="4" fill="#e2553a"/>`},
+{id:"zy_wp2",ch:"zhaoyun",s:"weapon",n:"青釭劍",c:3,d:h=>wp("#3b6fd4")},
+{id:"sx_hair",ch:"shangxiang",s:"hair",n:"雙髻",c:2,d:h=>`<circle cx="36" cy="12" r="11" fill="${h.hair}"/><circle cx="84" cy="12" r="11" fill="${h.hair}"/>`},
+{id:"sx_head",ch:"shangxiang",s:"head",n:"金釵髮飾",c:3,d:h=>`<path d="M84 30L68 46" stroke="#f2c14e" stroke-width="3" stroke-linecap="round"/><circle cx="86" cy="24" r="9" fill="#f2c14e"/><circle cx="86" cy="24" r="4" fill="#e2557a"/>`},
+{id:"sx_out",ch:"shangxiang",s:"outfit",n:"紅色勁裝",c:4,d:h=>`<rect x="28" y="68" width="64" height="58" rx="22" fill="#e2557a" stroke="#a83a58" stroke-width="3"/><rect x="28" y="98" width="64" height="8" fill="#f2c14e"/><path d="M50 68L60 86L70 68" fill="none" stroke="#fff" stroke-width="3"/>`},
+{id:"sx_wp",ch:"shangxiang",s:"weapon",n:"弓",c:3,d:h=>`<path d="M100 56Q130 96 100 136" fill="none" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/><line x1="100" y1="56" x2="100" y2="136" stroke="#888" stroke-width="1.5"/>`},
+{id:"sx_wp2",ch:"shangxiang",s:"weapon",n:"短劍",c:3,d:h=>wp("#e2557a")},
+{id:"crown",s:"head",e:"👑",n:"皇冠",c:4},{id:"flower",s:"head",e:"🌸",n:"花髮飾",c:1},{id:"bow",s:"head",e:"🎀",n:"蝴蝶結",c:1},{id:"spark",s:"fx",e:"✨",n:"閃亮特效",c:3}];
+const SL={hair:"髮型",head:"頭飾",outfit:"衣服",weapon:"武器",fx:"特效"};
+const newG=()=>({char:null,best:{},spent:0,own:[],wear:{},v:2});
+function fix(g){g=Object.assign(newG(),g||{});if(g.v!=2){const ref={helmet:3,feather:3,sword:3,arrow:4,crown:1,flower:1,bow:1,spark:1};(g.own||[]).forEach(id=>{g.spent=Math.max(0,g.spent-(ref[id]||0))});g.own=(g.own||[]).filter(id=>!["helmet","feather","sword","arrow"].includes(id));g.wear={};g.v=2}return g}
+let R={cur:0,slots:[null,null,null]};
+try{const r=localStorage.getItem("idiomGame3");if(r)R=JSON.parse(r);else{const o=localStorage.getItem("idiomGame");if(o)R.slots[0]=JSON.parse(o)}}catch(e){}
+R.slots=[0,1,2].map(k=>R.slots[k]?fix(R.slots[k]):null);
+let G=R.slots[R.cur]||(R.slots[R.cur]=newG());
+const save=()=>{R.slots[R.cur]=G;try{localStorage.setItem("idiomGame3",JSON.stringify(R))}catch(e){}};
+const wallet=()=>Object.values(G.best).reduce((a,b)=>a+b,0)-G.spent;
+const sh=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+function av(c,w,z){const h=CH[c];if(!h)return"";w=w||{};const g=s=>IT.find(x=>x.id===w[s]);const dr=s=>{const x=g(s);return x&&x.d?x.d(h):""};const emo=s=>{const x=g(s);return x&&x.e?x.e:""};
+const hi=g("hair"),ou=g("outfit");
+const extra=hi?dr("hair"):(c=="shangxiang"?`<circle cx="26" cy="46" r="9" fill="${h.hair}"/><circle cx="94" cy="46" r="9" fill="${h.hair}"/>`:c=="kongming"?`<circle cx="60" cy="10" r="8" fill="${h.hair}"/>`:`<rect x="30" y="26" width="60" height="7" rx="3" fill="${h.trim}"/>`);
+const back=hi&&hi.bk?hi.bk(h):"";
+const body=ou?ou.d(h):`<rect x="28" y="68" width="64" height="58" rx="24" fill="${h.robe}" stroke="${h.trim}" stroke-width="4"/><rect x="52" y="68" width="16" height="30" rx="6" fill="${h.trim}"/>`;
+return `<svg width="${z}" height="${Math.round(z*152/140)}" viewBox="-10 -14 140 152" role="img" aria-label="${h.n}">${back}${body}<circle cx="60" cy="44" r="30" fill="${h.skin}"/><path d="M30 42Q32 12 60 12Q88 12 90 42Q76 28 60 28Q44 28 30 42Z" fill="${h.hair}"/>${extra}<circle cx="49" cy="46" r="3.5" fill="#3a2a2a"/><circle cx="71" cy="46" r="3.5" fill="#3a2a2a"/><circle cx="42" cy="55" r="5" fill="#ffb3c6" opacity=".7"/><circle cx="78" cy="55" r="5" fill="#ffb3c6" opacity=".7"/><path d="M53 56Q60 63 67 56" stroke="#3a2a2a" stroke-width="2.5" fill="none" stroke-linecap="round"/>${dr("head")}<text x="60" y="14" font-size="26" text-anchor="middle">${emo("head")}</text>${dr("weapon")}<text x="14" y="30" font-size="22" text-anchor="middle">${emo("fx")}</text></svg>`}
+function bar(){document.getElementById("bar").innerHTML=(G.char?`${av(G.char,G.wear[G.char],40)}<b>${CH[G.char].n}</b><span class="stars">⭐ ${wallet()}</span>`:"")+`<button class="back" id="sv">💾 存檔${R.cur+1}</button>`;document.getElementById("sv").onclick=slotsUI}
+function slotsUI(){R.slots[R.cur]=G;app.innerHTML='<p class="sub">每個存檔有自己的角色、星星和衣服，可以給不同的人玩。</p>'+R.slots.map((g,i)=>`<div class="card hd"><b>存檔 ${i+1}${i==R.cur?"（使用中）":""}</b><br>${g&&g.char?av(g.char,g.wear[g.char],80)+"<br>"+CH[g.char].n+"　⭐ "+(Object.values(g.best).reduce((a,b)=>a+b,0)-g.spent):"空的存檔"}<br><button class="go" data-u="${i}">${i==R.cur?"繼續玩":"使用這個存檔"}</button> ${g&&g.char?`<button class="go" data-x="${i}" style="background:var(--bad)">清除重來</button>`:""}</div>`).join("");
+app.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{R.cur=+b.dataset.u;G=R.slots[R.cur]||(R.slots[R.cur]=newG());save();tab(1)});
+app.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{if(!b.dataset.ok){b.dataset.ok=1;b.textContent="再按一次確定清除";return}const i=+b.dataset.x;R.slots[i]=null;if(i==R.cur)G=R.slots[i]=newG();save();slotsUI()})}
+function tab(n){[t1,t2,t3].forEach((b,i)=>b.className=i+1==n?"on":"");if(!G.char){pickChar();return}n==1?map():n==2?(bar(),home()):closet()}
+t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);t3.onclick=()=>tab(3);
+function pickChar(){bar();app.innerHTML='<p class="sub">選一個角色一起闖關吧！</p><div class="grid">'+Object.keys(CH).map(k=>`<button data-c="${k}" class="pick">${av(k,{},90)}<br><b>${CH[k].n}</b></button>`).join("")+'</div>';
+app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{G.char=b.dataset.c;save();tab(1)})}
+const LV=()=>{const a=[];for(let i=0;i<IDIOMS.length;i+=2)a.push([i,Math.min(i+2,IDIOMS.length)]);return a};
+function map(){bar();const L=LV(),st=b=>"⭐".repeat(b)+"☆".repeat(3-b);app.innerHTML='<p class="sub">通過關卡拿星星，星星可以去換衣服！<br>每次玩的題目都不一樣喔～</p><div class="grid">'+L.map((r,i)=>{const b=G.best[i]||0,open=i==0||(G.best[i-1]||0)>=1;return `<button data-l="${i}" ${open?"":"disabled"}><span class="em">${open?"第"+(i+1)+"關":"🔒"}</span><b style="font-size:1rem">${IDIOMS.slice(r[0],r[1]).map(d=>esc(d.w)).join("、")}</b><br>${st(b)}</button>`}).join("")+`<button data-l="c" ${(G.best[0]||0)>=1?"":"disabled"}><span class="em">🎲</span><b style="font-size:1rem">隨機挑戰</b><br>${st(G.best.c||0)}</button></div>`;
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l=="c"?"c":+b.dataset.l))}
+const oth=(w,n)=>sh(IDIOMS.filter(d=>d.w!=w)).slice(0,n);
+const leak=(t,w)=>[0,1,2].some(i=>t.includes(w.slice(i,i+2)));
+const mcq=(t,d,f,why)=>{const o=sh([d,...oth(d.w,2)]);return{k:"mc",t,o:o.map(f),a:o.indexOf(d),why}};
+const QT={
+ex:d=>{const e=sh(d.ex.filter(x=>x.includes(d.w)))[0];return e&&mcq("選出最適合的成語：<br>"+esc(e.replace(d.w,"＿＿＿＿")),d,x=>x.w,"答案是「"+d.w+"」："+d.mean)},
+w2m:d=>mcq("「"+esc(d.w)+"」的意思是？",d,x=>x.mean,d.mean),
+m2w:d=>mcq("哪個成語的意思是：<br>"+esc(d.mean),d,x=>x.w,"答案是「"+d.w+"」。"),
+sg:d=>{const t=d.sg.join("").split(d.w).join("＿＿＿＿");return leak(t,d.w)?null:mcq("這個三國故事，最適合哪個成語？<br>"+esc(t),d,x=>x.w,"答案是「"+d.w+"」："+d.mean)},
+org:d=>{if(!d.o)return null;const t=d.o.t[0].split(d.w).join("＿＿＿＿");return leak(t,d.w)?null:mcq("這是哪個成語的由來？<br>"+esc(t),d,x=>x.w,"答案是「"+d.w+"」。")},
+use:d=>mcq("哪一個是「"+esc(d.w)+"」的用法？",d,x=>x.use,d.use)};
+function pick(d,n){const seen=new Set(),r=[];for(const t of sh(["ex","ex","w2m","m2w","sg","org","use"])){const q=QT[t](d);if(q&&!seen.has(q.t)){seen.add(q.t);r.push(q)}if(r.length>=n)break}return r}
+function mixGen(pool,must){const a=sh(must)[0],b=sh(pool.filter(x=>x!=a))[0];if(!a||!b)return null;const ea=sh(a.ex.filter(x=>x.includes(a.w)))[0],eb=sh(b.ex.filter(x=>x.includes(b.w)))[0];if(!ea||!eb)return null;
+return{k:"bl",t:ea.replace(a.w,"【1】")+eb.replace(b.w,"【2】"),a:[a.w,b.w],bank:sh([a,b,...oth("",99).filter(d=>d!=a&&d!=b).slice(0,2)]).map(x=>x.w)}}
+function mixQ(pool,own){const hand=BLANKS.filter(q=>q.a.every(x=>pool.some(d=>d.w==x))&&q.a.some(x=>own.some(d=>d.w==x)));if(hand.length&&Math.random()<.5){const q=sh(hand)[0];return{k:"bl",t:q.t,a:q.a}}return mixGen(pool,own)}
+function buildQs(l){const L=LV(),qs=[];
+if(l=="c"){let n=L.findIndex((_,i)=>i>0&&(G.best[i-1]||0)<1);if(n<0)n=L.length;const pool=IDIOMS.slice(0,L[n-1][1]);
+for(let k=0;k<8;k++){qs.push(...pick(sh(pool)[0],1))}for(let k=0;k<2;k++){const m=mixQ(pool,pool);if(m)qs.push(m)}return sh(qs)}
+const [a,b]=L[l],own=IDIOMS.slice(a,b),prev=IDIOMS.slice(0,a);
+own.forEach(d=>qs.push(...pick(d,4)));if(prev.length)qs.push(...pick(sh(prev)[0],1));
+const m=mixQ(IDIOMS.slice(0,b),own);if(m)qs.push(m);return sh(qs)}
+function play(l){const qs=buildQs(l),ttl=l=="c"?"🎲 隨機挑戰":"第"+(l+1)+"關";let i=0,ok=0;
+function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;app.querySelectorAll(".opt,select,.chk").forEach(b=>b.disabled=true);
+app.querySelector(".fb").innerHTML=(good?'<span class="ok">🎉 答對了！</span> ':'<span class="bad">再想想看 💪</span> ')+esc(ans)+" "+esc(why||"")+'<br><button class="go nx">'+(i+1>=qs.length?"看結果":"下一題")+'</button>';
+app.querySelector(".nx").onclick=()=>{i++;show()}}
+function show(){bar();if(i>=qs.length)return end();const q=qs[i],hd=`<p class="sub">${ttl}　${i+1}/${qs.length}</p>`;
+if(q.k=="mc"){app.innerHTML=hd+`<div class="card q"><p>${q.t}</p>${q.o.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}<div class="fb"></div></div>`;
+app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const g=+b.dataset.j==q.a;done(g,g?"":"正確答案："+q.o[q.a]+"。",q.why)})}
+else{const op='<option value="">選成語</option>'+(q.bank||IDIOMS.map(d=>d.w)).map(w=>`<option>${esc(w)}</option>`).join("");
+app.innerHTML=hd+`<div class="card q"><p>`+esc(q.t).replace(/【(\d)】/g,`<select>${op}</select>`)+`</p><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
+app.querySelector(".chk").onclick=()=>{const v=[...app.querySelectorAll("select")].map(x=>x.value);if(v.some(x=>!x)){app.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔！</span>';return}
+const g=v.every((x,k)=>x===q.a[k]);done(g,g?"":"正確答案："+q.a.join("、")+"。","")}}}
+function end(){const r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=Math.max(0,s-old);if(s>old){G.best[l]=s;save()}bar();
+app.innerHTML=`<div class="card score"><div style="font-size:2.4rem">${"⭐".repeat(s)+"☆".repeat(3-s)}</div><p>答對 ${ok}/${qs.length} 題</p><p>${gain?`獲得 <b>${gain}</b> 顆新星星！可以去換裝囉 👗`:s?"這關的星星你已經拿過了，挑戰更高的星星吧！":"先到「認識成語」再讀一讀，然後再挑戰一次！"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到地圖</button></div>`;
+document.getElementById("again").onclick=()=>play(l);document.getElementById("back").onclick=map}
+show()}
+function closet(){bar();const c=G.char,W=G.wear[c]||(G.wear[c]={}),mine=IT.filter(x=>x.ch==c),all=IT.filter(x=>!x.ch);
+const cell=x=>{const own=G.own.includes(x.id),on=W[x.s]==x.id;return `<button data-i="${x.id}"><span class="zy">${SL[x.s]}</span><br><b style="font-size:1rem">${x.e||""} ${x.n}</b><br>${own?(on?"✔ 已穿上":"穿上"):"⭐ "+x.c+" 購買"}</button>`};
+app.innerHTML=`<div class="card hd">${av(c,W,150)}<h2>${CH[c].n}</h2>${CH[c].note?`<div class="zy">${CH[c].note}</div>`:""}<div class="stars">⭐ ${wallet()}</div><button class="go" id="chg">換角色</button></div><h3>${CH[c].n}的專屬裝備</h3><div class="grid">${mine.map(cell).join("")}</div><h3 style="margin-top:14px">大家都能用</h3><div class="grid">${all.map(cell).join("")}</div><p class="sub" id="msg"></p>`;
+document.getElementById("chg").onclick=pickChar;
+app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const x=IT.find(y=>y.id==b.dataset.i);if(!G.own.includes(x.id)){if(wallet()<x.c){document.getElementById("msg").textContent="星星還不夠，先去闖關吧！";return}G.spent+=x.c;G.own.push(x.id);W[x.s]=x.id}else W[x.s]=W[x.s]==x.id?null:x.id;save();closet()})}
+tab(1);
 </script>
 </body>
 </html>
