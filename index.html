@@ -313,7 +313,9 @@ const extra=hi?dr("hair"):(c=="shangxiang"?`<circle cx="26" cy="46" r="9" fill="
 const back=hi&&hi.bk?hi.bk(h):"";
 const body=ou?ou.d(h):`<rect x="28" y="68" width="64" height="58" rx="24" fill="${h.robe}" stroke="${h.trim}" stroke-width="4"/><rect x="52" y="68" width="16" height="30" rx="6" fill="${h.trim}"/>`;
 return `<svg width="${z}" height="${Math.round(z*152/140)}" viewBox="-10 -14 140 152" role="img" aria-label="${h.n}">${back}${body}<circle cx="60" cy="44" r="30" fill="${h.skin}"/><path d="M30 42Q32 12 60 12Q88 12 90 42Q76 28 60 28Q44 28 30 42Z" fill="${h.hair}"/>${extra}<circle cx="49" cy="46" r="3.5" fill="#3a2a2a"/><circle cx="71" cy="46" r="3.5" fill="#3a2a2a"/><circle cx="42" cy="55" r="5" fill="#ffb3c6" opacity=".7"/><circle cx="78" cy="55" r="5" fill="#ffb3c6" opacity=".7"/><path d="M53 56Q60 63 67 56" stroke="#3a2a2a" stroke-width="2.5" fill="none" stroke-linecap="round"/>${dr("head")}<text x="60" y="14" font-size="26" text-anchor="middle">${emo("head")}</text>${dr("weapon")}<text x="14" y="30" font-size="22" text-anchor="middle">${emo("fx")}</text></svg>`}
-function bar(){document.getElementById("bar").innerHTML=(G.char?`${av(G.char,G.wear[G.char],40)}<b>${CH[G.char].n}</b><span class="stars">★ ${wallet()}</span>`:"")+`<button class="back" id="sv">💾 存檔${R.cur+1}</button>`;document.getElementById("sv").onclick=slotsUI}
+function bar(){document.getElementById("bar").innerHTML=(G.char?`${av(G.char,G.wear[G.char],40)}<b>${CH[G.char].n}</b><span class="stars">★ ${wallet()}</span>`:"")+`<button class="back" id="sv">💾 存檔${R.cur+1}</button><button class="back" id="sxb">音效${SND.fx?"開":"關"}</button><button class="back" id="smb">音樂${SND.bgm?"開":"關"}</button>`;document.getElementById("sv").onclick=slotsUI;
+document.getElementById("sxb").onclick=()=>{SND.fx=!SND.fx;sndSave();bar();fx("ok")};
+document.getElementById("smb").onclick=()=>{SND.bgm=!SND.bgm;sndSave();SND.bgm?bgmOn():bgmOff();bar()}}
 function slotsUI(){R.slots[R.cur]=G;app.innerHTML='<p class="sub">每個存檔有自己的角色、星星和衣服，可以給不同的人玩。</p>'+R.slots.map((g,i)=>`<div class="card hd"><b>存檔 ${i+1}${i==R.cur?"（使用中）":""}</b><br>${g&&g.char?av(g.char,g.wear[g.char],80)+"<br>"+CH[g.char].n+"　★ "+(Object.values(g.best).reduce((a,b)=>a+b,0)-g.spent):"空的存檔"}<br><button class="go" data-u="${i}">${i==R.cur?"繼續玩":"使用這個存檔"}</button> ${g&&g.char?`<button class="go" data-x="${i}" style="background:var(--bad)">清除重來</button>`:""}</div>`).join("")+`<div class="card"><h3>備份與還原</h3><p class="zy">把所有存檔變成一串代碼，存在備忘錄裡。換手機或瀏覽器時，貼上代碼就能還原。</p><div class="hd"><button class="go" id="bkmk">產生備份代碼</button></div><textarea id="bkout" class="bk" readonly placeholder="按上面的按鈕，代碼會出現在這裡"></textarea><div class="hd"><button class="go" id="bkcp">複製代碼</button></div><div class="fb" id="bkmsg"></div><hr style="border:0;border-top:1px solid var(--line);margin:14px 0"><p class="zy">還原：把備份代碼貼在下面（會取代目前所有存檔）。</p><textarea id="bkin" class="bk" placeholder="貼上備份代碼"></textarea><div class="hd"><button class="go" id="bkrs" style="background:var(--bad)">還原存檔</button></div></div>`;
 app.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{R.cur=+b.dataset.u;G=R.slots[R.cur]||(R.slots[R.cur]=newG());save();tab(1)});
 app.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{if(!b.dataset.ok){b.dataset.ok=1;b.textContent="再按一次確定清除";return}const i=+b.dataset.x;R.slots[i]=null;if(i==R.cur)G=R.slots[i]=newG();save();slotsUI()});
@@ -324,6 +326,30 @@ const rs=document.getElementById("bkrs");rs.onclick=()=>{const v=document.getEle
 if(!o||!Array.isArray(o.slots)||o.slots.length!=3){msg("這不是正確的備份代碼，請確認整串都貼上了。");return}
 if(!rs.dataset.ok){rs.dataset.ok=1;rs.textContent="再按一次確定還原（會取代現有存檔）";return}
 R={cur:[0,1,2].includes(o.cur)?o.cur:0,slots:[0,1,2].map(k=>o.slots[k]?fix(o.slots[k]):null)};G=R.slots[R.cur]||(R.slots[R.cur]=newG());save();tab(1)}}
+/* ===== 音效與音樂（全部由程式即時合成，沒有使用任何現成的歌曲或音檔） ===== */
+const SND={fx:true,bgm:true};try{Object.assign(SND,JSON.parse(localStorage.getItem("idiomSnd")||"{}"))}catch(e){}
+let AC=null,MS=null,BB=null,bgmT=null,bgmN=0,bgmAt=0,bgmI=4;
+const sndSave=()=>{try{localStorage.setItem("idiomSnd",JSON.stringify(SND))}catch(e){}};
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();MS=AC.createGain();MS.gain.value=.9;MS.connect(AC.destination);
+BB=AC.createGain();BB.gain.value=.55;const lp=AC.createBiquadFilter();lp.type="lowpass";lp.frequency.value=2200;const dl=AC.createDelay(1),fb=AC.createGain();dl.delayTime.value=.38;fb.gain.value=.3;BB.connect(lp);lp.connect(MS);lp.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(MS)}catch(e){AC=null}}
+if(AC&&AC.state=="suspended"){try{AC.resume()}catch(e){}}return AC}
+function tone(f,t,d,type,v,dest){const o=AC.createOscillator(),g=AC.createGain();o.type=type||"sine";o.frequency.value=f;g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(dest||MS);o.start(t);o.stop(t+d+.05)}
+const SFX={
+ok(t){tone(784,t,.18,"triangle",.16);tone(1047,t+.1,.3,"triangle",.16)},
+bad(t){tone(262,t,.28,"sine",.13);tone(220,t+.14,.4,"sine",.13)},
+click(t){tone(660,t,.06,"triangle",.07)},
+star(t){[523,659,784,1047,1319].forEach((f,i)=>tone(f,t+i*.09,.35,"triangle",.14))},
+buy(t){tone(880,t,.2,"sine",.15);tone(1319,t+.09,.35,"sine",.15)}};
+function fx(n){if(!SND.fx||!ac())return;try{SFX[n](AC.currentTime+.01)}catch(e){}}
+const PEN=[0,2,4,7,9,12,14,16,19,21].map(k=>261.63*Math.pow(2,k/12)),ROOT=[130.81,110,98,164.81];
+function bgmStep(t){const n=bgmN++;if(n%4==0)tone(ROOT[(n/4)%4],t,2.6,"sine",.09,BB);
+if(Math.random()<.75){bgmI=Math.max(0,Math.min(9,bgmI+[-2,-1,-1,0,1,1,2][Math.floor(Math.random()*7)]));tone(PEN[bgmI],t,1.2,"triangle",.07,BB)}
+if(n%8==6&&Math.random()<.6)tone(PEN[Math.min(9,bgmI+2)]*2,t+.35,.8,"sine",.035,BB)}
+function bgmOn(){if(!SND.bgm||bgmT||!ac())return;bgmAt=AC.currentTime+.1;bgmT=setInterval(()=>{try{while(bgmAt<AC.currentTime+.5){bgmStep(bgmAt);bgmAt+=.72}}catch(e){}},150)}
+function bgmOff(){clearInterval(bgmT);bgmT=null}
+document.addEventListener("pointerdown",()=>bgmOn(),{once:true});
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("button");if(b&&!b.classList.contains("opt")&&!b.classList.contains("chk")&&!b.classList.contains("nx")&&b.id!="sxb"&&b.id!="smb")fx("click")});
+document.addEventListener("visibilitychange",()=>{if(!AC)return;try{document.hidden?AC.suspend():AC.resume()}catch(e){}});
 const stars=n=>`<span class="st">${"★".repeat(n)}${"☆".repeat(3-n)}</span>`;
 const SUBS=[["idiom","成語"],["math","數學"],["chinese","國語"]];
 function setSub(){const sb=G.sub||"idiom";document.getElementById("subj").innerHTML=SUBS.map(x=>`<button class="${sb==x[0]?"on":""}" data-s="${x[0]}">${x[1]}</button>`).join("");t2.textContent=sb=="idiom"?"認識成語":"錯題本";document.querySelectorAll("#subj button").forEach(b=>b.onclick=()=>{G.sub=b.dataset.s;save();tab(1)})}
@@ -446,7 +472,7 @@ app.innerHTML=w.length?`<p class="sub">答錯的${nm}題會收集在這裡，就
 const b=document.getElementById("wp");if(b)b.onclick=()=>play("w",sh(w.map(x=>Object.assign({},x))).slice(0,10));
 const c=document.getElementById("wc");if(c)c.onclick=()=>{if(!c.dataset.ok){c.dataset.ok=1;c.textContent="再按一次確定清空";return}G.wrongBy[sb]=[];save();wrongBook()}}
 function play(l,pre){const isM=String(l)[0]=="m",isZ=String(l)[0]=="z",qs=pre||(isM?buildM(l):isZ?buildZ(l):buildQs(l)),ttl=l=="w"?"錯題本練習":l=="mc"?"數學綜合挑戰":isM?"數學　"+(ML.find(m=>"m:"+m.id==l)||{}).n:l=="zc"?"國語綜合挑戰":isZ?"國語　"+(ZL.find(z=>"z:"+z.id==l)||{}).n:l=="c"?"隨機挑戰":"第"+(l+1)+"關";let i=0,ok=0;
-function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;const q0=qs[i];const ws=l=="w"?(G.sub=="chinese"?"chinese":"math"):isZ?"chinese":isM?"math":null;if(ws){G.wrongBy=G.wrongBy||{math:[],chinese:[]};const W=G.wrongBy[ws]||(G.wrongBy[ws]=[]),ex=W.find(w=>w.t==q0.t);if(ex){if(good)ex.n=(ex.n||0)+1}else if(!good)W.push(Object.assign({n:0},q0));G.wrongBy[ws]=W.slice(-100);save()}
+function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;fx(good?"ok":"bad");const q0=qs[i];const ws=l=="w"?(G.sub=="chinese"?"chinese":"math"):isZ?"chinese":isM?"math":null;if(ws){G.wrongBy=G.wrongBy||{math:[],chinese:[]};const W=G.wrongBy[ws]||(G.wrongBy[ws]=[]),ex=W.find(w=>w.t==q0.t);if(ex){if(good)ex.n=(ex.n||0)+1}else if(!good)W.push(Object.assign({n:0},q0));G.wrongBy[ws]=W.slice(-100);save()}
 app.querySelectorAll(".opt,select,.chk,input").forEach(b=>b.disabled=true);
 app.querySelector(".fb").innerHTML=(good?'<span class="ok">✔ 答對了！</span> ':'<span class="bad">再想想看</span> ')+esc(ans)+" "+esc(why||"")+'<br><button class="go nx">'+(i+1>=qs.length?"看結果":"下一題")+'</button>';
 app.querySelector(".nx").onclick=()=>{i++;show()}}
@@ -462,7 +488,7 @@ else{const op='<option value="">選成語</option>'+(q.bank||IDIOMS.map(d=>d.w))
 app.innerHTML=hd+`<div class="card q"><p>`+esc(q.t).replace(/【(\d)】/g,`<select>${op}</select>`)+`</p><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
 app.querySelector(".chk").onclick=()=>{const v=[...app.querySelectorAll("select")].map(x=>x.value);if(v.some(x=>!x)){app.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔。</span>';return}
 const g=v.every((x,k)=>x===q.a[k]);done(g,g?"":"正確答案："+q.a.join("、")+"。","")}}}
-function end(){const r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=l=="w"?0:Math.max(0,s-old);if(l!="w"&&s>old){G.best[l]=s;save()}bar();
+function end(){const r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=l=="w"?0:Math.max(0,s-old);if(l!="w"&&s>old){G.best[l]=s;save()}bar();if(s>0&&l!="w")fx("star");
 app.innerHTML=`<div class="card score"><div style="font-size:2rem">${l=="w"?"":stars(s)}</div><p>答對 ${ok} / ${qs.length} 題</p><p>${l=="w"?"錯題本練習不計星星，題目會繼續留在錯題本裡，考前可以再看。":gain?`獲得 <b>${gain}</b> 顆新星星，可以到「換裝」挑選配件。`:s?"這關的星星已經拿過了，挑戰更高的星星吧。":isM?"再試一次，慢慢算就會了。":isZ?"再讀一讀課文，再試一次。":"先到「認識成語」再讀一讀，然後再挑戰一次。"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到列表</button></div>`;
 document.getElementById("again").onclick=()=>play(l,l=="w"?pre:undefined);document.getElementById("back").onclick=()=>tab(l=="w"?2:1)}
 show()}
@@ -470,7 +496,7 @@ function closet(){bar();const c=G.char,W=G.wear[c]||(G.wear[c]={}),mine=IT.filte
 const cell=x=>{const own=G.own.includes(x.id),on=W[x.s]==x.id;return `<button data-i="${x.id}"><span class="zy">${SL[x.s]}</span><br><b style="font-size:1rem">${x.e||""} ${x.n}</b><br>${own?(on?"✔ 已穿上":"穿上"):"★ "+x.c+" 購買"}</button>`};
 app.innerHTML=`<div class="card hd">${av(c,W,150)}<h2>${CH[c].n}</h2>${CH[c].note?`<div class="zy">${CH[c].note}</div>`:""}<div class="stars">★ ${wallet()}</div><button class="go" id="chg">換角色</button></div><h3>${CH[c].n}的專屬裝備</h3><div class="grid">${mine.map(cell).join("")}</div><h3 style="margin-top:14px">大家都能用</h3><div class="grid">${all.map(cell).join("")}</div><p class="sub" id="msg"></p>`;
 document.getElementById("chg").onclick=pickChar;
-app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const x=IT.find(y=>y.id==b.dataset.i);if(!G.own.includes(x.id)){if(wallet()<x.c){document.getElementById("msg").textContent="星星還不夠，先去闖關吧！";return}G.spent+=x.c;G.own.push(x.id);W[x.s]=x.id}else W[x.s]=W[x.s]==x.id?null:x.id;save();closet()})}
+app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const x=IT.find(y=>y.id==b.dataset.i);if(!G.own.includes(x.id)){if(wallet()<x.c){document.getElementById("msg").textContent="星星還不夠，先去闖關吧！";return}G.spent+=x.c;G.own.push(x.id);W[x.s]=x.id;fx("buy")}else W[x.s]=W[x.s]==x.id?null:x.id;save();closet()})}
 tab(1);
 </script>
 </body>
