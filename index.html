@@ -391,11 +391,23 @@ function mVertMul(){for(let n=0;n<500;n++){const a=rn(11,99),b=rn(2,9),s=a*b,P=x
 const k=rn(2,3),bl=sh(cells).slice(0,k).map(([r,c])=>[r,c,+(r=="a"?A[c]:r=="b"?B[c]:S[c])]);
 let cnt=0;for(let m=0;m<10**k&&cnt<2;m++){const d=String(m).padStart(k,"0"),X={a:[...A],b:[...B],s:[...S]};bl.forEach((x,i)=>{X[x[0]][x[1]]=d[i]});const ta=X.a.join("").trim(),tb=X.b.join("").trim(),ts=X.s.join("").trim();if(ta[0]=="0"||tb[0]=="0"||ts[0]=="0")continue;if(+ta*+tb==+ts)cnt++}
 if(cnt!=1)continue;const q={k:"vert",op:"×",A,B,S,bl};q.t=vHtml(q,false);q.a=`${a} × ${b} = ${s}`;q.why="先算個位數乘以乘數，再算十位數乘以乘數，別忘了加上進位。";return q}return mMul()}
-const ML=[{id:"vmul",n:"直式留空　乘法（二位數×一位數）",g:mVertMul},{id:"mul",n:"乘法留空（二位數×一位數）",g:mMul},{id:"vadd",n:"直式留空　加法",g:()=>mVert("+")},{id:"vsub",n:"直式留空　減法",g:()=>mVert("-")},{id:"add",n:"橫式留空　加法",g:mAdd},{id:"sub",n:"橫式留空　減法",g:mSub},{id:"div",n:"除法留空",g:mDiv},{id:"cmp",n:"比大小 □",g:mCmp},{id:"word",n:"文字題留空",g:mWord}];
-function buildM(key){const f=key=="mc"?null:ML.find(m=>"m:"+m.id==key).g,len=key=="mc"?10:8,qs=[],seen=new Set();for(let k=0;qs.length<len&&k<300;k++){const q=(f||sh(ML)[0].g)();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}}return qs}
-function mapMath(){bar();app.innerHTML='<p class="sub">三年級數學　算式留空練習<br>最近的單元是二位數 × 一位數，各關互相獨立，想練哪一關都可以</p><div class="grid">'+ML.map((m,i)=>{const b=G.best["m:"+m.id]||0;return `<button data-l="m:${m.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${m.n}</b><br>${stars(b)}</button>`}).join("")+`<button data-l="mc"><span class="em">挑戰</span><b>數學綜合</b><br>${stars(G.best.mc||0)}</button></div>`;
-app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
 const mcz=(t,c,w,why)=>{const o=sh([c,...w]);return{k:"mc",t,o,a:o.indexOf(c),why}};
+function mUnit(){const t=rn(0,3);
+if(t==0){const a=rn(2,40);return Q(`${a}公分 = □ 毫米`,a*10,`1 公分是 10 毫米，所以 ${a} × 10 = ${a*10}`)}
+if(t==1){const a=rn(3,60);return Q(`${a*10}毫米 = □ 公分`,a,`10 毫米是 1 公分，所以 ${a*10} ÷ 10 = ${a}`)}
+if(t==2){const a=rn(1,30),b=rn(1,9);return Q(`${a}公分${b}毫米 = □ 毫米`,a*10+b,`${a} 公分是 ${a*10} 毫米，再加 ${b} 毫米，一共 ${a*10+b} 毫米`)}
+const a=rn(1,30),b=rn(1,9),m=a*10+b,c=`${a}公分${b}毫米`,w=[...new Set([`${b}公分${a}毫米`,`${a+1}公分${b}毫米`,`${a}公分${b*10}毫米`,`${m}公分`].filter(x=>x!=c))].slice(0,3);
+return mcz(`${m}毫米 是幾公分幾毫米？`,c,w,`${m} 毫米裡有 ${a} 個 10 毫米（${a} 公分），剩下 ${b} 毫米，所以是 ${c}`)}
+function mUnit2(){const t=rn(0,4);
+if(t==0){const x=rn(10,99),y=rn(10,99);return Q(`${x}毫米 + ${y}毫米 = □ 毫米`,x+y,`${x} + ${y} = ${x+y}`)}
+if(t==1){const x=rn(40,99),y=rn(10,x-5);return Q(`${x}毫米 − ${y}毫米 = □ 毫米`,x-y,`${x} − ${y} = ${x-y}`)}
+if(t==2){const a=rn(2,15),m=Math.random()<.25?a*10:rn(20,160),c=a*10>m?`${a}公分`:a*10<m?`${m}毫米`:"一樣長";return mcz(`「${a}公分」和「${m}毫米」，哪一個比較長？`,c,["一樣長",`${a}公分`,`${m}毫米`].filter(x=>x!=c),`${a} 公分是 ${a*10} 毫米，和 ${m} 毫米比比看：${a*10>m?a*10+" 比 "+m+" 大":a*10<m?a*10+" 比 "+m+" 小":"一樣大"}`)}
+if(t==3){const a=rn(1,12),b=rn(1,9),m=a*10+b,c=`${a}公分${b}毫米`,w=[...new Set([`${b}公分${a}毫米`,`${a+1}公分${b}毫米`,`${m}公分`].filter(x=>x!=c))].slice(0,3);return mcz(`一枝鉛筆長 ${m} 毫米，也就是幾公分幾毫米？`,c,w,`${m} 毫米 = ${a} 公分 ${b} 毫米`)}
+const a=rn(1,20),b=rn(1,9),c=rn(5,60);return Q(`${a}公分${b}毫米 + ${c}毫米 = □ 毫米`,a*10+b+c,`${a} 公分 ${b} 毫米是 ${a*10+b} 毫米，再加 ${c} 毫米，一共 ${a*10+b+c} 毫米`)}
+const ML=[{id:"mm",n:"單位換算：公分和毫米",g:mUnit},{id:"mm2",n:"長度的計算與比較（毫米）",g:mUnit2},{id:"vmul",n:"直式留空　乘法（二位數×一位數）",g:mVertMul},{id:"mul",n:"乘法留空（二位數×一位數）",g:mMul},{id:"vadd",n:"直式留空　加法",g:()=>mVert("+")},{id:"vsub",n:"直式留空　減法",g:()=>mVert("-")},{id:"add",n:"橫式留空　加法",g:mAdd},{id:"sub",n:"橫式留空　減法",g:mSub},{id:"div",n:"除法留空",g:mDiv},{id:"cmp",n:"比大小 □",g:mCmp},{id:"word",n:"文字題留空",g:mWord}];
+function buildM(key){const f=key=="mc"?null:ML.find(m=>"m:"+m.id==key).g,len=key=="mc"?10:8,qs=[],seen=new Set();for(let k=0;qs.length<len&&k<300;k++){const q=(f||sh(ML)[0].g)();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}}return qs}
+function mapMath(){bar();app.innerHTML='<p class="sub">三年級數學　算式留空練習<br>最近的單元：二位數 × 一位數、公分和毫米，各關互相獨立，想練哪一關都可以</p><div class="grid">'+ML.map((m,i)=>{const b=G.best["m:"+m.id]||0;return `<button data-l="m:${m.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${m.n}</b><br>${stars(b)}</button>`}).join("")+`<button data-l="mc"><span class="em">挑戰</span><b>數學綜合</b><br>${stars(G.best.mc||0)}</button></div>`;
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
 const ZR=[
 ()=>mcz("小丑魚和海葵彼此幫忙，兩邊都得到好處。這種關係叫做什麼？","互利共生",["弱肉強食","各自生活","互相競爭"],"互利共生，就是兩種生物互相幫忙、互相得到好處。"),
 ()=>mcz("海葵的觸手上有什麼，讓許多魚不敢靠近？","刺細胞",["堅硬的殼","大大的牙齒","亮亮的鱗片"],"海葵的觸手上有刺細胞，會放出毒液，用來捕食和保護自己。"),
