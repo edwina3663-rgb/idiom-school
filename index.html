@@ -52,6 +52,31 @@ input[type=number]{font-size:1.3rem;width:8em;text-align:center;margin-right:8px
 .st{color:var(--gold);letter-spacing:.12em}
 .eq{font-family:var(--serif);font-size:1.5rem;text-align:center;margin:8px 0 14px;line-height:1.9}
 .stars{font-weight:700}
+#pv{position:fixed;inset:0;background:#fff;color:#222;z-index:100;overflow:auto;padding:12px;--bg:#fff;--card:#fff;--ink:#222;--sub:#555;--acc:#a4545f;--line:#bbb;font-size:15px;line-height:1.8}
+#pv .tool{position:sticky;top:0;background:#fff;padding:8px 0;border-bottom:1px solid #ccc;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;z-index:2}
+#pv .tool button{padding:6px 16px;border:1px solid #a4545f;background:#a4545f;color:#fff;border-radius:999px;cursor:pointer}
+#pv .tool button.gh{background:#fff;color:#a4545f}
+#pv .sheet{max-width:780px;margin:0 auto}
+#pv h1{font-size:1.45rem;margin:6px 0;letter-spacing:.1em;text-align:center}
+#pv h1::after{display:none}
+#pv .hdr{display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:center;border-bottom:2px solid #222;padding-bottom:6px;margin-bottom:8px}
+#pv .note{color:#555;font-size:.85rem;text-align:center}
+#pv h2{font-size:1.05rem;text-align:left;letter-spacing:.05em;margin:14px 0 4px;border-bottom:1px solid #999}
+.pq{margin:10px 0;break-inside:avoid}.pt{font-weight:500}
+.po{display:flex;flex-wrap:wrap;gap:4px 18px;margin:4px 0 0 1.8em}
+.pa{margin:6px 0 0 1.8em}.pm{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin:4px 0 0 1.8em}
+.pq .eq{font-size:1.2rem;text-align:left;margin:4px 0}.pq .vt{margin:6px 0 6px 1.8em}.pq .ctx{font-size:.9rem}
+.dbx{display:inline-block;width:34px;height:34px;border:1px solid #333;margin:2px;vertical-align:middle}
+.pcut{page-break-before:always;margin-top:24px}
+@media print{body>*:not(#pv){display:none!important}#pv{position:static;overflow:visible;padding:0}#pv .tool{display:none}}
+.ctx{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:10px;line-height:1.9;font-size:.95rem}
+.mtg{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin:8px 0}
+.mtc{display:flex;flex-direction:column;gap:8px}
+.opt.mt{margin:0;text-align:center;font-size:.92rem;line-height:1.5}
+.opt.okm{border-color:var(--ok);color:var(--ok);opacity:.75}
+.opt.badm{border-color:var(--bad);animation:shk .3s}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.mis{margin:6px 0 2px;color:var(--acc)}
 .chips{display:flex;flex-wrap:wrap;justify-content:center;margin:8px 0 12px}
 .chip{padding:4px 14px;margin:3px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--sub);cursor:pointer;font-size:.9rem}
 .chip.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
@@ -316,7 +341,15 @@ tg:"三國歷史小故事（幫助你記）",
 sg:["東吳的呂蒙本來是個武將，不太讀書。孫權勸他要多讀書，他就認真學習。","後來魯肅見到他，驚訝地說他進步很多，已經不是以前那個「阿蒙」了。把學到的道理連起來使用，就是「融會貫通」的好例子。"],
 use:"用在把學到的東西全部學通、能自己運用的時候。",
 ex:["他把數學課學到的方法融會貫通，不管怎麼變題目都會做。","只要把這個單元融會貫通，考試就不難了。"],
-tip:"不是背起來就好，要能自己運用才叫融會貫通。"}
+tip:"不是背起來就好，要能自己運用才叫融會貫通。"},
+{e:"📜",w:"洛陽紙貴",zy:"ㄌㄨㄛˋ ㄧㄤˊ ㄓˇ ㄍㄨㄟˋ",
+mean:"形容著作風行，流傳很廣，大家爭著抄寫、購買。",
+o:{s:"《晉書·卷九二·文苑列傳·左思》",t:["西晉的左思花了十年的時間，寫成〈三都賦〉。剛寫好時，大家並不重視。","後來名士張華、皇甫謐、劉逵等人讀了，都大力稱讚，還幫忙寫序推薦。於是洛陽的權貴和百姓爭著抄寫，紙供不應求，價錢也漲高了。","後人就用「洛陽紙貴」，形容著作風行一時、廣受歡迎、流傳很廣。"]},
+tg:"三國歷史小故事（幫助你記）",
+sg:["〈三都賦〉寫的是三國時代的魏都、蜀都、吳都，也就是魏、蜀、吳三國的都城。（這是歷史事實，不是《三國演義》的情節）","左思是三國結束以後、西晉時代的人。他把三國的都城寫成文章，大家看了都很喜歡，才有了「洛陽紙貴」。"],
+use:"用在書、文章、作品很受歡迎，很多人搶著看或搶著買的時候。",
+ex:["這本新出的故事書洛陽紙貴，書店一下子就賣完了。","他的小說洛陽紙貴，大家都排隊買。"],
+tip:"形容的是「作品受歡迎」，不是形容紙很貴，也不是說人很有錢。"}
 ];
 const BLANKS=[
 {t:"赤壁之戰時，黃蓋的火船已經衝向曹軍，曹軍想補救也來不及，這就是【1】。陳琳替袁紹寫的檄文，長長一篇又流暢，可以說是【2】。",a:["木已成舟","洋洋灑灑"]},
@@ -331,7 +364,8 @@ const BLANKS=[
 {t:"他一向【1】，看到比他小的同學就欺負，看到高年級卻嚇得躲起來。後來他知道錯了，決定【2】，再也不這樣了。",a:["欺善怕惡","痛改前非"]},
 {t:"考試結束了，我【1】地吐了一口氣。只要平常用心把學到的東西【2】，考試就不難。",a:["如釋重負","融會貫通"]},
 {t:"他為了賺錢，竟然出賣好朋友，真是【1】。比賽輸了以後，球隊沒有放棄，決定【2】，下次再努力。",a:["見利忘義","重整旗鼓"]},
-{t:"做事要適可而止，太過頭反而會變成壞事，這就是【1】。這個車站的路線【2】，去哪裡都很方便。",a:["物極必反","四通八達"]}
+{t:"做事要適可而止，太過頭反而會變成壞事，這就是【1】。這個車站的路線【2】，去哪裡都很方便。",a:["物極必反","四通八達"]},
+{t:"這本繪本一出版就【1】，書店天天補貨。老師說，把學到的東西【2】，作文就能寫得更好。",a:["洛陽紙貴","融會貫通"]}
 ];
 const app=document.getElementById("app"),t1=document.getElementById("t1"),t2=document.getElementById("t2"),t3=document.getElementById("t3");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -525,10 +559,46 @@ return Object.assign(mcz(`${a}公分${b}毫米 + ${c}公分${d}毫米 = ？`,ok,
 if(t==2){const N=rn(31,118);return Object.assign({k:"num",t:ruler(0,N)+"<div>紅色線段有幾毫米？</div>",a:N,why:`尺上每 1 公分有 10 小格，每小格是 1 毫米。線段從 0 量到 ${cmx(N)}，所以是 ${N} 毫米`},{_c:["ruler",N]})}
 if(t==3){const N=rn(31,118),ok=cmx(N),w=[...new Set([`${N%10}公分${Math.floor(N/10)}毫米`,`${Math.floor(N/10)+1}公分${N%10}毫米`,`${Math.floor(N/10)}公分${(N%10+5)%10}毫米`].filter(x=>x!=ok))].slice(0,3);return Object.assign(mcz(ruler(0,N)+"<div>紅色線段是幾公分幾毫米？</div>",ok,w,`線段是 ${N} 毫米，每 10 毫米是 1 公分，所以是 ${ok}`),{_c:["ruler2",N]})}
 const s0=rn(10,40),len=rn(25,70);return Object.assign({k:"num",t:ruler(s0,s0+len)+"<div>紅色線段有幾毫米？（注意：不是從 0 開始量）</div>",a:len,why:`線段從 ${cmx(s0)} 量到 ${cmx(s0+len)}：${s0+len} − ${s0} = ${len} 毫米`},{_c:["ruler3",len]})}
-const ML=[{id:"meter",n:"公尺、公分、毫米的換算",g:mMeter},{id:"cmpw",n:"比…多、比…少：反推長度",g:mCmpWord},{id:"carry",n:"長度加減（進位、借位）與看尺",g:mCarry},{id:"mm",n:"單位換算：公分和毫米",g:mUnit},{id:"mm2",n:"長度的計算與比較（毫米）",g:mUnit2},{id:"vmul",n:"直式留空　乘法（二位數×一位數）",g:mVertMul},{id:"mul",n:"乘法留空（二位數×一位數）",g:mMul},{id:"vadd",n:"直式留空　加法",g:()=>mVert("+")},{id:"vsub",n:"直式留空　減法",g:()=>mVert("-")},{id:"add",n:"橫式留空　加法",g:mAdd},{id:"sub",n:"橫式留空　減法",g:mSub},{id:"div",n:"除法留空",g:mDiv},{id:"cmp",n:"比大小 □",g:mCmp},{id:"word",n:"文字題留空",g:mWord}];
+const NU=["零","一","二","三","四","五","六","七","八","九"],uq=a=>[...new Set(a)];
+function rd4(n){const d=[Math.floor(n/1000),Math.floor(n/100)%10,Math.floor(n/10)%10,n%10];let r=NU[d[0]]+"千";if(d[1]>0)r+=NU[d[1]]+"百";else if(d[2]>0||d[3]>0)r+="零";if(d[2]>0)r+=NU[d[2]]+"十";else if(d[3]>0&&d[1]>0)r+="零";if(d[3]>0)r+=NU[d[3]];return r}
+function mut(n){const t=String(n).split(""),sw=(i,j)=>{const u=t.slice();[u[i],u[j]]=[u[j],u[i]];return +u.join("")},ch=i=>{const u=t.slice();u[i]=String((+u[i]+1)%10);return +u.join("")};return uq([sw(1,2),sw(2,3),sw(0,1),ch(1),ch(2),ch(3)]).filter(x=>x!=n&&x>=1000)}
+function mNum4(){const t=rn(0,6);
+if(t<=1){let n;do{n=rn(1,9)*1000+rn(0,9)*100+rn(0,9)*10+rn(0,9)}while(!(String(n).slice(1).includes("0")));
+ if(t==0){const ok=rd4(n),w=uq(mut(n).map(rd4).filter(x=>x!=ok)).slice(0,3);return Object.assign(mcz(`「${n}」的讀法是？`,ok,w,`${n} 讀作「${ok}」：中間有 0 的位數，要讀「零」，連續的 0 只讀一個「零」`),{_c:["read",n]})}
+ const ok=String(n),w=mut(n).map(String).slice(0,3);return Object.assign(mcz(`「${rd4(n)}」寫成數字是？`,ok,w,`${rd4(n)} 寫成 ${n}：沒有讀到的位數要補 0`),{_c:["write",n]})}
+if(t==2){const st=[10,100,1000][rn(0,2)],a=rn(1000,9000-4*st),k=rn(1,3),seq=[0,1,2,3,4].map(i=>a+i*st);return Object.assign(Q(`${seq.map((v,i)=>i==k+1?"□":v).join(" → ")}`,seq[k+1],`每次增加 ${st}：${seq.join(" → ")}`),{_c:["seq",st,seq,k+1]})}
+if(t==3){const ds=sh([0,1,2,3,4,5,6,7,8,9]).slice(0,6);if(!ds.includes(0))ds[0]=0;const dd=ds.slice().sort((x,y)=>y-x),mx=+dd.slice(0,4).join(""),nz=ds.filter(x=>x>0).sort((x,y)=>x-y)[0],rest=ds.filter(x=>x!=nz).sort((x,y)=>x-y).slice(0,3),mn=+[nz,...rest].join(""),w=rn(0,2);
+ const cards=ds.slice().sort((x,y)=>x-y).join("、"),pre=`用 ${cards} 六張數字卡，組成一個四位數，數字不能重複，`;
+ if(w==0)return Object.assign(Q(pre+"最大的數是多少？",mx,`大的數字放在前面：${mx}`),{_c:["max",ds,mx]});
+ if(w==1)return Object.assign(Q(pre+"最小的數是多少？",mn,`最前面不能是 0，所以先放最小的不是 0 的數字 ${nz}，再放 0 和小的數字：${mn}`),{_c:["min",ds,mn]});
+ return Object.assign(Q(pre+"最大的數和最小的數，相差多少？",mx-mn,`${mx} − ${mn} = ${mx-mn}`),{_c:["diff",ds,mx-mn]})}
+if(t==4){const d=rn(2,9),x=rn(0,9),y=rn(0,9),n=d*1000+x*100+y*10+d;return Object.assign(Q(`數字 ${n} 中，左邊的 ${d} 和右邊的 ${d}，所代表的數量相差多少？`,d*1000-d,`左邊的 ${d} 在千位，代表 ${d*1000}；右邊的 ${d} 在個位，代表 ${d}；${d*1000} − ${d} = ${d*1000-d}`),{_c:["dd",n,d*1000-d]})}
+if(t==5){const a=rn(1100,6000),b=rn(300,2900),V=a+b,dl=[-30,-10,0,10,30][rn(0,4)],c=V+dl+rn(500,2900),d=c-(V+dl),ok=dl>0?"<":dl<0?">":"=";
+ return Object.assign(mcz(`比大小：${a} + ${b} □ ${c} − ${d}`,ok,[">","<","="].filter(x=>x!=ok),`${a} + ${b} = ${V}；${c} − ${d} = ${V+dl}；所以是 ${ok}`),{_c:["cmp",a,b,c,d,ok]})}
+const x=[1,2,4,5,6,7,8,9][rn(0,7)];let y;do{y=[1,2,4,5,6,7,8,9][rn(0,7)]}while(y==x);const lo=Math.min(x,y),hi=Math.max(x,y);
+return Object.assign(Q(`用 3、${x}、${y}、0 四張數字卡，組成一個四位數，數字不能重複。比 3000 大而且最接近 3000 的數是多少？`,3000+lo*10+hi,`要最接近 3000，千位放 3，百位放 0，十位放小的 ${lo}，個位放大的 ${hi}：${3000+lo*10+hi}`),{_c:["near3000",x,y,3000+lo*10+hi]})}
+function mEst(){const t=rn(0,2);
+if(t<2){const add=t==0;let a,b,act,r;do{a=rn(1100,4900);b=add?rn(300,2900):rn(100,Math.min(2400,a-300));act=add?a+b:a-b;r=Math.round(act/100)*100}while(Math.abs(act-r)>40);
+ const w=uq([r+100,r-100,r+200,r-200,r+300]).filter(x=>x>0).slice(0,3);return Object.assign(mcz(`估一估，下列哪一個選項最接近「${a}${add?" + ":" − "}${b}」的答案？`,String(r),w.map(String),`先算出大約的結果：${a} ${add?"+":"−"} ${b} = ${act}，最接近的整百數是 ${r}`),{_c:["est",add?1:0,a,b,r]})}
+let k=rn(2,4),h=rn(1,4),dl=0;while(!dl)dl=rn(-12,12);const p=h*100+dl,est=h*100*k,w=uq([est+100,est-100,est+200,est+300].filter(x=>x>0)).slice(0,3);
+return Object.assign(mcz(`1 份點心 ${p} 元，買 ${k} 份，大約要付多少元？`,String(est),w.map(String),`把 ${p} 看成 ${h*100}，${h*100} × ${k} = ${est}，所以大約要付 ${est} 元`),{_c:["estmul",p,k,est]})}
+function clockSvg(h){const c=50,r=44;let g=`<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="currentColor" stroke-width="2"/>`;for(let i=0;i<12;i++){const a=i*Math.PI/6;g+=`<line x1="${c+Math.sin(a)*(r-5)}" y1="${c-Math.cos(a)*(r-5)}" x2="${c+Math.sin(a)*r}" y2="${c-Math.cos(a)*r}" stroke="currentColor"/>`}
+const ha=h*Math.PI/6;g+=`<line x1="${c}" y1="${c}" x2="${c+Math.sin(ha)*26}" y2="${c-Math.cos(ha)*26}" stroke="var(--acc)" stroke-width="4" stroke-linecap="round"/><line x1="${c}" y1="${c}" x2="${c}" y2="${c-38}" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="${c}" cy="${c}" r="3" fill="currentColor"/>`;
+return `<svg viewBox="0 0 100 100" width="130" height="130" style="display:block;margin:6px auto" role="img" aria-label="${h}點鐘的鐘面">${g}</svg>`}
+const angOf=h=>Math.min(30*h,360-30*h),angName=a=>a<90?"銳角":a==90?"直角":"鈍角";
+function mAngle(){const t=rn(0,3),HS=[1,2,3,4,5,7,8,9,10,11];
+if(t==0){const h=HS[rn(0,9)],ok=angName(angOf(h));return Object.assign(mcz(clockSvg(h)+`<div>${h} 點鐘時，短針（紅色）和長針之間的角是什麼角？</div>`,ok,["銳角","直角","鈍角"].filter(x=>x!=ok),ok=="直角"?"短針和長針剛好成直角":ok=="銳角"?"短針和長針張開的角，比直角小，是銳角":"短針和長針張開的角，比直角大，是鈍角"),{_c:["clock",h,ok]})}
+if(t==1||t==2){let hs;do{hs=sh(HS).slice(0,3)}while(new Set(hs.map(angOf)).size<3);const big=t==1,key=hs.slice().sort((a,b)=>big?angOf(b)-angOf(a):angOf(a)-angOf(b))[0];
+ return Object.assign(mcz(`下面哪一個時刻，短針和長針之間的角${big?"最大":"最小"}？`,key+"點鐘",hs.filter(x=>x!=key).map(x=>x+"點鐘"),`${key} 點鐘時，兩支針張開的角${big?"最大":"最小"}（可以想像看看，兩支針離得越遠，角就越大）`),{_c:["clockcmp",hs,big?1:0,key]})}
+const D=[["比直角小的角，叫做什麼角？","銳角",["直角","鈍角"],"比直角小的是銳角"],["比直角大的角，叫做什麼角？","鈍角",["銳角","直角"],"比直角大的是鈍角"],["三角板上像「方方正正」的那個角，叫做什麼角？","直角",["銳角","鈍角"],"方方正正的角是直角"]];
+const d=D[rn(0,2)];return mcz(d[0],d[1],d[2],d[3])}
+function nline(s,k){const W=340,x0=16,m=k+1,gap=(W-32)/m,y=44;let g=`<line x1="${x0}" y1="${y}" x2="${W-12}" y2="${y}" stroke="currentColor" stroke-width="2"/>`;for(let i=0;i<=m;i++){const x=x0+i*gap;g+=`<line x1="${x}" y1="${y-8}" x2="${x}" y2="${y+8}" stroke="currentColor" stroke-width="2"/>`;if(i<=2)g+=`<text x="${x}" y="${y+26}" font-size="13" text-anchor="middle" fill="currentColor">${i*s}</text>`}
+const tx=x0+k*gap;g+=`<circle cx="${tx}" cy="${y}" r="7" fill="var(--acc)"/><text x="${tx}" y="${y-16}" font-size="15" text-anchor="middle" fill="var(--acc)">？</text>`;return `<svg viewBox="0 0 ${W} 80" width="100%" style="max-width:420px;display:block;margin:6px auto" role="img" aria-label="數線">${g}</svg>`}
+function mNline(){const s0=[2,5,8,10,20,25,50,100,200][rn(0,8)],k=rn(4,9);return Object.assign({k:"num",t:nline(s0,k)+"<div>數線上，紅色的圓點「？」代表多少？</div>",a:s0*k,why:`數線上每一格相差 ${s0}（0 到 ${s0}，${s0} 到 ${2*s0}），紅點在第 ${k} 格，所以是 ${s0} × ${k} = ${s0*k}`},{_c:["nline",s0,k]})}
+const ML=[{id:"num4",n:"四位數：讀寫、順序、最大最小",g:mNum4},{id:"est",n:"估算：大約是多少",g:mEst},{id:"angle",n:"角與鐘面：直角、銳角、鈍角",g:mAngle},{id:"nline",n:"數線上的數",g:mNline},{id:"meter",n:"公尺、公分、毫米的換算",g:mMeter},{id:"cmpw",n:"比…多、比…少：反推長度",g:mCmpWord},{id:"carry",n:"長度加減（進位、借位）與看尺",g:mCarry},{id:"mm",n:"單位換算：公分和毫米",g:mUnit},{id:"mm2",n:"長度的計算與比較（毫米）",g:mUnit2},{id:"vmul",n:"直式留空　乘法（二位數×一位數）",g:mVertMul},{id:"mul",n:"乘法留空（二位數×一位數）",g:mMul},{id:"vadd",n:"直式留空　加法",g:()=>mVert("+")},{id:"vsub",n:"直式留空　減法",g:()=>mVert("-")},{id:"add",n:"橫式留空　加法",g:mAdd},{id:"sub",n:"橫式留空　減法",g:mSub},{id:"div",n:"除法留空",g:mDiv},{id:"cmp",n:"比大小 □",g:mCmp},{id:"word",n:"文字題留空",g:mWord}];
 function buildM(key){const f=key=="mc"?null:ML.find(m=>"m:"+m.id==key).g,len=key=="mc"?10:8,qs=[],seen=new Set();for(let k=0;qs.length<len&&k<300;k++){const q=(f||sh(ML)[0].g)();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}}return qs}
 function mapMath(){bar();app.innerHTML='<p class="sub">三年級數學　算式留空練習<br>最近的單元：二位數 × 一位數、公分和毫米，各關互相獨立，想練哪一關都可以</p><div class="grid">'+ML.map((m,i)=>{const b=G.best["m:"+m.id]||0;return `<button data-l="m:${m.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${m.n}</b><br>${stars(b)}</button>`}).join("")+`<button data-l="mc"><span class="em">挑戰</span><b>數學綜合</b><br>${stars(G.best.mc||0)}</button></div>`;
-app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 const ZR=[
 ()=>mcz("小丑魚和海葵彼此幫忙，兩邊都得到好處。這種關係叫做什麼？","互利共生",["弱肉強食","各自生活","互相競爭"],"互利共生，就是兩種生物互相幫忙、互相得到好處。"),
 ()=>mcz("海葵的觸手上有什麼，讓許多魚不敢靠近？","刺細胞",["堅硬的殼","大大的牙齒","亮亮的鱗片"],"海葵的觸手上有刺細胞，會放出毒液，用來捕食和保護自己。"),
@@ -664,8 +734,31 @@ const W4B=[
 ["下面哪一個詞，常和「雖然」搭配？","但是",["所以","因為"],"「雖然…但是…」表示轉折。","造句"],
 ["「雖然他年紀小，＿＿很勇敢。」空格要填哪一個詞？","卻",["所以","因為"],"「雖然…卻…」表示轉折，和前面想的不一樣。","造句"]];
 const ZW4=W4A.concat(W4B).map(([t,c,w,why,cat])=>()=>Object.assign(mcz(t.includes("＿＿")?"選出適合填入空格的字或詞：<br>"+t:t,c,w,"答案是「"+c+"」。"+why),{cat}));
-const ZL=[{id:"w4",n:"第四課單元卷：易錯字詞整理",b:ZW4},{id:"key",n:"重點字詞：最近容易寫錯的",b:ZPC.concat(ZY,ZX,ZS)},{id:"zuo",n:"易混淆字：做、作、坐、座",b:ZZ},{id:"circle",n:"聽寫圈詞：聽一聽，圈出正確的詞語",b:ZC},{id:"read",n:"課文理解：小丑魚和海葵",b:ZR},{id:"char",n:"字音字形：有「禺」的字",b:ZW},{id:"word",n:"詞語運用",b:ZV},{id:"paper",n:"紙筆聽寫：自己寫，再對答案",b:[]}];
-const ZCAT={w4:"第四課易錯",key:"重點字詞",zuo:"做作坐座",circle:"聽寫圈詞",read:"課文理解",char:"字音字形",word:"詞語運用"};
+const ZMP=[[["居心不良","不懷好意"],["好聲好氣","好言好語"],["抓準時機","把握機會"]],[["高興","快樂"],["迅速","快速"],["仔細","細心"]],[["安靜","寧靜"],["努力","用功"],["突然","忽然"]]];
+const ZMF=ZMP.map((p,i)=>()=>({k:"match",t:"連連看：把意思相近的詞語配成一對<span hidden>"+i+"</span>",p:p,a:p.map(x=>x[0]+"＝"+x[1]).join("；"),why:"",cat:"近義詞"}));
+ZW4.push(...ZMF);
+const RP=[
+{p:"大象的鼻子又長又靈活，是牠最好用的工具。牠可以用鼻子吸水，再噴進嘴巴裡喝；天氣熱的時候，還會把水噴在身上洗澡。大象也會用鼻子拿食物，把樹葉、水果送進嘴巴裡。如果遇到危險，大象會用鼻子發出很大的叫聲，提醒同伴小心。",
+ q:[["大象怎麼喝水？","用鼻子吸水，再噴進嘴巴",["直接把頭伸進水裡","用腳舀水"],"文章說大象用鼻子吸水，再噴進嘴巴裡喝。","閱讀：細節"],
+    ["天氣很熱的時候，大象會做什麼？","把水噴在身上洗澡",["把樹葉丟進水裡","大聲叫同伴"],"文章說天氣熱的時候，大象會把水噴在身上洗澡。","閱讀：因果"],
+    ["下面哪一件事，文章「沒有」提到？","用鼻子彈琴",["用鼻子吸水","用鼻子拿食物"],"題目問「沒有提到」，要找文章裡找不到的那一個。文章沒有說大象彈琴。","閱讀：否定題"],
+    ["大象遇到危險時，為什麼會發出很大的叫聲？","提醒同伴小心",["讓人們來看牠","把水噴出去"],"文章最後一句說：發出很大的叫聲，提醒同伴小心。","閱讀：因果"],
+    ["這篇文章主要在說什麼？","大象的鼻子很好用，可以做很多事",["大象很喜歡洗澡","大象的叫聲很大"],"文章一開始說鼻子是大象最好用的工具，後面說了鼻子的各種用途。","閱讀：主旨"]]},
+{p:"蒲公英的種子上有一把白白的小傘。風一吹，小傘帶著種子飛到很遠的地方。種子落在泥土裡，下雨以後就會發芽，慢慢長成新的蒲公英。蒼耳的種子身上有很多小鉤子，會黏在小動物的毛上，讓動物帶著牠們去旅行。",
+ q:[["蒲公英的種子，靠什麼飛到很遠的地方？","風和身上的小傘",["小動物的毛","流動的河水"],"文章說風一吹，小傘帶著種子飛到很遠的地方。","閱讀：細節"],
+    ["蒼耳的種子怎麼旅行？","黏在小動物的毛上",["靠小傘飛","隨著河水漂走"],"文章說蒼耳的種子有小鉤子，會黏在小動物的毛上。","閱讀：細節"],
+    ["蒲公英的種子落在泥土裡，下雨以後會怎麼樣？","發芽，慢慢長成新的蒲公英",["馬上開出花來","被小動物吃掉"],"文章說下雨以後就會發芽，慢慢長成新的蒲公英。","閱讀：順序"],
+    ["下面哪一種說法，文章「沒有」提到？","蒲公英的花是黃色的",["蒼耳的種子有小鉤子","蒲公英的種子有白色小傘"],"題目問「沒有提到」。文章沒有提到蒲公英花的顏色。","閱讀：否定題"],
+    ["這篇文章主要在說什麼？","有些種子有特別的方法，可以到遠方旅行",["蒲公英和蒼耳都開白花","種子一定要有小傘"],"文章說了蒲公英和蒼耳的種子怎麼旅行。","閱讀：主旨"]]},
+{p:"放學鐘聲一響，小明先把書包收好，再和老師說再見。走到校門口時，他看到下雨了，就從書包裡拿出雨傘。路上有一個小水坑，他小心地繞過去。回到家，他先把溼溼的雨傘放在門口，才進屋寫功課。",
+ q:[["小明是什麼時候拿出雨傘的？","走到校門口，看到下雨的時候",["放學鐘聲一響的時候","回到家以後"],"文章說走到校門口時，他看到下雨了，就拿出雨傘。","閱讀：順序"],
+    ["小明回到家以後，先做什麼？","把雨傘放在門口",["寫功課","收書包"],"文章說他先把溼溼的雨傘放在門口，才進屋寫功課。","閱讀：順序"],
+    ["從哪一句可以知道小明做事很小心？","他小心地繞過小水坑",["他收好書包","他和老師說再見"],"「小心地繞過去」這句話，說明他做事很小心。","閱讀：詞義與推論"],
+    ["「繞過去」的意思最接近下面哪一個？","從旁邊走過去，避開水坑",["踩進水坑裡","停在水坑前面"],"「繞過去」是從旁邊走過去，避開。","閱讀：詞義與推論"],
+    ["下面哪一個順序正確？","收書包、說再見、拿雨傘、繞水坑、放雨傘",["拿雨傘、收書包、說再見、繞水坑、放雨傘","收書包、拿雨傘、說再見、放雨傘、繞水坑"],"依照文章先後：先收書包，再說再見，走到校門口拿雨傘，路上繞水坑，回家放雨傘。","閱讀：順序"]]}];
+const ZR2=RP.flatMap(P=>P.q.map(([q,c,w,why,cat])=>()=>Object.assign(mcz(`<div class="ctx">${P.p}</div><p>${q}</p>`,c,w,"答案是「"+c+"」。"+why),{cat})));
+const ZL=[{id:"read2",n:"閱讀理解：看短文回答",b:ZR2},{id:"w4",n:"第四課單元卷：易錯字詞整理",b:ZW4},{id:"key",n:"重點字詞：最近容易寫錯的",b:ZPC.concat(ZY,ZX,ZS)},{id:"zuo",n:"易混淆字：做、作、坐、座",b:ZZ},{id:"circle",n:"聽寫圈詞：聽一聽，圈出正確的詞語",b:ZC},{id:"read",n:"課文理解：小丑魚和海葵",b:ZR},{id:"char",n:"字音字形：有「禺」的字",b:ZW},{id:"word",n:"詞語運用",b:ZV},{id:"paper",n:"紙筆聽寫：自己寫，再對答案",b:[]}];
+const ZCAT={read2:"閱讀理解",w4:"第四課易錯",key:"重點字詞",zuo:"做作坐座",circle:"聽寫圈詞",read:"課文理解",char:"字音字形",word:"詞語運用"};
 ZL.forEach(z=>{z.b=z.b.map(f=>()=>Object.assign({cat:ZCAT[z.id]},f()))});
 ML.forEach(m=>{const g=m.g;m.g=()=>Object.assign(g(),{cat:m.n})});
 /* 紙筆聽寫的詞語：[詞語, 注音]，想新增就在最後面多加一筆 */
@@ -690,7 +783,7 @@ step()}
 
 function buildZ(key){const all=[].concat(...ZL.map(z=>z.b)),src=key=="zc"?all:ZL.find(z=>"z:"+z.id==key).b,len=key=="zc"?10:8,qs=[],seen=new Set();for(const f of sh(src)){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
 function mapZ(){bar();app.innerHTML='<p class="sub">國語（康軒）第四單元〈小丑魚和海葵〉<br>題目是原創的，順序和選項每次都會重新排列</p><div class="grid">'+ZL.map((z,i)=>`<button data-l="z:${z.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${z.n}</b><br>${z.id=="paper"?'<span class="zy">自己批改，不計星星</span>':stars(G.best["z:"+z.id]||0)}</button>`).join("")+`<button data-l="zc"><span class="em">挑戰</span><b>國語綜合</b><br>${stars(G.best.zc||0)}</button></div>`;
-app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 /* ===== 自然（南一）認識植物：花 ===== */
 const sq=(t,c,w,why,cat)=>()=>Object.assign(mcz(t,c,w,why),cat?{cat}:{});
 const SF=[
@@ -792,10 +885,45 @@ sq("輪胎打足氣以後變硬，說明了什麼？","空氣占有空間，被�
 sq("氣球越吹越大，是因為什麼？","裡面的空氣越來越多，占去更多空間",["氣球裡的水變多了","氣球變輕了"],"空氣占有空間，空氣越多，氣球就越大。"),
 sq("空氣和石頭有什麼不一樣？","空氣看不見、沒有固定形狀；石頭看得見、有固定形狀",["空氣有固定形狀，石頭沒有","空氣和石頭完全一樣"],"空氣看不見、沒有固定形狀；石頭看得見、有固定形狀。"),
 sq("下面哪一個不是空氣和水共同的特性？","有固定的形狀",["占有空間","有重量"],"空氣和水都占有空間、有重量，但是都沒有固定的形狀。")].map(f=>()=>Object.assign({cat:"空氣和水的比較"},f()));
-const SCL=[{id:"air1",n:"單元二：物質的特性（空氣、水、石頭）",b:SA1},{id:"air2",n:"單元二：證明空氣存在",b:SA2},{id:"air3",n:"單元二：空氣和水的比較",b:SA3},{id:"flower",n:"花的構造與功能",b:SF},{id:"sex",n:"雄花、雌花與傳粉",b:SS},{id:"fruit",n:"花、果實、種子與根",b:SR},{id:"words",n:"自然字詞：怎麼寫、怎麼念",b:SW}];
+const SRD=[
+{p:"海邊和山上常常有很大的風。人們在那裡蓋了一座座高高的風力發電機。風一吹，發電機上長長的葉片就會轉動，帶動裡面的機器發電。風越大，葉片轉得越快，發出的電也越多。如果沒有風，葉片就不會轉，也就發不了電。風力發電不會冒出黑黑的煙，對空氣比較乾淨。",
+ s:[["小安：「風吹動葉片，葉片轉動才能發電。」",1,"文章說風一吹，葉片轉動，帶動機器發電。"],["小凱：「沒有風的時候，風力發電機也能發很多電。」",0,"文章說沒有風，葉片就不會轉，發不了電。"],["小宇：「風越大，葉片轉得越快。」",1,"文章說風越大，葉片轉得越快。"],["小婷：「風力發電機會冒出很多黑煙。」",0,"文章說風力發電不會冒出黑黑的煙。"],["小君：「風力發電機常蓋在風很大的地方。」",1,"文章提到海邊和山上常常有很大的風，人們在那裡蓋風力發電機。"]]},
+{p:"很久以前，人們用水車來磨穀子、抽水。水車像一個大輪子，外面有很多板子。河水流過來，推動板子，水車就慢慢轉起來。水流越急，水車轉得越快。如果河裡沒有水，水車就不會轉。今天有些地方還留著水車，讓大家看看以前的人怎麼利用水的力量。",
+ s:[["小明：「水推動板子，水車才會轉。」",1,"文章說河水推動板子，水車就轉起來。"],["小美：「水流越慢，水車轉得越快。」",0,"文章說水流越急，水車轉得越快。"],["小華：「河裡沒有水，水車也會轉。」",0,"文章說河裡沒有水，水車就不會轉。"],["小如：「水車可以幫人們磨穀子、抽水。」",1,"文章第一句說人們用水車來磨穀子、抽水。"],["小杰：「水可以傳送動力。」",1,"水推動水車轉動，說明水可以傳送動力。"]]},
+{p:"小美把注射筒的出口堵住，用力往下壓活塞。裝著空氣的注射筒，活塞可以往下壓很多。裝著水的注射筒，活塞幾乎壓不下去。小美發現：空氣可以被壓縮，水卻很難被壓縮。後來她把壓下去的空氣注射筒放開，活塞又慢慢彈回來了。",
+ s:[["小翔：「空氣可以被壓縮。」",1,"文章說裝著空氣的注射筒，活塞可以往下壓很多。"],["小玲：「裝水的注射筒，活塞很容易壓下去。」",0,"文章說裝著水的注射筒，活塞幾乎壓不下去。"],["小哲：「把壓下去的空氣注射筒放開，活塞會彈回來。」",1,"文章最後一句說活塞又慢慢彈回來了。"],["小雅：「空氣和水都很容易被壓縮。」",0,"文章說水卻很難被壓縮。"]]}];
+const SRDF=SRD.flatMap(P=>P.s.map(x=>()=>Object.assign(mcz(`<div class="ctx">${P.p}</div><p>根據文章，下面這個人的說法正確嗎？<br>${x[0]}</p>`,x[1]?"正確":"錯誤",[x[1]?"錯誤":"正確"],(x[1]?"正確。":"錯誤。")+x[2]+"（答題小秘訣：回到文章，找出和這句話有關的那一句，再比一比。）"),{cat:"科學閱讀"})));
+const SLF=[
+sq("葉子的葉脈像竹子那樣一條一條平平的，叫什麼？","平行脈",["網狀脈","鋸齒狀"],"葉脈互相平行的叫平行脈，竹子的葉子就是平行脈。"),
+sq("葉脈像一張網子的，叫什麼？","網狀脈",["平行脈","輪生"],"葉脈像網子一樣分叉的，叫網狀脈。"),
+sq("葉子邊緣有一個一個小尖尖，像鋸子的牙齒，這種葉緣叫什麼？","鋸齒狀",["全緣","輪生"],"薄荷、紅葉鐵莧的葉緣是鋸齒狀。"),
+sq("葉子邊緣平平滑滑，沒有缺口，叫什麼？","全緣",["鋸齒狀","叢生"],"邊緣平滑的葉緣叫全緣。"),
+sq("植物的莖上，每一個節上有三片以上的葉子，圍成一圈，叫什麼？","輪生",["互生","對生"],"黑板樹、軟枝黃蟬的葉子是輪生。"),
+sq("榕樹的莖上，每一個節只長一片葉子，這種葉序叫什麼？","互生",["輪生","叢生"],"每一個節只長一片葉子，葉子輪流長在左右兩邊，叫互生。"),
+sq("葉子的節和節之間距離很近，葉子集中長在一起，叫什麼？","叢生",["輪生","互生"],"節和節之間距離很近，葉子集中生長，叫叢生。注意：輪生是每個節上有三片以上的葉子。"),
+sq("牽牛花的莖柔軟，不能直立，會纏繞或攀爬在別的東西上，這種莖叫什麼？","藤本莖",["木本莖","草本莖"],"柔軟、會攀爬或纏繞的莖，叫藤本莖。"),
+sq("人們通常用哪一種莖來建造小木屋？","木本莖",["藤本莖","草本莖"],"木本莖又粗又硬，可以用來蓋房子。"),
+sq("下面哪一種植物的莖，可以做成家具？","竹子",["玫瑰","牽牛花"],"竹子的莖堅硬，可以製成家具。"),
+sq("有一條粗粗的主根，旁邊長出細細的根，這種根叫什麼？","軸根",["鬚根","氣根"],"莧菜、菠菜、金桔、龍葵的根是軸根。"),
+sq("很多條細細長長、粗細差不多的根，叫什麼？","鬚根",["軸根","氣根"],"牛筋草、椰子的根是鬚根。"),
+sq("用下面哪一種方法觀察葉子，是不適合的？","嚐嚐葉子的味道",["摸摸葉子的邊緣","量一量葉子的大小"],"有些植物有毒，不可以亂嚐。觀察葉子可以用看、摸、量。"),
+sq("植物的哪個部分，可以讓植物緊緊抓住泥土，不容易被大雨沖走？","根",["果實","葉"],"根深入土壤，把植物固定住。"),
+sq("「植物只可以用來當食物，不可以做成藥物。」這句話對嗎？","不對，植物也可以製成藥物",["對，植物只能吃","對，植物不能做別的用途"],"植物可以當食物，也可以做衣服、蓋房子、做成藥物。")].map(f=>()=>Object.assign({cat:"葉莖根分類"},f()));
+const SWF=[
+sq("帆船在海上航行，主要是靠什麼？","風力",["水力","馬達"],"帆船靠風吹動船帆前進。"),
+sq("風力發電，主要是靠什麼讓機器轉動？","風",["水","電池"],"風吹動葉片，葉片帶動機器發電。"),
+sq("水車轉動，主要是靠什麼？","水力",["風力","電力"],"水流推動水車轉動。"),
+sq("用高壓水柱清洗地板，用的是什麼力量？","水力",["風力","電力"],"水柱的衝力可以把髒東西沖走。"),
+sq("用吹風機把頭髮吹乾，用的是什麼力量？","風力",["水力","電力"],"吹風機吹出風，讓頭髮變乾。"),
+sq("用吹球清理灰塵，用的是什麼力量？","風力",["水力","磁力"],"吹球把空氣吹出去，把灰塵吹走。"),
+sq("電風扇轉動時，會覺得涼快，是因為扇葉轉動空氣產生了什麼？","風",["雨","霧"],"扇葉轉動空氣，產生風。"),
+sq("用空氣槍把紙牌擊倒，說明空氣有哪一種特性？","可以傳送動力",["具有味道","是人類生存必需的物質"],"空氣可以傳送動力，把紙牌擊倒。"),
+sq("「水可以傳送動力，空氣不行。」這句話對嗎？","不對，水和空氣都可以傳送動力",["對，只有水可以","對，只有空氣可以"],"水槍、空氣槍都說明水和空氣可以傳送動力。"),
+sq("下面哪一個不是風力的應用？","用打氣筒把籃球打飽氣",["風乾食物","帆船航行"],"風乾食物和帆船都是利用風；打氣筒是把空氣打進球裡。")].map(f=>()=>Object.assign({cat:"風力和水力"},f()));
+const SCL=[{id:"read",n:"科學閱讀：看文章，判斷對或錯",b:SRDF},{id:"leaf",n:"葉、莖、根怎麼分類",b:SLF},{id:"wind",n:"風力和水力的應用",b:SWF},{id:"air1",n:"單元二：物質的特性（空氣、水、石頭）",b:SA1},{id:"air2",n:"單元二：證明空氣存在",b:SA2},{id:"air3",n:"單元二：空氣和水的比較",b:SA3},{id:"flower",n:"花的構造與功能",b:SF},{id:"sex",n:"雄花、雌花與傳粉",b:SS},{id:"fruit",n:"花、果實、種子與根",b:SR},{id:"words",n:"自然字詞：怎麼寫、怎麼念",b:SW}];
 function buildS(key){const all=[].concat(...SCL.map(z=>z.b)),src=key=="sc"?all:SCL.find(z=>"s:"+z.id==key).b,len=key=="sc"?10:8,qs=[],seen=new Set();for(const f of sh(src)){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
 function mapS(){bar();app.innerHTML='<p class="sub">自然（南一）單元一 認識植物、單元二 空氣和水<br>題目是原創的，順序和選項每次都會重新排列</p><div class="grid">'+SCL.map((z,i)=>`<button data-l="s:${z.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${z.n}</b><br>${stars(G.best["s:"+z.id]||0)}</button>`).join("")+`<button data-l="sc"><span class="em">挑戰</span><b>自然綜合</b><br>${stars(G.best.sc||0)}</button></div>`;
-app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 /* ===== 社會（翰林）生活公約：遵守團體規範、訂定班級公約 ===== */
 const HF=[
 sq("為什麼要有班級公約？","讓全班同學共同遵守，讓班級有更好的秩序",["讓老師比較輕鬆","讓功課變少"],"班級公約寫明大家要遵守的規範，班級才有好秩序。"),
@@ -886,7 +1014,64 @@ sq("「學習的主人」是什麼意思？","自己決定要怎麼學習，並�
 const HLV=[{id:"rule",n:"班級公約的內容：合理還是不合理？",b:HM},{id:"revise",n:"規定怎麼修改？（以制服為例）",b:HR},{id:"newlearn",n:"升上三年級的新學習",b:HN},{id:"why",n:"公約的意義：為什麼要訂、怎麼訂",b:HF},{id:"meet",n:"開會與表決",b:HK},{id:"life",n:"生活中的規範",b:HS},{id:"words",n:"社會字詞：怎麼寫、怎麼念",b:HW}];
 function buildH(key){const all=[].concat(...HLV.map(z=>z.b)),src=key=="hc"?all:HLV.find(z=>"h:"+z.id==key).b,len=key=="hc"?10:8,qs=[],seen=new Set();for(const f of sh(src)){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
 function mapH(){bar();app.innerHTML='<p class="sub">社會（翰林）校園規範和班級自治：遵守團體規範、訂定班級公約；升上三年級的新學習<br>題目是原創的，順序和選項每次都會重新排列</p><div class="grid">'+HLV.map((z,i)=>`<button data-l="h:${z.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${z.n}</b><br>${stars(G.best["h:"+z.id]||0)}</button>`).join("")+`<button data-l="hc"><span class="em">挑戰</span><b>社會綜合</b><br>${stars(G.best.hc||0)}</button></div>`;
-app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l))}
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
+/* ===== 三國任務、連連看 ===== */
+const MIS=[
+{n:"草船借箭",i:"🏹",u:"箭",intro:p=>`大霧瀰漫江面，${p}和你駕著草船靠近曹營。每答對一題，就借到一支箭！`,win:p=>`${p}的草船插滿了箭，滿載而歸！任務大成功！`,part:p=>`${p}借到了一些箭，不過還不夠，再挑戰一次吧！`,lose:p=>`霧太濃了，這次一支箭也沒借到。別氣餒，${p}等你再來！`},
+{n:"七星壇借東風",i:"🌬️",u:"風",intro:p=>`${p}要在七星壇上借東風，需要你幫忙。每答對一題，風就大一點！`,win:p=>`東風呼呼地吹起來了！${p}說：多虧有你，任務成功！`,part:p=>`風起來了一些，還不夠大。${p}請你再試一次！`,lose:p=>`風一點都沒有來…${p}請你再練習一下，再來幫忙吧！`},
+{n:"空城計",i:"🎵",u:"琴聲",intro:p=>`城門大開，${p}要用琴聲穩住敵人，你負責想辦法。每答對一題，琴聲就更穩！`,win:p=>`琴聲又穩又好聽，敵人不敢進城！${p}和你守住了城，任務成功！`,part:p=>`琴聲有點不穩，敵人猶豫了一下。再挑戰一次，就能更穩！`,lose:p=>`琴聲亂了…${p}請你再練習，下一次一定行！`},
+{n:"過五關",i:"⚔️",u:"關卡",intro:p=>`${p}要一路闖關，你是最好的軍師。每答對一題，就能通過一道關卡！`,win:p=>`所有關卡都被你們攻破了！${p}大聲歡呼，任務成功！`,part:p=>`闖過了一些關卡，前面還有關卡等著。再來一次吧！`,lose:p=>`這次被擋在第一道關卡外。${p}說：休息一下，再來挑戰！`},
+{n:"三顧茅廬",i:"🚪",u:"誠意",intro:p=>`${p}要去請賢人出山幫忙，你要幫忙表達誠意。每答對一題，就多一分誠意！`,win:p=>`賢人被你們的誠意打動了，答應出山！${p}開心極了，任務成功！`,part:p=>`賢人有一點心動了，但還需要更多誠意。再試一次！`,lose:p=>`這次大門沒有打開。別放棄，${p}會陪你再來一次！`},
+{n:"赤壁火攻",i:"🔥",u:"火種",intro:p=>`夜裡的江面上，${p}要準備火攻。每答對一題，就多準備一份火種！`,win:p=>`火種準備得很充足，火攻大成功！${p}為你鼓掌！`,part:p=>`火種準備了一些，還不夠多。再挑戰一次吧！`,lose:p=>`火種被風吹熄了…${p}請你再練習，再來一次！`},
+{n:"長坂坡護送",i:"🛡️",u:"力量",intro:p=>`${p}要保護大家平安撤退，你來出主意。每答對一題，就多一分力量！`,win:p=>`大家都平安脫離了危險！${p}說：這是你的功勞，任務成功！`,part:p=>`撤退的路上還有些困難，再挑戰一次，就能更順利！`,lose:p=>`這次沒能擋住追兵。${p}說：沒關係，我們再來！`},
+{n:"桃園結義",i:"🌸",u:"桃花",intro:p=>`桃花盛開的園子裡，${p}要邀請你一起結義。每答對一題，就開一朵桃花！`,win:p=>`滿園的桃花都開了！${p}和你結為好朋友，任務成功！`,part:p=>`開了幾朵桃花，還想看更多。再試一次吧！`,lose:p=>`桃花還沒有開。${p}說：沒關係，我們再來澆水！`}];
+const msIdx=l=>typeof l=="number"?l%MIS.length:[...String(l)].reduce((a,c)=>a+c.charCodeAt(0),0)%MIS.length;
+const gist=d=>d.use.replace(/^(主要)?用(在|來)/,"").replace(/的時候。?$/,"").replace(/。$/,"");
+function matchIdiom(l){const L=LV();let pool,own;if(l=="c"){let n=L.findIndex((_,i)=>i>0&&(G.best[i-1]||0)<1);if(n<0)n=L.length;pool=IDIOMS.slice(0,L[n-1][1]);own=pool}else{const [a,b]=L[l];pool=IDIOMS.slice(0,b);own=IDIOMS.slice(a,b)}
+const ds=l=="c"?sh(pool).slice(0,3):[...new Set(sh(own).slice(0,2).concat(sh(pool.filter(d=>!own.includes(d))).slice(0,1)))].slice(0,3);if(ds.length<2)return null;
+const g=ds.map(gist);if(new Set(g).size<ds.length)return null;
+return{k:"match",t:"連連看：把成語和它的用法配成一對<span hidden>"+ds.map(d=>d.w).join("")+"</span>",p:ds.map((d,i)=>[d.w,g[i]]),a:ds.map((d,i)=>d.w+"＝"+g[i]).join("；"),why:"",cat:"成語配對"}}
+function lim(a,short,idl){if(!short)return a;const m=idl!=null?matchIdiom(idl):null,mi=a.findIndex(q=>q.k=="match"),mq=m||(mi>=0?a[mi]:null),t=a.filter(q=>q.k!="match").slice(0,mq?4:5);if(mq)t.push(mq);return sh(t)}
+/* ===== 期中考模擬卷 ===== */
+const XD={chinese:[11,5,"國語 第一～六課"],science:[11,5,"自然 第一、二單元"],math:[11,6,"數學 第一～五課"],social:[11,6,"社會 第一～二單元"]};
+function buildX(l){const sb=l.slice(2),qs=[],seen=new Set(),len=20;
+if(sb=="math"){for(let k=0;qs.length<len&&k<600;k++){const q=sh(ML)[0].g();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}}return qs}
+const pools={chinese:ZL.filter(z=>z.id!="paper"),science:SCL,social:HLV}[sb];
+for(const f of sh([].concat(...pools.map(z=>z.b)))){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
+function addX(){const sb=G.sub,e=XD[sb];if(!e)return;const now=new Date(),d=new Date(2026,e[0]-1,e[1]),days=Math.ceil((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/86400000);
+const when=days>0?`距離期中考還有 ${days} 天`:days==0?"期中考就是今天，加油！":"期中考已經結束";
+app.insertAdjacentHTML("beforeend",`<div class="grid" style="margin-top:14px"><button id="xbtn"><span class="em">${e[0]}/${e[1]}　${when}</span><b style="font-size:1.05rem">期中考模擬卷</b><br><span class="zy">範圍：${e[2]}（20 題，不計星星，只看分數）</span></button><button id="pbtn"><span class="em">印出來用寫的</span><b style="font-size:1.05rem">列印考卷</b><br><span class="zy">20 題，一半是她答錯過的題型</span></button></div>`);
+document.getElementById("xbtn").onclick=()=>play("x:"+sb);document.getElementById("pbtn").onclick=()=>showSheet(sb)}
+/* ===== 可列印的考卷 ===== */
+const CIR="①②③④⑤",SNM={chinese:"國語",math:"數學",science:"自然",social:"社會"};
+function sheetQs(sb){const len=20,seen=new Set(),out=[],wr=((G.wrongBy&&G.wrongBy[sb])||[]).filter(x=>x.k!="dict"&&x.t);
+for(const x of sh(wr).sort((a,b)=>(a.n||0)-(b.n||0))){if(out.length>=len/2)break;let q=null;
+ if(sb=="math"){const m=ML.find(m=>m.n==x.cat);if(m)q=m.g()}
+ if(!q){q=Object.assign({},x);if(q.k=="mc"&&q.o){const c=q.o[q.a];q.o=sh(q.o);q.a=q.o.indexOf(c)}}
+ q._wr=1;if(!seen.has(q.t)){seen.add(q.t);out.push(q)}}
+const nw=out.length;for(const q of buildX("x:"+sb)){if(out.length>=len)break;if(!seen.has(q.t)){seen.add(q.t);out.push(q)}}return {qs:out,nw}}
+function sheetDict(){const wr=((G.wrongBy&&G.wrongBy.chinese)||[]).filter(x=>x.k=="dict"),L=sh(wr).slice(0,5).map(x=>({w:x.w,z:x.zy,h:x.h,wr:1}));
+for(const x of sh(DICT.filter(y=>PRIW.includes(y[0])).concat(DICT))){if(L.length>=8)break;if(!L.some(y=>y.w==x[0]))L.push({w:x[0],z:x[1],h:x[2]})}return L}
+function pq(q,i){const n=i+1;let ans="",h="";const strip=t=>t.replace(/<span hidden>[\s\S]*?<\/span>/g,"");
+if(q.k=="mc"){let t=strip(q.t);if(q.say)t="聽家長唸出詞語後，圈出你聽到的詞語：";const m=t.match(/^(<div class="ctx">[\s\S]*?<\/div>)([\s\S]*)$/),head=m?m[1]:"",body=m?m[2]:t;
+ h=`<div class="pq">${head}<div class="pt">${n}. （　）${body}</div><div class="po">${q.o.map((o,j)=>`<span>${CIR[j]} ${esc(o)}</span>`).join("")}</div></div>`;ans=CIR[q.a]+" "+q.o[q.a]+(q.say?`　（家長唸：「${q.say}」）`:"")}
+else if(q.k=="num"){{const t=strip(q.t);h=`<div class="pq"><div class="pt">${t.startsWith('<div class="eq">')?t.replace('<div class="eq">',`<div class="eq">${n}. `):n+". "+t}</div><div class="pa">答：＿＿＿＿＿＿＿＿</div></div>`;ans=String(q.a)}}
+else if(q.k=="vert"){h=`<div class="pq"><div class="pt">${n}. 在 □ 中填入適當的數字：</div>${q.t}</div>`;ans=q.a}
+else if(q.k=="match"){const R=sh(q.p.map((x,j)=>[x[1],j])),L="ABCDE";h=`<div class="pq"><div class="pt">${n}. ${strip(q.t)}（在左邊括號寫出右邊的代號）</div><div class="pm"><div>${q.p.map((x,j)=>`（　）${j+1}. ${esc(x[0])}`).join("<br>")}</div><div>${R.map((r,k)=>`${L[k]}. ${esc(r[0])}`).join("<br>")}</div></div></div>`;ans=q.p.map((x,j)=>`${j+1}→${L[R.findIndex(r=>r[1]==j)]}`).join("、")}
+else{const bank=q.bank||q.a;h=`<div class="pq"><div class="pt">${n}. ${esc(strip(q.t)).replace(/【\d】/g,"（　　　）")}</div><div class="pa">選項：${bank.map(esc).join("　")}</div></div>`;ans=q.a.join("、")}
+return {h,ans}}
+function sheetHTML(sb){const {qs,nw}=sheetQs(sb),nm=SNM[sb],dt=new Date(),ds=`${dt.getMonth()+1}/${dt.getDate()}`,dict=sb=="chinese"?sheetDict():[];
+const items=qs.map((q,i)=>pq(q,i));
+let body=`<div class="sheet"><h1>三年級${nm}練習卷</h1><div class="hdr"><span>姓名：＿＿＿＿＿＿</span><span>日期：${ds}</span><span>得分：＿＿＿＿ / 100</span></div><p class="note">共 ${qs.length} 題，每題 ${Math.round(100/qs.length)} 分。請用鉛筆作答，寫完後請家長對答案。</p><h2>一、選擇與填寫</h2>${items.map(x=>x.h).join("")}`;
+if(dict.length)body+=`<h2>二、聽寫（請家長唸一個詞語，孩子寫在格子裡）</h2>${dict.map((d,i)=>`<div class="pq"><div class="pt">${i+1}. ${Array.from(d.w).map(()=>'<span class="dbx"></span>').join("")}</div></div>`).join("")}`;
+body+=`<div class="pcut"><h1>${nm}練習卷　答案（家長用）</h1><p class="note">★ 表示這題是她以前答錯過的題型，請多留意。</p><h2>選擇與填寫</h2>${items.map((x,i)=>`<div class="pq"><div class="pt">${i+1}. ${qs[i]._wr?"★ ":""}${esc(x.ans)}</div><div class="pa" style="color:#555;font-size:.9rem">${esc(qs[i].why||"")}</div></div>`).join("")}`;
+if(dict.length)body+=`<h2>聽寫詞語（唸給孩子聽）</h2>${dict.map((d,i)=>`<div class="pq"><div class="pt">${i+1}. ${d.wr?"★ ":""}${esc(d.w)}　<span style="color:#555">${esc(d.z)}</span></div>${d.h?`<div class="pa" style="color:#555;font-size:.9rem">${esc(d.h)}</div>`:""}</div>`).join("")}`;
+body+=`</div></div>`;return {html:body,title:`三年級${nm}練習卷`,nw,total:qs.length}}
+function showSheet(sb){const r=sheetHTML(sb);let pv=document.getElementById("pv");if(pv)pv.remove();pv=document.createElement("div");pv.id="pv";
+pv.innerHTML=`<div class="tool"><button id="pp">列印</button><button id="pd" class="gh">下載成檔案</button><button id="pn" class="gh">重新出一份</button><button id="pc" class="gh">關閉</button></div><p class="note" style="margin:6px 0">${r.nw?`這份考卷有 ${r.nw} 題是依她答錯過的題目整理的。`:"目前這一科的錯題本還是空的，所以全部是新題。"}<br>如果按「列印」沒有反應，請按「下載成檔案」，再用瀏覽器開啟檔案列印。</p>${r.html}`;document.body.appendChild(pv);pv.scrollTop=0;
+document.getElementById("pc").onclick=()=>pv.remove();document.getElementById("pn").onclick=()=>showSheet(sb);document.getElementById("pp").onclick=()=>{try{window.print()}catch(e){alert("這個畫面不能直接列印，請按「下載成檔案」。")}};
+document.getElementById("pd").onclick=()=>{const css=[...document.querySelectorAll("style")].map(x=>x.textContent).join("\n"),page=`<!DOCTYPE html><html lang="zh-Hant" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${r.title}</title><style>${css}\nbody{background:#fff!important;color:#222}#pv{position:static!important;overflow:visible!important}#pv .tool,#pv>.note{display:none!important}</style></head><body><div id="pv">${r.html}</div></body></html>`;
+ try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([page],{type:"text/html"}));a.download=r.title+".html";document.body.appendChild(a);a.click();a.remove()}catch(e){alert("這個畫面不能下載，請改用 GitHub 上的網站。")}}}
 let WBF="全部";
 function wrongBook(){const sb=G.sub=="chinese"?"chinese":G.sub=="science"?"science":G.sub=="social"?"social":"math",nm={chinese:"國語",science:"自然",social:"社會",math:"數學"}[sb],all=(G.wrongBy&&G.wrongBy[sb])||[],cat=x=>x.cat||"其他",cats=[...new Set(all.map(cat))];if(WBF!="全部"&&!cats.includes(WBF))WBF="全部";
 const w=WBF=="全部"?all:all.filter(x=>cat(x)==WBF),mcs=w.filter(x=>x.k!="dict"),dts=w.filter(x=>x.k=="dict");
@@ -900,12 +1085,12 @@ app.querySelectorAll(".spkw").forEach(b=>b.onclick=()=>speak(b.dataset.w));
 const p=document.getElementById("wp");if(p)p.onclick=()=>play("w",sh(mcs.map(x=>Object.assign({},x))).slice(0,10));
 const d=document.getElementById("wd");if(d)d.onclick=()=>paperDict(sh(dts).slice(0,10).map(x=>({w:x.w,z:x.zy,h:x.h})),true);
 const c=document.getElementById("wc");if(c)c.onclick=()=>{if(!c.dataset.ok){c.dataset.ok=1;c.textContent="再按一次確定清空";return}G.wrongBy[sb]=all.filter(x=>!w.includes(x));WBF="全部";save();wrongBook()}}
-function play(l,pre){if(l=="z:paper")return paperDict();const isM=String(l)[0]=="m",isZ=String(l)[0]=="z",isS=String(l)[0]=="s",isH=String(l)[0]=="h",qs=pre||(isM?buildM(l):isZ?buildZ(l):isS?buildS(l):isH?buildH(l):buildQs(l)),ttl=l=="w"?"錯題本練習":l=="mc"?"數學綜合挑戰":isM?"數學　"+(ML.find(m=>"m:"+m.id==l)||{}).n:l=="hc"?"社會綜合挑戰":isH?"社會　"+(HLV.find(z=>"h:"+z.id==l)||{}).n:l=="sc"?"自然綜合挑戰":isS?"自然　"+(SCL.find(z=>"s:"+z.id==l)||{}).n:l=="zc"?"國語綜合挑戰":isZ?"國語　"+(ZL.find(z=>"z:"+z.id==l)||{}).n:l=="c"?"隨機挑戰":"第"+(l+1)+"關";let i=0,ok=0;
-function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;fx(good?"ok":"bad");const q0=qs[i];const ws=l=="w"?(G.sub=="chinese"?"chinese":G.sub=="science"?"science":G.sub=="social"?"social":"math"):isZ?"chinese":isS?"science":isH?"social":isM?"math":null;if(ws){G.wrongBy=G.wrongBy||{math:[],chinese:[],science:[],social:[]};const W=G.wrongBy[ws]||(G.wrongBy[ws]=[]),ex=W.find(w=>w.t==q0.t);if(ex){if(good)ex.n=(ex.n||0)+1}else if(!good)W.push(Object.assign({n:0},q0));G.wrongBy[ws]=W.slice(-100);save()}
+function play(l,pre){if(l=="z:paper")return paperDict();const isM=String(l)[0]=="m",isZ=String(l)[0]=="z",isS=String(l)[0]=="s",isH=String(l)[0]=="h",isX=String(l)[0]=="x",isI=!isM&&!isZ&&!isS&&!isH&&!isX&&l!="w",qs=pre||(isX?buildX(l):lim(isM?buildM(l):isZ?buildZ(l):isS?buildS(l):isH?buildH(l):buildQs(l),isI||isZ,isI?l:null)),ttl=l=="w"?"錯題本練習":isX?"期中考模擬："+({chinese:"國語",math:"數學",science:"自然",social:"社會"})[l.slice(2)]:l=="mc"?"數學綜合挑戰":isM?"數學　"+(ML.find(m=>"m:"+m.id==l)||{}).n:l=="hc"?"社會綜合挑戰":isH?"社會　"+(HLV.find(z=>"h:"+z.id==l)||{}).n:l=="sc"?"自然綜合挑戰":isS?"自然　"+(SCL.find(z=>"s:"+z.id==l)||{}).n:l=="zc"?"國語綜合挑戰":isZ?"國語　"+(ZL.find(z=>"z:"+z.id==l)||{}).n:l=="c"?"隨機挑戰":"第"+(l+1)+"關";let i=0,ok=0;const MS=(l=="w"||isX)?null:MIS[msIdx(l)],P=G.char?CH[G.char].n:"孔明";
+function done(good,ans,why){if(app.querySelector(".nx"))return;if(good)ok++;fx(good?"ok":"bad");const q0=qs[i];const ws=l=="w"?(G.sub=="chinese"?"chinese":G.sub=="science"?"science":G.sub=="social"?"social":"math"):isX?l.slice(2):isZ?"chinese":isS?"science":isH?"social":isM?"math":null;if(ws){G.wrongBy=G.wrongBy||{math:[],chinese:[],science:[],social:[]};const W=G.wrongBy[ws]||(G.wrongBy[ws]=[]),ex=W.find(w=>w.t==q0.t);if(ex){if(good)ex.n=(ex.n||0)+1}else if(!good)W.push(Object.assign({n:0},q0));G.wrongBy[ws]=W.slice(-100);save()}
 app.querySelectorAll(".opt,select,.chk,input").forEach(b=>b.disabled=true);
 app.querySelector(".fb").innerHTML=(good?'<span class="ok">✔ 答對了！</span> ':'<span class="bad">再想想看</span> ')+esc(ans)+" "+esc(why||"")+'<br><button class="go nx">'+(i+1>=qs.length?"看結果":"下一題")+'</button>';
 app.querySelector(".nx").onclick=()=>{i++;show()}}
-function show(){bar();if(i>=qs.length)return end();{const qq=qs[i],ii=i;if(qq&&qq.say)setTimeout(()=>{if(ii===i)hookSay(qq)},30)}const q=qs[i],hd=`<p class="sub">${ttl}　${i+1} / ${qs.length}</p>`;
+function show(){bar();if(i>=qs.length)return end();{const qq=qs[i],ii=i;if(qq&&qq.say)setTimeout(()=>{if(ii===i)hookSay(qq)},30)}const q=qs[i],hd=`<p class="sub">${ttl}　${i+1} / ${qs.length}${MS?`<br>任務：${MS.n}　${MS.i.repeat(ok)}${"○".repeat(qs.length-ok)}`:""}</p>`;
 if(q.k=="mc"){app.innerHTML=hd+`<div class="card q"><p>${q.t}</p>${q.say?'<div><button class="go spk">🔊 聽詞語</button> <button class="back hint">看注音提示</button></div>':""}${q.o.map((o,j)=>`<button class="opt" data-j="${j}">${esc(o)}</button>`).join("")}<div class="fb"></div></div>`;
 app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const g=+b.dataset.j==q.a;done(g,g?"":"正確答案："+q.o[q.a]+"。",q.why)})}
 else if(q.k=="vert"){app.innerHTML=hd+`<div class="card q"><div>在 □ 中填入適當的數字：</div><div class="hd">${vHtml(q,true)}</div><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
@@ -913,14 +1098,19 @@ const ds=[...app.querySelectorAll(".dg")];ds.forEach((d,j)=>{d.oninput=()=>{d.va
 app.querySelector(".chk").onclick=()=>{if(ds.some(d=>d.value==="")){app.querySelector(".fb").innerHTML='<span class="bad">每個格子都要填喔。</span>';return}let g=true;const CN=["千位","百位","十位","個位"],RN={a:"上面的數",b:"下面的數",s:"答案"},wl=[];ds.forEach(d=>{const [r,c,x]=q.bl[+d.dataset.b];d.disabled=true;if(+d.value===x)d.classList.add("ok2");else{g=false;d.classList.add("wr");wl.push(`${RN[r]}的${CN[c]}：你填 ${d.value}，應該是 ${x}`)}});done(g,g?"":"紅框是填錯的格子 —— "+wl.join("；")+"。完整算式是 "+q.a+"。",q.why)}}
 else if(q.k=="num"){app.innerHTML=hd+`<div class="card q"><div>${q.t}</div><input id="ans" type="number" inputmode="numeric" placeholder="答案"><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
 const f=()=>{const v=document.getElementById("ans").value;if(v==="")return;const g=+v==q.a;done(g,g?"":"正確答案："+q.a+"。",q.why)};app.querySelector(".chk").onclick=f;document.getElementById("ans").onkeydown=e=>{if(e.key=="Enter")f()}}
+else if(q.k=="match"){const R=sh(q.p.map((x,j)=>[x[1],j]));app.innerHTML=hd+`<div class="card q"><p>${q.t}<br><span class="zy">先點左邊，再點右邊配成一對</span></p><div class="mtg"><div class="mtc">${q.p.map((x,j)=>`<button class="opt mt L" data-j="${j}">${esc(x[0])}</button>`).join("")}</div><div class="mtc">${R.map(([t,j])=>`<button class="opt mt R" data-j="${j}">${esc(t)}</button>`).join("")}</div></div><div class="fb"></div></div>`;
+let selL=null,miss=0,left=q.p.length;
+app.querySelectorAll(".mt.L").forEach(b=>b.onclick=()=>{if(b.disabled)return;app.querySelectorAll(".mt.L").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");selL=b});
+app.querySelectorAll(".mt.R").forEach(b=>b.onclick=()=>{if(b.disabled||!selL)return;if(selL.dataset.j==b.dataset.j){selL.disabled=b.disabled=true;selL.classList.add("okm");b.classList.add("okm");selL.classList.remove("sel");selL=null;left--;if(!left){const g=miss<=1;done(g,g?"":"配錯了 "+miss+" 次。","正確的配對："+q.a)}else fx("click")}else{miss++;fx("bad");b.classList.add("badm");setTimeout(()=>b.classList.remove("badm"),400)}})}
 else{const op='<option value="">'+(q.lb||"選成語")+'</option>'+(q.bank||IDIOMS.map(d=>d.w)).map(w=>`<option>${esc(w)}</option>`).join("");
 app.innerHTML=hd+`<div class="card q"><p>`+esc(q.t).replace(/【(\d)】/g,`<select>${op}</select>`)+`</p><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
 app.querySelector(".chk").onclick=()=>{const v=[...app.querySelectorAll("select")].map(x=>x.value);if(v.some(x=>!x)){app.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔。</span>';return}
 const g=v.every((x,k)=>x===q.a[k]);done(g,g?"":"正確答案："+q.a.join("、")+"。","")}}}
-function end(){const r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=l=="w"?0:Math.max(0,s-old);if(l!="w"&&s>old){G.best[l]=s;save()}bar();if(s>0&&l!="w")fx("star");
-app.innerHTML=`<div class="card score"><div style="font-size:2rem">${l=="w"?"":stars(s)}</div><p>答對 ${ok} / ${qs.length} 題</p><p>${l=="w"?"錯題本練習不計星星，題目會繼續留在錯題本裡，考前可以再看。":gain?`獲得 <b>${gain}</b> 顆新星星，可以到「換裝」挑選配件。`:s?"這關的星星已經拿過了，挑戰更高的星星吧。":isM?"再試一次，慢慢算就會了。":isZ?"再讀一讀課文，再試一次。":"先到「認識成語」再讀一讀，然後再挑戰一次。"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到列表</button></div>`;
+function end(){const ns=l=="w"||isX,r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=ns?0:Math.max(0,s-old);if(!ns&&s>old){G.best[l]=s;save()}bar();if(s>0&&!ns)fx("star");
+app.innerHTML=`<div class="card score"><div style="font-size:2rem">${ns?"":stars(s)}</div>${isX?`<h2>${Math.round(ok/qs.length*100)} 分</h2><p class="mis">${r>=.9?"太棒了，考試就照這樣發揮！":r>=.7?"不錯，把答錯的題目再看一遍，會更好。":"沒關係，答錯的題目已經放進錯題本，可以再練習。"}</p>`:""}${MS&&l!="w"?`<p class="mis">${s==3?MS.win(P):s>0?MS.part(P):MS.lose(P)}</p>`:""}<p>答對 ${ok} / ${qs.length} 題</p><p>${isX?"模擬卷不計星星。答錯的題目已放進這一科的錯題本，考前可以再看。":l=="w"?"錯題本練習不計星星，題目會繼續留在錯題本裡，考前可以再看。":gain?`獲得 <b>${gain}</b> 顆新星星，可以到「換裝」挑選配件。`:s?"這關的星星已經拿過了，挑戰更高的星星吧。":isM?"再試一次，慢慢算就會了。":isZ?"再讀一讀課文，再試一次。":"先到「認識成語」再讀一讀，然後再挑戰一次。"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到列表</button></div>`;
 document.getElementById("again").onclick=()=>play(l,l=="w"?pre:undefined);document.getElementById("back").onclick=()=>tab(l=="w"?2:1)}
-show()}
+function intro(){if(!MS)return show();bar();app.innerHTML=`<div class="card hd">${av(G.char,G.wear[G.char],90)}<div style="font-size:2rem">${MS.i}</div><h2 style="font-size:1.35rem">任務：${MS.n}</h2><p>${MS.intro(P)}</p><p class="zy">這一關有 ${qs.length} 題，答對越多，${MS.u}就越多。<br>（故事靈感來自三國，是改編的小任務）</p><button class="go" id="go">出發！</button></div>`;document.getElementById("go").onclick=show}
+intro()}
 function closet(){bar();const c=G.char,W=G.wear[c]||(G.wear[c]={}),mine=IT.filter(x=>x.ch==c),all=IT.filter(x=>!x.ch);
 const cell=x=>{const own=G.own.includes(x.id),on=W[x.s]==x.id;return `<button data-i="${x.id}"><span class="zy">${SL[x.s]}</span><br><b style="font-size:1rem">${x.e||""} ${x.n}</b><br>${own?(on?"✔ 已穿上":"穿上"):"★ "+x.c+" 購買"}</button>`};
 app.innerHTML=`<div class="card hd">${av(c,W,150)}<h2>${CH[c].n}</h2>${CH[c].note?`<div class="zy">${CH[c].note}</div>`:""}<div class="stars">★ ${wallet()}</div><button class="go" id="chg">換角色</button></div><h3>${CH[c].n}的專屬裝備</h3><div class="grid">${mine.map(cell).join("")}</div><h3 style="margin-top:14px">大家都能用</h3><div class="grid">${all.map(cell).join("")}</div><p class="sub" id="msg"></p>`;
