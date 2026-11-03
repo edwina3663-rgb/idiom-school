@@ -30,6 +30,13 @@ nav button.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
 .grid button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:14px 8px;cursor:pointer;text-align:center;box-shadow:0 1px 8px rgba(90,60,60,.05)}
 .grid button:hover:not(:disabled){border-color:var(--acc)}
 .grid button:disabled{opacity:.45;cursor:not-allowed}
+.wk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:0 0 10px;font-size:.9rem}.wk ul{list-style:none;margin:6px 0;padding:0}.wk li{padding:2px 0}.wk li.ok{color:var(--ok)}.wkd{background:#fff6e3;border-color:var(--gold)}.rch{font-size:.78rem;color:var(--acc);font-weight:700;margin-bottom:3px}
+.road{position:relative;margin:6px auto 0;max-width:460px}.road svg{position:absolute;left:0;top:0}
+.rn{position:absolute;transform:translate(-50%,-34px);width:52%;text-align:center}.rn .rl{margin-top:6px;font-size:.88rem;line-height:1.35;color:var(--ink);background:rgba(255,253,250,.92);border-radius:10px;padding:3px 4px}
+.rb{width:68px;height:68px;border-radius:50%;border:4px solid var(--acc2);background:#fff;font-size:1.4rem;font-weight:700;color:var(--acc);cursor:pointer;box-shadow:0 3px 10px rgba(90,60,60,.18)}
+.rb.ok{background:#e8f6ee;border-color:var(--ok);color:var(--ok)}.rb.cur{border-color:var(--acc);background:#fff0f4;animation:rp 1.6s infinite}.rb.lk{background:#eee;color:#999;border-color:#ddd;cursor:not-allowed;box-shadow:none}.rb.cas{width:84px;height:84px;font-size:2rem;border-color:var(--gold)}
+@keyframes rp{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}.rav{position:absolute;top:10px;pointer-events:none;transform:translateX(-50%)}.rf{position:absolute;left:50%;top:6px;transform:translateX(-50%);font-weight:700;color:var(--acc);background:#fff;border-radius:14px;padding:3px 12px;box-shadow:0 1px 6px rgba(0,0,0,.1)}
+
 .grid .em{display:block;font-family:var(--serif);font-size:.85rem;color:var(--sub);letter-spacing:.1em}
 .grid b{font-family:var(--serif);font-size:1.25rem;letter-spacing:.1em}
 .zy{color:var(--sub);font-size:.85rem;letter-spacing:.08em}
@@ -404,14 +411,14 @@ const IT=[
 {id:"sx_wp2",ch:"shangxiang",s:"weapon",n:"短劍",c:3,d:h=>wp("#e2557a")},
 {id:"crown",s:"head",e:"👑",n:"皇冠",c:4},{id:"flower",s:"head",e:"🌸",n:"花髮飾",c:1},{id:"bow",s:"head",e:"🎀",n:"蝴蝶結",c:1},{id:"spark",s:"fx",e:"✨",n:"閃亮特效",c:3}];
 const SL={hair:"髮型",head:"頭飾",outfit:"衣服",weapon:"武器",fx:"特效"};
-const newG=()=>({char:null,best:{},spent:0,own:[],wear:{},v:2,sub:"idiom",wrong:[],wrongBy:{math:[],chinese:[],science:[],social:[]}});
+const newG=()=>({char:null,best:{},spent:0,own:[],wear:{},v:2,sub:"idiom",wrong:[],wrongBy:{math:[],chinese:[],science:[],social:[]},bonus:0,badges:[],seen:{},chb:{},wk:null});
 function fix(g){g=Object.assign(newG(),g||{});g.wrongBy=Object.assign({math:[],chinese:[],science:[],social:[]},g.wrongBy||{});if(g.wrong&&g.wrong.length){g.wrongBy.math=g.wrongBy.math.concat(g.wrong);g.wrong=[]}if(g.v!=2){const ref={helmet:3,feather:3,sword:3,arrow:4,crown:1,flower:1,bow:1,spark:1};(g.own||[]).forEach(id=>{g.spent=Math.max(0,g.spent-(ref[id]||0))});g.own=(g.own||[]).filter(id=>!["helmet","feather","sword","arrow"].includes(id));g.wear={};g.v=2}const mm={m0:"add",m1:"sub",m2:"mul",m3:"div",m4:"cmp",m5:"word"};Object.keys(mm).forEach(k=>{if(g.best[k]!=null){g.best["m:"+mm[k]]=g.best[k];delete g.best[k]}});return g}
 let R={cur:0,slots:[null,null,null]};
 try{const r=localStorage.getItem("idiomGame3");if(r)R=JSON.parse(r);else{const o=localStorage.getItem("idiomGame");if(o)R.slots[0]=JSON.parse(o)}}catch(e){}
 R.slots=[0,1,2].map(k=>R.slots[k]?fix(R.slots[k]):null);
 let G=R.slots[R.cur]||(R.slots[R.cur]=newG());
 const save=()=>{R.slots[R.cur]=G;try{localStorage.setItem("idiomGame3",JSON.stringify(R))}catch(e){}};
-const wallet=()=>Object.values(G.best).reduce((a,b)=>a+b,0)-G.spent;
+const wallet=()=>Object.values(G.best).reduce((a,b)=>a+b,0)+(G.bonus||0)-G.spent;
 const sh=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
 function av(c,w,z){const h=CH[c];if(!h)return"";w=w||{};const g=s=>IT.find(x=>x.id===w[s]);const dr=s=>{const x=g(s);return x&&x.d?x.d(h):""};const emo=s=>{const x=g(s);return x&&x.e?x.e:""};
 const hi=g("hair"),ou=g("outfit");
@@ -422,7 +429,7 @@ return `<svg width="${z}" height="${Math.round(z*152/140)}" viewBox="-10 -14 140
 function bar(){document.getElementById("bar").innerHTML=(G.char?`${av(G.char,G.wear[G.char],40)}<b>${CH[G.char].n}</b><span class="stars">★ ${wallet()}</span>`:"")+`<button class="back" id="sv">💾 存檔${R.cur+1}</button><button class="back" id="sxb">音效${SND.fx?"開":"關"}</button><button class="back" id="smb">音樂${SND.bgm?"開":"關"}</button>`;document.getElementById("sv").onclick=slotsUI;
 document.getElementById("sxb").onclick=()=>{SND.fx=!SND.fx;sndSave();bar();fx("ok")};
 document.getElementById("smb").onclick=()=>{SND.bgm=!SND.bgm;sndSave();SND.bgm?bgmOn():bgmOff();bar()}}
-function slotsUI(){R.slots[R.cur]=G;app.innerHTML='<p class="sub">每個存檔有自己的角色、星星和衣服，可以給不同的人玩。</p>'+R.slots.map((g,i)=>`<div class="card hd"><b>存檔 ${i+1}${i==R.cur?"（使用中）":""}</b><br>${g&&g.char?av(g.char,g.wear[g.char],80)+"<br>"+CH[g.char].n+"　★ "+(Object.values(g.best).reduce((a,b)=>a+b,0)-g.spent):"空的存檔"}<br><button class="go" data-u="${i}">${i==R.cur?"繼續玩":"使用這個存檔"}</button> ${g&&g.char?`<button class="go" data-x="${i}" style="background:var(--bad)">清除重來</button>`:""}</div>`).join("")+`<div class="card"><h3>備份與還原</h3><p class="zy">把所有存檔變成一串代碼，存在備忘錄裡。換手機或瀏覽器時，貼上代碼就能還原。</p><div class="hd"><button class="go" id="bkmk">產生備份代碼</button></div><textarea id="bkout" class="bk" readonly placeholder="按上面的按鈕，代碼會出現在這裡"></textarea><div class="hd"><button class="go" id="bkcp">複製代碼</button></div><div class="fb" id="bkmsg"></div><hr style="border:0;border-top:1px solid var(--line);margin:14px 0"><p class="zy">還原：把備份代碼貼在下面（會取代目前所有存檔）。</p><textarea id="bkin" class="bk" placeholder="貼上備份代碼"></textarea><div class="hd"><button class="go" id="bkrs" style="background:var(--bad)">還原存檔</button></div></div>`;
+function slotsUI(){R.slots[R.cur]=G;app.innerHTML='<p class="sub">每個存檔有自己的角色、星星和衣服，可以給不同的人玩。</p>'+R.slots.map((g,i)=>`<div class="card hd"><b>存檔 ${i+1}${i==R.cur?"（使用中）":""}</b><br>${g&&g.char?av(g.char,g.wear[g.char],80)+"<br>"+CH[g.char].n+"　★ "+(Object.values(g.best).reduce((a,b)=>a+b,0)+(g.bonus||0)-g.spent):"空的存檔"}<br><button class="go" data-u="${i}">${i==R.cur?"繼續玩":"使用這個存檔"}</button> ${g&&g.char?`<button class="go" data-x="${i}" style="background:var(--bad)">清除重來</button>`:""}</div>`).join("")+`<div class="card"><h3>備份與還原</h3><p class="zy">把所有存檔變成一串代碼，存在備忘錄裡。換手機或瀏覽器時，貼上代碼就能還原。</p><div class="hd"><button class="go" id="bkmk">產生備份代碼</button></div><textarea id="bkout" class="bk" readonly placeholder="按上面的按鈕，代碼會出現在這裡"></textarea><div class="hd"><button class="go" id="bkcp">複製代碼</button></div><div class="fb" id="bkmsg"></div><hr style="border:0;border-top:1px solid var(--line);margin:14px 0"><p class="zy">還原：把備份代碼貼在下面（會取代目前所有存檔）。</p><textarea id="bkin" class="bk" placeholder="貼上備份代碼"></textarea><div class="hd"><button class="go" id="bkrs" style="background:var(--bad)">還原存檔</button></div></div>`;
 app.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{R.cur=+b.dataset.u;G=R.slots[R.cur]||(R.slots[R.cur]=newG());save();tab(1)});
 app.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{if(!b.dataset.ok){b.dataset.ok=1;b.textContent="再按一次確定清除";return}const i=+b.dataset.x;R.slots[i]=null;if(i==R.cur)G=R.slots[i]=newG();save();slotsUI()});
 const msg=t=>{document.getElementById("bkmsg").textContent=t};
@@ -464,7 +471,49 @@ t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);t3.onclick=()=>tab(3);
 function pickChar(){bar();app.innerHTML='<p class="sub">選一位角色，一起闖關</p><div class="grid">'+Object.keys(CH).map(k=>`<button data-c="${k}" class="pick">${av(k,{},90)}<br><b>${CH[k].n}</b></button>`).join("")+'</div>';
 app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{G.char=b.dataset.c;save();tab(1)})}
 const LV=()=>{const a=[];for(let i=0;i<IDIOMS.length;i+=2)a.push([i,Math.min(i+2,IDIOMS.length)]);return a};
-function map(){bar();const L=LV(),st=stars;app.innerHTML='<p class="sub">通過關卡拿星星，星星可以去換衣服！<br>每次玩的題目都不一樣喔～</p><div class="grid">'+L.map((r,i)=>{const b=G.best[i]||0,open=i==0||(G.best[i-1]||0)>=1;return `<button data-l="${i}" ${open?"":"disabled"}><span class="em">${open?"第"+(i+1)+"關":"🔒"}</span><b style="font-size:1.05rem">${IDIOMS.slice(r[0],r[1]).map(d=>esc(d.w)).join("、")}</b><br>${st(b)}</button>`}).join("")+`<button data-l="c" ${(G.best[0]||0)>=1?"":"disabled"}><span class="em">挑戰</span><b>隨機挑戰</b><br>${st(G.best.c||0)}</button></div>`;
+/* ===== 每週小目標 ＆ 章節故事 ===== */
+const WKN={pass:3,days:3,star:5};
+const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function wkEns(){const d=new Date(),m=new Date(d.getFullYear(),d.getMonth(),d.getDate());m.setDate(m.getDate()-((m.getDay()+6)%7));const id=ymd(m);if(!G.wk||G.wk.id!=id)G.wk={id,days:[],pass:[],wb:0,got:0};G.badges=G.badges||[];return G.wk}
+function wkTouch(l,s,ns){const w=wkEns(),t=ymd(new Date()),was=w.got;if(l!="wbview"&&!w.days.includes(t))w.days.push(t);if(l=="wbview"||l=="w")w.wb=1;if(!ns&&s>0&&l!="wbview"&&!w.pass.includes(String(l)))w.pass.push(String(l));
+ if(!w.got&&w.pass.length>=WKN.pass&&w.days.length>=WKN.days&&w.wb){w.got=1;G.bonus=(G.bonus||0)+WKN.star;if(!G.badges.includes(w.id))G.badges.push(w.id)}save();return{done:!was&&!!w.got}}
+const wkBanner=()=>`<div class="card hd wkd"><div style="font-size:2rem">🏅</div><b>本週小目標全部完成！</b><br>獲得 ${WKN.star} 顆星星和一枚「週冠軍」徽章，可以到「換裝」用星星換配件。</div>`;
+function wkCard(){const w=wkEns(),ck=(ok,t)=>`<li class="${ok?"ok":""}">${ok?"✅":"⬜"} ${t}</li>`;return `<div class="wk"><b>🌟 本週小目標</b>　<span class="zy">每週一重新開始</span><ul>${ck(w.pass.length>=WKN.pass,`打過 ${WKN.pass} 個關卡（${Math.min(w.pass.length,WKN.pass)} / ${WKN.pass}）`)}${ck(w.days.length>=WKN.days,`玩 ${WKN.days} 天（${Math.min(w.days.length,WKN.days)} / ${WKN.days}）`)}${ck(w.wb,"看一次錯題本")}</ul>${w.got?`<div class="zy">🏅 這週完成了！已拿到 ${WKN.star} 顆星星</div>`:`<div class="zy">全部完成就有 ${WKN.star} 顆星星和徽章　已有 ${(G.badges||[]).length} 枚徽章</div>`}</div>`}
+const ST={
+chinese:{p:"z:",ch:[
+{t:"卷軸上的字",ids:["read2","w4","key"],a:P=>`${P}在書房裡找到一卷神祕的卷軸，上面的字都模模糊糊的。要把字讀對、寫對，卷軸才會慢慢亮起來。你是${P}的小助手，一起來讀一讀吧！`,b:P=>`卷軸上的字一個個亮了起來！${P}說：你把字詞記得真清楚，我們可以去下一個地方了。`},
+{t:"字神來搗蛋",ids:["zuo","circle","read"],a:P=>`做、作、坐、座四個字神跑出來搗蛋，把字都弄混了！${P}請你幫忙，把每個字放回正確的位置。`,b:P=>`字神們乖乖回到自己的位置，笑著跟你說謝謝！${P}也向你豎起大拇指。`},
+{t:"海底書院",ids:["char","word","paper"],fin:"word",a:P=>`${P}和你來到海底書院，小丑魚和海葵在門口迎接。他們說：通過最後的考驗，就能拿到畢業證書！`,b:P=>`小丑魚和海葵為你鼓掌，海底書院的畢業證書送給你了！${P}也很開心。`}]},
+math:{p:"m:",ch:[
+{t:"數字城門",ids:["num4","est","angle","nline"],a:P=>`${P}來到數字城門前，守門的老將軍說：要先答出數字、角度和數線的問題，才能開門。`,b:P=>`城門轟隆隆地打開了！老將軍笑著說：好軍師，請進！`},
+{t:"長度糧道",ids:["meter","cmpw","carry","mm","mm2"],a:P=>`軍隊的糧草要運過一條很長的路，${P}要先量出每一段有多長，才能把糧草平安送到。`,b:P=>`每一段路都量得清清楚楚，糧草平安送到了！${P}說：多虧有你。`},
+{t:"密碼鎖",ids:["vmul","mul","vadd","vsub"],a:P=>`寶庫的大門上有一把密碼鎖，算式裡的空格要填對數字才打得開。${P}說：留空的地方，要一格一格慢慢想！`,b:P=>`喀嚓！密碼鎖打開了，寶庫裡閃閃發亮。`},
+{t:"最後的謎題",ids:["add","sub","div","cmp","word"],a:P=>`最後一道門前，有一位老先生出了一組謎題。解開它們，就能成為真正的軍師！`,b:P=>`老先生大笑：你就是最棒的軍師！${P}也為你高興。`}]},
+science:{p:"s:",ch:[
+{t:"植物園的入口",ids:["read","leaf","wind"],a:P=>`${P}和你來到一座神奇的植物園。園長說：先認識園裡的植物和大自然的力量，才能往裡面走。`,b:P=>`園長點點頭：你觀察得很仔細，歡迎進來！`},
+{t:"看不見的空氣泉",ids:["air1","air2","air3"],a:P=>`園子深處有一座「空氣泉」，看不見也摸不到，卻很重要。${P}請你幫忙證明空氣真的存在，也要比一比空氣和水有什麼不同。`,b:P=>`你證明了空氣真的存在！泉水咕嚕咕嚕地冒出了泡泡。`},
+{t:"花的祕密花園",ids:["flower","sex","fruit","words"],a:P=>`最後來到祕密花園，每一朵花都有自己的任務。${P}請你找出花的各個部分，看看花是怎麼變成果實和種子的。`,b:P=>`花園裡的花全部盛開了，園長送你一顆小小的種子當紀念！`}]},
+social:{p:"h:",ch:[
+{t:"新學校的第一天",ids:["rule","revise","newlearn"],a:P=>`${P}升上三年級，來到新教室。老師說：大家一起生活，要先知道有哪些規定，也要學會新的學習方法。`,b:P=>`你已經熟悉三年級的新生活了，${P}為你高興！`},
+{t:"班級小議會",ids:["why","meet","life","words"],a:P=>`班上要開一場小議會，討論怎麼訂班級公約。${P}請你一起參加，學習怎麼開會、怎麼表決。`,b:P=>`班級公約訂好了，大家都很滿意！你是最棒的小議員。`}]}};
+function stFind(l){l=String(l);for(const sb in ST){const S=ST[sb];for(let i=0;i<S.ch.length;i++){const c=S.ch[i];if(c.ids.some(x=>S.p+x==l))return{sb,S,c,i,key:sb+i}}}return null}
+const chN=["一","二","三","四","五"];
+function chEnd(l,s,ns){const st=stFind(l);if(!st||ns||s<1)return"";const f=st.S.p+(st.c.fin||st.c.ids[st.c.ids.length-1]);if(l!=f)return"";G.chb=G.chb||{};if(G.chb[st.key])return"";G.chb[st.key]=1;G.bonus=(G.bonus||0)+1;save();const P=CH[G.char].n;return `<div class="card hd wkd"><div style="font-size:1.6rem">📖</div><b>第${chN[st.i]}章　${st.c.t}　完成！</b><p>${st.c.b(P)}</p><div class="zy">獲得 1 顆章節星星（這是改編的小故事）</div></div>`}
+function storyCard(st,P,then){app.innerHTML=`<div class="card hd"><div style="font-size:2rem">📖</div><h2 style="font-size:1.3rem">第${chN[st.i]}章　${st.c.t}</h2><p>${st.c.a(P)}</p><p class="zy">（這是改編的小故事，不是課本內容）</p><button class="go" id="sk">繼續</button></div>`;document.getElementById("sk").onclick=then}
+function storyList(S,unl){const P=CH[G.char].n;app.innerHTML=`<button class="back" id="sb">← 回到地圖</button>`+S.ch.map((c,i)=>unl.includes(i)?`<div class="card"><b>第${chN[i]}章　${c.t}</b><p>${c.a(P)}</p>${(G.chb||{})[Object.keys(ST).find(k=>ST[k]==S)+i]?`<p>${c.b(P)}</p>`:""}</div>`:`<div class="card" style="opacity:.55">🔒 第${chN[i]}章　還沒解鎖</div>`).join("")+'<p class="zy">（這些是改編的小故事，不是課本內容）</p>';document.getElementById("sb").onclick=()=>tab(1)}
+function road(sub,items,ch){bar();const b=k=>G.best[k]||0;let cur=items.findIndex(x=>!x.free&&b(x.key)<1);if(cur<0)cur=items.length-1;
+const SP=150,xs=[50,72,50,28],pts=items.map((x,i)=>[xs[i%4],108+i*SP]),cp=[50,108+items.length*SP],H=cp[1]+120,all=pts.concat([cp]);
+let d="M"+all[0][0]+" "+all[0][1];for(let i=1;i<all.length;i++){const p=all[i-1],q=all[i],m=(p[1]+q[1])/2;d+=` C ${p[0]} ${m}, ${q[0]} ${m}, ${q[0]} ${q[1]}`}
+const av0=(p)=>`<div class="rav" style="left:calc(50% ${p[0]>=50?"-":"+"} 66px)">${av(G.char,G.wear[G.char],46)}</div>`;
+const nd=(p,inner,lab,cls,attrs,me)=>`<div class="rn" style="left:${p[0]}%;top:${p[1]}px">${me?av0(p):""}<button class="rb ${cls}" ${attrs}>${inner}</button><div class="rl">${lab}</div></div>`;
+const stS=items.length&&stFind(items[0].l),opens=[];if(stS)stS.S.ch.forEach((c,ci)=>{const ix=items.findIndex(x=>x.l==stS.S.p+c.ids[0]);if(ix>=0&&(items[ix].free||ix<=cur||b(items[ix].key)>=1))opens.push(ci)});
+let h=wkCard()+`<p class="sub">${sub}<br>從上面的旗子出發，一關一關往下走，最後打到城堡！<br>已經過的關卡可以再回去玩，拿更多星星。</p><div class="road" style="height:${H}px"><svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" width="100%" height="${H}"><path d="${d}" fill="none" stroke="#e6b9c4" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="${d}" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg><div class="rf">🚩 出發</div>`;
+items.forEach((x,i)=>{const fs=stFind(x.l),ct=fs&&x.l==fs.S.p+fs.c.ids[0]?`<div class="rch">📖 第${chN[fs.i]}章　${fs.c.t}</div>`:"",v=b(x.key),open=x.free||i<=cur||v>=1,done=!x.free&&v>=1;
+ h+=nd(pts[i],x.free?"✏️":!open?"🔒":done?"✔":i+1,ct+`<b>${esc(x.n)}</b>`+(x.free?'<br><span class="zy">自己批改，不計星星</span>':open?"<br>"+stars(v):""),(done?"ok ":"")+(i==cur&&!x.free?"cur ":"")+(open?"":"lk"),`data-l="${x.l}" ${open?"":"disabled"}`,i==cur)});
+const co=ch.lock?false:true;
+h+=nd(cp,co?"🏯":"🔒",`<b>${esc(ch.n)}</b>`+(co?"<br>"+stars(b(ch.key)):""),"cas "+(co?"":"lk"),`data-l="${ch.l}" ${co?"":"disabled"}`,false)+"</div>";
+app.innerHTML=h;if(stS){app.querySelector(".road").insertAdjacentHTML("beforebegin",'<p style="text-align:center"><button class="back" id="stb">📖 看故事</button></p>');document.getElementById("stb").onclick=()=>storyList(stS.S,opens)}setTimeout(()=>{const c=app.querySelector(".rb.cur");if(c&&c.scrollIntoView)c.scrollIntoView({block:"center"})},60)}
+function map(){const L=LV();road("通過關卡拿星星，星星可以去換衣服！",L.map((r,i)=>({l:i,key:i,n:IDIOMS.slice(r[0],r[1]).map(d=>d.w).join("、")})),{l:"c",key:"c",n:"隨機挑戰",lock:(G.best[0]||0)<1});
 app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l=="c"?"c":+b.dataset.l))}
 const oth=(w,n)=>sh(IDIOMS.filter(d=>d.w!=w)).slice(0,n);
 const leak=(t,w)=>[0,1,2].some(i=>t.includes(w.slice(i,i+2)));
@@ -597,7 +646,7 @@ const tx=x0+k*gap;g+=`<circle cx="${tx}" cy="${y}" r="7" fill="var(--acc)"/><tex
 function mNline(){const s0=[2,5,8,10,20,25,50,100,200][rn(0,8)],k=rn(4,9);return Object.assign({k:"num",t:nline(s0,k)+"<div>數線上，紅色的圓點「？」代表多少？</div>",a:s0*k,why:`數線上每一格相差 ${s0}（0 到 ${s0}，${s0} 到 ${2*s0}），紅點在第 ${k} 格，所以是 ${s0} × ${k} = ${s0*k}`},{_c:["nline",s0,k]})}
 const ML=[{id:"num4",n:"四位數：讀寫、順序、最大最小",g:mNum4},{id:"est",n:"估算：大約是多少",g:mEst},{id:"angle",n:"角與鐘面：直角、銳角、鈍角",g:mAngle},{id:"nline",n:"數線上的數",g:mNline},{id:"meter",n:"公尺、公分、毫米的換算",g:mMeter},{id:"cmpw",n:"比…多、比…少：反推長度",g:mCmpWord},{id:"carry",n:"長度加減（進位、借位）與看尺",g:mCarry},{id:"mm",n:"單位換算：公分和毫米",g:mUnit},{id:"mm2",n:"長度的計算與比較（毫米）",g:mUnit2},{id:"vmul",n:"直式留空　乘法（二位數×一位數）",g:mVertMul},{id:"mul",n:"乘法留空（二位數×一位數）",g:mMul},{id:"vadd",n:"直式留空　加法",g:()=>mVert("+")},{id:"vsub",n:"直式留空　減法",g:()=>mVert("-")},{id:"add",n:"橫式留空　加法",g:mAdd},{id:"sub",n:"橫式留空　減法",g:mSub},{id:"div",n:"除法留空",g:mDiv},{id:"cmp",n:"比大小 □",g:mCmp},{id:"word",n:"文字題留空",g:mWord}];
 function buildM(key){const f=key=="mc"?null:ML.find(m=>"m:"+m.id==key).g,len=key=="mc"?10:8,qs=[],seen=new Set();for(let k=0;qs.length<len&&k<300;k++){const q=(f||sh(ML)[0].g)();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}}return qs}
-function mapMath(){bar();app.innerHTML='<p class="sub">三年級數學　算式留空練習<br>最近的單元：二位數 × 一位數、公分和毫米，各關互相獨立，想練哪一關都可以</p><div class="grid">'+ML.map((m,i)=>{const b=G.best["m:"+m.id]||0;return `<button data-l="m:${m.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${m.n}</b><br>${stars(b)}</button>`}).join("")+`<button data-l="mc"><span class="em">挑戰</span><b>數學綜合</b><br>${stars(G.best.mc||0)}</button></div>`;
+function mapMath(){road("三年級數學　算式留空練習<br>最近的單元：二位數 × 一位數、公分和毫米",ML.map(m=>({l:"m:"+m.id,key:"m:"+m.id,n:m.n})),{l:"mc",key:"mc",n:"數學綜合"});
 app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 const ZR=[
 ()=>mcz("小丑魚和海葵彼此幫忙，兩邊都得到好處。這種關係叫做什麼？","互利共生",["弱肉強食","各自生活","互相競爭"],"互利共生，就是兩種生物互相幫忙、互相得到好處。"),
@@ -782,7 +831,7 @@ document.getElementById("again").onclick=()=>paperDict(ws,fromWrong);document.ge
 step()}
 
 function buildZ(key){const all=[].concat(...ZL.map(z=>z.b)),src=key=="zc"?all:ZL.find(z=>"z:"+z.id==key).b,len=key=="zc"?10:8,qs=[],seen=new Set();for(const f of sh(src)){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
-function mapZ(){bar();app.innerHTML='<p class="sub">國語（康軒）第四單元〈小丑魚和海葵〉<br>題目是原創的，順序和選項每次都會重新排列</p><div class="grid">'+ZL.map((z,i)=>`<button data-l="z:${z.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${z.n}</b><br>${z.id=="paper"?'<span class="zy">自己批改，不計星星</span>':stars(G.best["z:"+z.id]||0)}</button>`).join("")+`<button data-l="zc"><span class="em">挑戰</span><b>國語綜合</b><br>${stars(G.best.zc||0)}</button></div>`;
+function mapZ(){road("國語（康軒）第四單元〈小丑魚和海葵〉",ZL.map(z=>({l:"z:"+z.id,key:"z:"+z.id,n:z.n,free:z.id=="paper"})),{l:"zc",key:"zc",n:"國語綜合"});
 app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 /* ===== 自然（南一）認識植物：花 ===== */
 const sq=(t,c,w,why,cat)=>()=>Object.assign(mcz(t,c,w,why),cat?{cat}:{});
@@ -922,7 +971,7 @@ sq("「水可以傳送動力，空氣不行。」這句話對嗎？","不對，�
 sq("下面哪一個不是風力的應用？","用打氣筒把籃球打飽氣",["風乾食物","帆船航行"],"風乾食物和帆船都是利用風；打氣筒是把空氣打進球裡。")].map(f=>()=>Object.assign({cat:"風力和水力"},f()));
 const SCL=[{id:"read",n:"科學閱讀：看文章，判斷對或錯",b:SRDF},{id:"leaf",n:"葉、莖、根怎麼分類",b:SLF},{id:"wind",n:"風力和水力的應用",b:SWF},{id:"air1",n:"單元二：物質的特性（空氣、水、石頭）",b:SA1},{id:"air2",n:"單元二：證明空氣存在",b:SA2},{id:"air3",n:"單元二：空氣和水的比較",b:SA3},{id:"flower",n:"花的構造與功能",b:SF},{id:"sex",n:"雄花、雌花與傳粉",b:SS},{id:"fruit",n:"花、果實、種子與根",b:SR},{id:"words",n:"自然字詞：怎麼寫、怎麼念",b:SW}];
 function buildS(key){const all=[].concat(...SCL.map(z=>z.b)),src=key=="sc"?all:SCL.find(z=>"s:"+z.id==key).b,len=key=="sc"?10:8,qs=[],seen=new Set();for(const f of sh(src)){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
-function mapS(){bar();app.innerHTML='<p class="sub">自然（南一）單元一 認識植物、單元二 空氣和水<br>題目是原創的，順序和選項每次都會重新排列</p><div class="grid">'+SCL.map((z,i)=>`<button data-l="s:${z.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${z.n}</b><br>${stars(G.best["s:"+z.id]||0)}</button>`).join("")+`<button data-l="sc"><span class="em">挑戰</span><b>自然綜合</b><br>${stars(G.best.sc||0)}</button></div>`;
+function mapS(){road("自然（南一）單元一 認識植物、單元二 空氣和水",SCL.map(z=>({l:"s:"+z.id,key:"s:"+z.id,n:z.n})),{l:"sc",key:"sc",n:"自然綜合"});
 app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 /* ===== 社會（翰林）生活公約：遵守團體規範、訂定班級公約 ===== */
 const HF=[
@@ -1013,7 +1062,7 @@ sq("同學有很會做的事，你可以怎麼做？","向他請教，互相學�
 sq("「學習的主人」是什麼意思？","自己決定要怎麼學習，並且負起責任",["什麼都讓老師決定","學習是別人的事"],"當學習的主人，要主動學習，也要負責任。")].map(f=>()=>Object.assign({cat:"新學習"},f()));
 const HLV=[{id:"rule",n:"班級公約的內容：合理還是不合理？",b:HM},{id:"revise",n:"規定怎麼修改？（以制服為例）",b:HR},{id:"newlearn",n:"升上三年級的新學習",b:HN},{id:"why",n:"公約的意義：為什麼要訂、怎麼訂",b:HF},{id:"meet",n:"開會與表決",b:HK},{id:"life",n:"生活中的規範",b:HS},{id:"words",n:"社會字詞：怎麼寫、怎麼念",b:HW}];
 function buildH(key){const all=[].concat(...HLV.map(z=>z.b)),src=key=="hc"?all:HLV.find(z=>"h:"+z.id==key).b,len=key=="hc"?10:8,qs=[],seen=new Set();for(const f of sh(src)){const q=f();if(!seen.has(q.t)){seen.add(q.t);qs.push(q)}if(qs.length>=len)break}return qs}
-function mapH(){bar();app.innerHTML='<p class="sub">社會（翰林）校園規範和班級自治：遵守團體規範、訂定班級公約；升上三年級的新學習<br>題目是原創的，順序和選項每次都會重新排列</p><div class="grid">'+HLV.map((z,i)=>`<button data-l="h:${z.id}"><span class="em">第${i+1}關</span><b style="font-size:1.05rem">${z.n}</b><br>${stars(G.best["h:"+z.id]||0)}</button>`).join("")+`<button data-l="hc"><span class="em">挑戰</span><b>社會綜合</b><br>${stars(G.best.hc||0)}</button></div>`;
+function mapH(){road("社會（翰林）校園規範和班級自治",HLV.map(z=>({l:"h:"+z.id,key:"h:"+z.id,n:z.n})),{l:"hc",key:"hc",n:"社會綜合"});
 app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>play(b.dataset.l));addX()}
 /* ===== 三國任務、連連看 ===== */
 const MIS=[
@@ -1073,7 +1122,8 @@ document.getElementById("pc").onclick=()=>pv.remove();document.getElementById("p
 document.getElementById("pd").onclick=()=>{const css=[...document.querySelectorAll("style")].map(x=>x.textContent).join("\n"),page=`<!DOCTYPE html><html lang="zh-Hant" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${r.title}</title><style>${css}\nbody{background:#fff!important;color:#222}#pv{position:static!important;overflow:visible!important}#pv .tool,#pv>.note{display:none!important}</style></head><body><div id="pv">${r.html}</div></body></html>`;
  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([page],{type:"text/html"}));a.download=r.title+".html";document.body.appendChild(a);a.click();a.remove()}catch(e){alert("這個畫面不能下載，請改用 GitHub 上的網站。")}}}
 let WBF="全部";
-function wrongBook(){const sb=G.sub=="chinese"?"chinese":G.sub=="science"?"science":G.sub=="social"?"social":"math",nm={chinese:"國語",science:"自然",social:"社會",math:"數學"}[sb],all=(G.wrongBy&&G.wrongBy[sb])||[],cat=x=>x.cat||"其他",cats=[...new Set(all.map(cat))];if(WBF!="全部"&&!cats.includes(WBF))WBF="全部";
+function wrongBook(){const r=wkTouch("wbview");wrongBook0();if(r.done)app.insertAdjacentHTML("afterbegin",wkBanner())}
+function wrongBook0(){const sb=G.sub=="chinese"?"chinese":G.sub=="science"?"science":G.sub=="social"?"social":"math",nm={chinese:"國語",science:"自然",social:"社會",math:"數學"}[sb],all=(G.wrongBy&&G.wrongBy[sb])||[],cat=x=>x.cat||"其他",cats=[...new Set(all.map(cat))];if(WBF!="全部"&&!cats.includes(WBF))WBF="全部";
 const w=WBF=="全部"?all:all.filter(x=>cat(x)==WBF),mcs=w.filter(x=>x.k!="dict"),dts=w.filter(x=>x.k=="dict");
 const chip=c=>`<button class="chip${c==WBF?" on":""}" data-f="${c}">${c}（${c=="全部"?all.length:all.filter(x=>cat(x)==c).length}）</button>`;
 const item=x=>{const cnt=x.n?`　（練習時已答對 ${x.n} 次）`:"";const tg=`<span class="tag">${esc(cat(x))}</span>`;
@@ -1106,10 +1156,11 @@ else{const op='<option value="">'+(q.lb||"選成語")+'</option>'+(q.bank||IDIOM
 app.innerHTML=hd+`<div class="card q"><p>`+esc(q.t).replace(/【(\d)】/g,`<select>${op}</select>`)+`</p><button class="go chk">檢查答案</button><div class="fb"></div></div>`;
 app.querySelector(".chk").onclick=()=>{const v=[...app.querySelectorAll("select")].map(x=>x.value);if(v.some(x=>!x)){app.querySelector(".fb").innerHTML='<span class="bad">每個空格都要選喔。</span>';return}
 const g=v.every((x,k)=>x===q.a[k]);done(g,g?"":"正確答案："+q.a.join("、")+"。","")}}}
-function end(){const ns=l=="w"||isX,r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=ns?0:Math.max(0,s-old);if(!ns&&s>old){G.best[l]=s;save()}bar();if(s>0&&!ns)fx("star");
+function end(){const ns=l=="w"||isX,r=ok/qs.length,s=r>=.9?3:r>=.7?2:r>=.4?1:0,old=G.best[l]||0,gain=ns?0:Math.max(0,s-old);if(!ns&&s>old){G.best[l]=s;save()}const WK=wkTouch(l,s,ns),CB=chEnd(l,s,ns);bar();if(s>0&&!ns)fx("star");
 app.innerHTML=`<div class="card score"><div style="font-size:2rem">${ns?"":stars(s)}</div>${isX?`<h2>${Math.round(ok/qs.length*100)} 分</h2><p class="mis">${r>=.9?"太棒了，考試就照這樣發揮！":r>=.7?"不錯，把答錯的題目再看一遍，會更好。":"沒關係，答錯的題目已經放進錯題本，可以再練習。"}</p>`:""}${MS&&l!="w"?`<p class="mis">${s==3?MS.win(P):s>0?MS.part(P):MS.lose(P)}</p>`:""}<p>答對 ${ok} / ${qs.length} 題</p><p>${isX?"模擬卷不計星星。答錯的題目已放進這一科的錯題本，考前可以再看。":l=="w"?"錯題本練習不計星星，題目會繼續留在錯題本裡，考前可以再看。":gain?`獲得 <b>${gain}</b> 顆新星星，可以到「換裝」挑選配件。`:s?"這關的星星已經拿過了，挑戰更高的星星吧。":isM?"再試一次，慢慢算就會了。":isZ?"再讀一讀課文，再試一次。":"先到「認識成語」再讀一讀，然後再挑戰一次。"}</p><button class="go" id="again">再玩一次</button> <button class="go" id="back">回到列表</button></div>`;
-document.getElementById("again").onclick=()=>play(l,l=="w"?pre:undefined);document.getElementById("back").onclick=()=>tab(l=="w"?2:1)}
-function intro(){if(!MS)return show();bar();app.innerHTML=`<div class="card hd">${av(G.char,G.wear[G.char],90)}<div style="font-size:2rem">${MS.i}</div><h2 style="font-size:1.35rem">任務：${MS.n}</h2><p>${MS.intro(P)}</p><p class="zy">這一關有 ${qs.length} 題，答對越多，${MS.u}就越多。<br>（故事靈感來自三國，是改編的小任務）</p><button class="go" id="go">出發！</button></div>`;document.getElementById("go").onclick=show}
+document.getElementById("again").insertAdjacentHTML("beforebegin",CB+(WK.done?wkBanner():"")+"<br>");document.getElementById("again").onclick=()=>play(l,l=="w"?pre:undefined);document.getElementById("back").onclick=()=>tab(l=="w"?2:1)}
+function intro(){if(!MS)return show();const st0=stFind(l);if(st0&&l==st0.S.p+st0.c.ids[0]&&!(G.seen||{})[st0.key]){bar();return storyCard(st0,P,()=>{G.seen=G.seen||{};G.seen[st0.key]=1;save();intro2()})}intro2()}
+function intro2(){bar();app.innerHTML=`<div class="card hd">${av(G.char,G.wear[G.char],90)}<div style="font-size:2rem">${MS.i}</div><h2 style="font-size:1.35rem">任務：${MS.n}</h2><p>${MS.intro(P)}</p><p class="zy">這一關有 ${qs.length} 題，答對越多，${MS.u}就越多。<br>（故事靈感來自三國，是改編的小任務）</p><button class="go" id="go">出發！</button></div>`;document.getElementById("go").onclick=show}
 intro()}
 function closet(){bar();const c=G.char,W=G.wear[c]||(G.wear[c]={}),mine=IT.filter(x=>x.ch==c),all=IT.filter(x=>!x.ch);
 const cell=x=>{const own=G.own.includes(x.id),on=W[x.s]==x.id;return `<button data-i="${x.id}"><span class="zy">${SL[x.s]}</span><br><b style="font-size:1rem">${x.e||""} ${x.n}</b><br>${own?(on?"✔ 已穿上":"穿上"):"★ "+x.c+" 購買"}</button>`};
